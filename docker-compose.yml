@@ -57,6 +57,18 @@ services:
       retries: 5
     restart: unless-stopped
 
+  # Cloudflare Tunnel: expose `app` ke internet tanpa buka port di server.
+  # Token didapat dari Cloudflare Zero Trust > Networks > Tunnels, lalu
+  # arahkan Public Hostname tunnel itu ke `http://app:3000` (nama service
+  # di compose ini, bukan localhost) dari dashboard Cloudflare.
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: sp-nasabah-tunnel
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token ${CF_TUNNEL_TOKEN:?CF_TUNNEL_TOKEN wajib diisi}
+    depends_on:
+      - app
+
 volumes:
   db_data:
   uploads:
