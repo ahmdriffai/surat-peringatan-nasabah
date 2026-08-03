@@ -1,0 +1,62 @@
+# Semua env dengan default di bawah bisa dioverride dari luar, baik lewat
+# file `.env` di folder ini (otomatis dibaca oleh docker compose) maupun
+# lewat environment variable di shell, contoh:
+#   DATABASE_URL="postgresql://user:pass@host-lain:5432/db" docker compose up
+#
+# Kalau pakai database eksternal (bukan container `db` di bawah), cukup
+# override DATABASE_URL lalu hapus/comment service `db` dan `depends_on`.
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${APP_PORT:-3000}:3000"
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql://postgres:postgres@db:5432/surat_peringatan_db?schema=public}
+      NEXTAUTH_URL: ${NEXTAUTH_URL:-http://localhost:3000}
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-rahasiasekali}
+    volumes:
+      - uploads:/app/public/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    restart: unless-stopped
+
+  # One-off job: menjalankan `prisma migrate deploy` sebelum app start.
+  # Pakai stage `builder` karena stage final (`runner`) tidak menyertakan
+  # Prisma CLI / folder prisma, cuma hasil build standalone Next.js.
+  migrate:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql://postgres:postgres@db:5432/surat_peringatan_db?schema=public}
+    depends_on:
+      db:
+        condition: service_healthy
+    command: ["bunx", "prisma", "migrate", "deploy"]
+    restart: "no"
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-surat_peringatan_db}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  db_data:
+  uploads:

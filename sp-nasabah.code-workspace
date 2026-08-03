@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../sp-nasabah"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"WillLuke.nextjs.hasPrompted": true
+	}
+}

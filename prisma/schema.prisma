@@ -1,0 +1,160 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+
+model Nasabah {
+  id              String  @id @default(cuid())
+  cif             String @unique
+  nama            String
+  nik             String @unique
+  nomorRekening   String            @unique
+  email           String?
+  telepon         String?
+  alamat          String?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  suratPeringatan SuratPeringatan[]
+
+  @@map("nasabah")
+}
+
+enum JenisSP {
+  PEMBERITAHUAN
+  SP1
+  SP2
+  SP3
+  PEMBERITAHUAN_SKK
+}
+
+enum StatusSP {
+  DRAFT
+  MENUNGGU_APPROVAL
+  DISETUJUI
+  DITOLAK
+  TERKIRIM
+  SELESAI
+}
+
+enum ApprovalStatus {
+  PENDING
+  DISETUJUI
+  DITOLAK
+}
+
+enum MetodePengiriman {
+  POS
+  EMAIL
+  LANGSUNG
+}
+
+enum Role {
+  PETUGAS
+  APPROVER
+  ADMIN
+}
+
+model User {
+  id          String       @id @default(cuid())
+  nama        String
+  jabatan     String?
+  email       String       @unique
+  password    String
+  role        Role         @default(PETUGAS)
+  aktif       Boolean      @default(true)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  spApprovals SPApproval[]
+
+  @@map("users")
+}
+
+model KepalaKejaksaan {
+  id              String            @id @default(cuid())
+  nama            String
+  jabatan         String
+  pangkat         String?
+  nip             String?
+  alamat          String?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  suratPeringatan SuratPeringatan[]
+
+  @@map("kepala_kejaksaan")
+}
+
+model SuratPeringatan {
+  id                String            @id @default(cuid())
+  nomorSurat        String?           @unique
+  nasabahId         String
+  nasabah           Nasabah           @relation(fields: [nasabahId], references: [id], onDelete: Cascade)
+  kejaksaanId       String?
+  kejaksaan         KepalaKejaksaan?  @relation(fields: [kejaksaanId], references: [id])
+
+  // Data pinjaman
+  noPjm             String
+  jenisFasilitas    String?
+  tanggalAkadKredit DateTime?
+  sukuBunga         Float?
+  plafond           Float
+  saldo             Float
+  tgkPokok          Float
+  tgkBunga          Float
+  tgkPokokHari      Int
+  tgkBungaHari      Int
+  biayaAdministrasi Float?
+
+  // Penentuan level SP
+  kolektibilitas    Int               // 1 Lancar, 2 DPK, 3 Kurang Lancar, 4 Diragukan, 5 Macet
+  jenis             JenisSP
+  alasan            String
+  tanggalSurat      DateTime
+  tanggalJatuhTempo DateTime          // jatuh tempo pembayaran nasabah
+
+  // Approval
+  status            StatusSP          @default(DRAFT)
+  approvals         SPApproval[]
+
+  // Pengiriman
+  tanggalKirim      DateTime?
+  metodePengiriman  MetodePengiriman?
+  noResi            String?
+  buktiKirim        String?
+  buktiTandaTerima  String?
+
+  catatan           String?
+  lastVerifiedAt    DateTime?
+  arsipPdf          String?
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  @@map("surat_peringatan")
+}
+
+model SPApproval {
+  id         String          @id @default(cuid())
+  spId       String
+  sp         SuratPeringatan @relation(fields: [spId], references: [id], onDelete: Cascade)
+  approverId String
+  approver   User            @relation(fields: [approverId], references: [id])
+  urutan     Int
+  status     ApprovalStatus  @default(PENDING)
+  catatan    String?
+  approvedAt DateTime?
+  createdAt  DateTime        @default(now())
+
+  @@unique([spId, approverId])
+  @@unique([spId, urutan])
+  @@map("sp_approval")
+}

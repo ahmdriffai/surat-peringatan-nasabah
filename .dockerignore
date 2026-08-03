@@ -1,0 +1,14 @@
+node_modules
+.next
+.git
+.env
+.env*
+!.env.example
+public/uploads
+src/generated
+prisma/dev.db
+*.log
+.DS_Store
+.claude
+.agents
+.windsurf
