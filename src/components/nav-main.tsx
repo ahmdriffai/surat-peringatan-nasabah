@@ -8,6 +8,7 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarMenu,
+  SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
@@ -20,6 +21,7 @@ export function NavMain({
     title: string;
     url: string;
     icon: LucideIcon;
+    badge?: number;
   }[];
 }) {
   const pathname = usePathname();
@@ -41,6 +43,11 @@ export function NavMain({
                   <span>{item.title}</span>
                 </Link>
               </SidebarMenuButton>
+              {!!item.badge && (
+                <SidebarMenuBadge className="bg-destructive text-white">
+                  {item.badge}
+                </SidebarMenuBadge>
+              )}
             </SidebarMenuItem>
           ))}
         </SidebarMenu>

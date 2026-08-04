@@ -74,6 +74,7 @@ import {
   TandaiTerkirimInput,
   TandaiTerkirimInputSchema,
 } from "../schema";
+import { isMyApprovalTurn } from "../utils";
 
 interface Props {
   sp: SPWithNasabah;
@@ -97,15 +98,16 @@ function ActionButtons({ sp }: Props) {
   const role = session?.user.role;
   const userId = session?.user.id;
   const isAdmin = role === "ADMIN";
+  const isApprover = role === "APPROVER";
 
-  const nextApproval = sp.approvals.find((a) => a.status === "PENDING");
-  const isMyTurn = !!nextApproval && nextApproval.approverId === userId;
+  const isMyTurn = isMyApprovalTurn(sp, userId);
   const alreadyApproved = sp.approvals.some(
     (a) => a.approverId === userId && a.status !== "PENDING",
   );
 
   switch (sp.status) {
     case "DRAFT":
+      if (isApprover) return null;
       return (
         <>
           <AjukanButton spId={sp.id} />
@@ -137,15 +139,21 @@ function ActionButtons({ sp }: Props) {
       );
 
     case "DISETUJUI":
+      // Approver hanya bisa cetak, tidak bisa mengirim atau menghapus surat.
       return (
         <>
           <CetakButton spId={sp.id} />
-          <KirimDialog spId={sp.id} />
-          <DeleteButton sp={sp} />
+          {!isApprover && (
+            <>
+              <KirimDialog spId={sp.id} />
+              <DeleteButton sp={sp} />
+            </>
+          )}
         </>
       );
 
     case "DITOLAK":
+      if (isApprover) return null;
       return (
         <>
           <RevisiButton spId={sp.id} />
@@ -157,7 +165,7 @@ function ActionButtons({ sp }: Props) {
       return (
         <>
           <CetakButton spId={sp.id} />
-          <SelesaiDialog spId={sp.id} />
+          {!isApprover && <SelesaiDialog spId={sp.id} />}
         </>
       );
 

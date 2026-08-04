@@ -21,6 +21,12 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
+  const isApproverOnly = request.nextUrl.pathname.startsWith("/persetujuan");
+
+  if (isApproverOnly && token.role !== "APPROVER") {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
+  }
+
   return NextResponse.next();
 }
 
@@ -29,6 +35,7 @@ export const config = {
     "/dashboard/:path*",
     "/customers/:path*",
     "/surat-peringatan/:path*",
+    "/persetujuan/:path*",
     "/users/:path*",
     "/kejaksaan/:path*",
     "/arsip-surat/:path*",

@@ -3,6 +3,7 @@
 import {
   AlertTriangle,
   ArchiveIcon,
+  ClipboardCheck,
   Gavel,
   Home,
   MailCheck,
@@ -23,6 +24,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { useGetAllSP } from "@/features/sp/hook";
+import { countMyPendingApprovals } from "@/features/sp/utils";
 
 export const menuItems = [
   { id: "dashboard", url: "/dashboard", title: "Dashboard", icon: Home },
@@ -32,6 +35,13 @@ export const menuItems = [
     url: "/surat-peringatan",
     title: "Surat Peringatan",
     icon: NotepadText,
+  },
+  {
+    id: "persetujuan",
+    url: "/persetujuan",
+    title: "Menunggu Persetujuan",
+    icon: ClipboardCheck,
+    approverOnly: true,
   },
   {
     id: "mail",
@@ -59,9 +69,22 @@ export function AppSidebar({
 }: React.ComponentProps<typeof Sidebar>) {
   const { data: session } = useSession();
   const isAdmin = session?.user.role === "ADMIN";
-  const visibleMenuItems = menuItems.filter(
-    (item) => !item.adminOnly || isAdmin,
+  const isApprover = session?.user.role === "APPROVER";
+
+  const { data: sp } = useGetAllSP();
+  const pendingApprovalCount = countMyPendingApprovals(
+    sp ?? [],
+    session?.user.id,
   );
+
+  const visibleMenuItems = menuItems
+    .filter((item) => !item.adminOnly || isAdmin)
+    .filter((item) => !item.approverOnly || isApprover)
+    .map((item) =>
+      item.id === "persetujuan"
+        ? { ...item, badge: pendingApprovalCount }
+        : item,
+    );
 
   return (
     <Sidebar collapsible="icon" {...props}>

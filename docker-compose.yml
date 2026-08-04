@@ -11,14 +11,19 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        R2_PUBLIC_URL: ${R2_PUBLIC_URL}
     ports:
       - "${APP_PORT:-3000}:3000"
     environment:
       DATABASE_URL: ${DATABASE_URL:-postgresql://postgres:postgres@db:5432/surat_peringatan_db?schema=public}
       NEXTAUTH_URL: ${NEXTAUTH_URL:-http://localhost:3000}
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-rahasiasekali}
-    volumes:
-      - uploads:/app/public/uploads
+      R2_ACCOUNT_ID: ${R2_ACCOUNT_ID}
+      R2_ACCESS_KEY_ID: ${R2_ACCESS_KEY_ID}
+      R2_SECRET_ACCESS_KEY: ${R2_SECRET_ACCESS_KEY}
+      R2_BUCKET_NAME: ${R2_BUCKET_NAME}
+      R2_PUBLIC_URL: ${R2_PUBLIC_URL}
     depends_on:
       db:
         condition: service_healthy
@@ -36,6 +41,8 @@ services:
       context: .
       dockerfile: Dockerfile
       target: builder
+      args:
+        R2_PUBLIC_URL: ${R2_PUBLIC_URL}
     environment:
       DATABASE_URL: ${DATABASE_URL:-postgresql://postgres:postgres@db:5432/surat_peringatan_db?schema=public}
     depends_on:
@@ -84,4 +91,3 @@ networks:
 
 volumes:
   db_data:
-  uploads:

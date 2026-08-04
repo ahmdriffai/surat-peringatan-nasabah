@@ -17,6 +17,12 @@ ENV NEXT_TELEMETRY_DISABLED=1
 # provided at `docker run` time and is NOT baked into this image.
 ENV DATABASE_URL="postgresql://user:password@localhost:5432/db"
 
+# R2_PUBLIC_URL is not a secret (it's a public bucket URL) — it needs to be
+# available at build time because `next.config.ts` reads it to whitelist the
+# R2 domain for `next/image`, and that config gets baked into the build.
+ARG R2_PUBLIC_URL
+ENV R2_PUBLIC_URL=${R2_PUBLIC_URL}
+
 RUN bunx prisma generate
 RUN bun run build
 
@@ -30,7 +36,6 @@ RUN addgroup --system --gid 1001 nodejs \
   && adduser --system --uid 1001 nextjs
 
 COPY --from=builder /app/public ./public
-RUN mkdir -p ./public/uploads && chown nextjs:nodejs ./public/uploads
 
 # Next.js standalone output
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
