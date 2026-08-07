@@ -55,7 +55,8 @@ export const ModelName = {
   User: 'User',
   KepalaKejaksaan: 'KepalaKejaksaan',
   SuratPeringatan: 'SuratPeringatan',
-  SPApproval: 'SPApproval'
+  SPApproval: 'SPApproval',
+  JenisSPApprover: 'JenisSPApprover'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -124,6 +125,7 @@ export const SuratPeringatanScalarFieldEnum = {
   nomorSurat: 'nomorSurat',
   nasabahId: 'nasabahId',
   kejaksaanId: 'kejaksaanId',
+  petugasId: 'petugasId',
   noPjm: 'noPjm',
   jenisFasilitas: 'jenisFasilitas',
   tanggalAkadKredit: 'tanggalAkadKredit',
@@ -168,6 +170,17 @@ export const SPApprovalScalarFieldEnum = {
 } as const
 
 export type SPApprovalScalarFieldEnum = (typeof SPApprovalScalarFieldEnum)[keyof typeof SPApprovalScalarFieldEnum]
+
+
+export const JenisSPApproverScalarFieldEnum = {
+  id: 'id',
+  jenis: 'jenis',
+  approverId: 'approverId',
+  urutan: 'urutan',
+  createdAt: 'createdAt'
+} as const
+
+export type JenisSPApproverScalarFieldEnum = (typeof JenisSPApproverScalarFieldEnum)[keyof typeof JenisSPApproverScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -9,6 +9,7 @@ export async function getDetailSP(id: string): Promise<SPWithNasabah | null> {
     include: {
       nasabah: true,
       kejaksaan: true,
+      petugas: true,
       approvals: { include: { approver: true }, orderBy: { urutan: "asc" } },
     },
   });

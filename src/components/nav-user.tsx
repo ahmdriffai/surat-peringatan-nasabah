@@ -1,7 +1,8 @@
 "use client";
 
-import { CreditCard, LogOut, MoreVerticalIcon, Settings, User } from "lucide-react";
+import { LogOut, MoreVerticalIcon, Settings } from "lucide-react";
 import { signOut } from "next-auth/react";
+import Link from "next/link";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
@@ -72,17 +73,11 @@ export function NavUser({ user }: { user: { nama: string; email: string } }) {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <User />
-              Profile
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <CreditCard />
-              Billing
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Settings />
-              Settings
+            <DropdownMenuItem asChild>
+              <Link href="/akun">
+                <Settings />
+                Pengaturan Akun
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem

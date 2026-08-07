@@ -49,11 +49,14 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    jwt({ token, user }) {
+    jwt({ token, user, trigger, session }) {
       if (user) {
         token.id = user.id;
         token.nama = user.nama;
         token.role = user.role;
+      }
+      if (trigger === "update" && session?.nama) {
+        token.nama = session.nama;
       }
       return token;
     },

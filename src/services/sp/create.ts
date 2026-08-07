@@ -8,10 +8,15 @@ import { requireSession } from "@/lib/session";
 export async function createSP(
   input: SPCreateInput,
 ): Promise<SuratPeringatan> {
-  await requireSession();
+  const session = await requireSession();
+
+  if (session.user.role === "APPROVER") {
+    throw new Error("Approver tidak dapat membuat surat peringatan.");
+  }
+
   const data = SPCreateInputSchema.parse(input);
 
   return prisma.suratPeringatan.create({
-    data,
+    data: { ...data, petugasId: session.user.id },
   });
 }

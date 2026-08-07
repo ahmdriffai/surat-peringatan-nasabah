@@ -8,20 +8,24 @@ export async function submitForApproval(id: string): Promise<SuratPeringatan> {
   await requireSession();
 
   return prisma.$transaction(async (tx) => {
-    const approvers = await tx.user.findMany({
-      where: { role: "APPROVER", aktif: true },
-      orderBy: { createdAt: "asc" },
+    const sp = await tx.suratPeringatan.findUniqueOrThrow({ where: { id } });
+
+    const rules = await tx.jenisSPApprover.findMany({
+      where: { jenis: sp.jenis, approver: { aktif: true } },
+      orderBy: { urutan: "asc" },
     });
 
-    if (approvers.length === 0) {
-      throw new Error("Belum ada user dengan role Approver.");
+    if (rules.length === 0) {
+      throw new Error(
+        "Belum ada approver yang diatur untuk jenis surat ini. Hubungi admin.",
+      );
     }
 
     await tx.sPApproval.deleteMany({ where: { spId: id } });
     await tx.sPApproval.createMany({
-      data: approvers.map((approver, index) => ({
+      data: rules.map((rule, index) => ({
         spId: id,
-        approverId: approver.id,
+        approverId: rule.approverId,
         urutan: index + 1,
       })),
     });

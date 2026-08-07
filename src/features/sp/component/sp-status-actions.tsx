@@ -37,7 +37,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { MetodePengiriman } from "@/generated/prisma/enums";
+import { useGetAllNasabah } from "@/features/customer/hook";
 import {
   useApproveSP,
   useDeleteSP,
@@ -46,12 +46,15 @@ import {
   useSubmitForApproval,
   useTandaiSelesai,
   useTandaiTerkirim,
+  useUpdateSP,
 } from "@/features/sp/hook";
+import { MetodePengiriman } from "@/generated/prisma/enums";
 import { useZodForm } from "@/hook/use-form";
 import {
   CheckCircle,
   ImagePlus,
   Loader2,
+  Pen,
   Printer,
   RotateCcw,
   Send,
@@ -70,11 +73,13 @@ import {
   ApproveSPInputSchema,
   RejectSPInput,
   RejectSPInputSchema,
+  SPCreateInput,
   SPWithNasabah,
   TandaiTerkirimInput,
   TandaiTerkirimInputSchema,
 } from "../schema";
 import { isMyApprovalTurn } from "../utils";
+import SPForm from "./sp-form";
 
 interface Props {
   sp: SPWithNasabah;
@@ -104,12 +109,14 @@ function ActionButtons({ sp }: Props) {
   const alreadyApproved = sp.approvals.some(
     (a) => a.approverId === userId && a.status !== "PENDING",
   );
+  const canEdit = isAdmin || sp.petugasId === userId;
 
   switch (sp.status) {
     case "DRAFT":
       if (isApprover) return null;
       return (
         <>
+          {canEdit && <EditDialog sp={sp} />}
           <AjukanButton spId={sp.id} />
           <DeleteButton sp={sp} />
         </>
@@ -156,6 +163,7 @@ function ActionButtons({ sp }: Props) {
       if (isApprover) return null;
       return (
         <>
+          {canEdit && <EditDialog sp={sp} />}
           <RevisiButton spId={sp.id} />
           <DeleteButton sp={sp} />
         </>
@@ -182,6 +190,63 @@ function CetakButton({ spId }: { spId: string }) {
         Cetak Surat
       </Link>
     </Button>
+  );
+}
+
+function EditDialog({ sp }: { sp: SPWithNasabah }) {
+  const [open, setOpen] = useState(false);
+  const { data: nasabah } = useGetAllNasabah();
+  const { mutate, isPending } = useUpdateSP();
+
+  const defaultValues: SPCreateInput = {
+    nasabahId: sp.nasabahId,
+    jenis: sp.jenis,
+    noPjm: sp.noPjm,
+    jenisFasilitas: sp.jenisFasilitas ?? "",
+    tanggalAkadKredit: sp.tanggalAkadKredit ?? new Date(),
+    sukuBunga: sp.sukuBunga ?? 0,
+    plafond: sp.plafond,
+    saldo: sp.saldo,
+    tgkPokok: sp.tgkPokok,
+    tgkBunga: sp.tgkBunga,
+    tgkPokokHari: sp.tgkPokokHari,
+    tgkBungaHari: sp.tgkBungaHari,
+    biayaAdministrasi: sp.biayaAdministrasi ?? 0,
+    kolektibilitas: sp.kolektibilitas,
+    alasan: sp.alasan,
+    tanggalSurat: sp.tanggalSurat,
+    tanggalJatuhTempo: sp.tanggalJatuhTempo,
+    catatan: sp.catatan ?? "",
+  };
+
+  const handleSubmit = (data: SPCreateInput) => {
+    mutate({ id: sp.id, data }, { onSuccess: () => setOpen(false) });
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button variant="outline">
+          <Pen className="size-4" />
+          Edit
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="max-h-[calc(100vh-2rem)] overflow-y-auto sm:max-w-2xl">
+        <DialogHeader>
+          <DialogTitle>Edit surat peringatan</DialogTitle>
+          <DialogDescription>
+            Perbarui data surat peringatan berikut lalu simpan perubahan.
+          </DialogDescription>
+        </DialogHeader>
+        <SPForm
+          onSubmit={handleSubmit}
+          isPending={isPending}
+          nasabah={nasabah ?? []}
+          defaultValues={defaultValues}
+          submitLabel="Simpan perubahan"
+        />
+      </DialogContent>
+    </Dialog>
   );
 }
 
@@ -369,9 +434,7 @@ function RejectDialog({ spId }: { spId: string }) {
             name="catatan"
             render={({ field, fieldState }) => (
               <Field>
-                <FieldLabel htmlFor="catatanTolak">
-                  Alasan Penolakan
-                </FieldLabel>
+                <FieldLabel htmlFor="catatanTolak">Alasan Penolakan</FieldLabel>
                 <Textarea
                   id="catatanTolak"
                   rows={3}
@@ -580,8 +643,8 @@ function SelesaiDialog({ spId }: { spId: string }) {
         <DialogHeader>
           <DialogTitle>Tandai Surat Selesai</DialogTitle>
           <DialogDescription>
-            Upload bukti tanda terima dari nasabah sebagai konfirmasi
-            penerimaan surat.
+            Upload bukti tanda terima dari nasabah sebagai konfirmasi penerimaan
+            surat.
           </DialogDescription>
         </DialogHeader>
         <FieldGroup className="gap-4">

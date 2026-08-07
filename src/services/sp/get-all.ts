@@ -8,6 +8,7 @@ export async function getAllSP(): Promise<SPWithNasabah[]> {
     include: {
       nasabah: true,
       kejaksaan: true,
+      petugas: true,
       approvals: { include: { approver: true }, orderBy: { urutan: "asc" } },
     },
     orderBy: { createdAt: "desc" },

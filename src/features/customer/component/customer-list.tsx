@@ -86,10 +86,10 @@ export default function CustomerList({ nasabah }: Props) {
             header: "No. Rekening",
             accessor: "nomorRekening",
           },
-          {
-            header: "Email",
-            accessor: (row) => row.email ?? "-",
-          },
+          // {
+          //   header: "Email",
+          //   accessor: (row) => row.email ?? "-",
+          // },
           {
             header: "Telepon",
             accessor: (row) => row.telepon ?? "-",
@@ -145,8 +145,8 @@ export default function CustomerList({ nasabah }: Props) {
                       </AlertDialogMedia>
                       <AlertDialogTitle>Hapus nasabah?</AlertDialogTitle>
                       <AlertDialogDescription>
-                        Tindakan ini akan menghapus data nasabah{" "}
-                        {row.nama} secara permanen.
+                        Tindakan ini akan menghapus data nasabah {row.nama}{" "}
+                        secara permanen.
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>

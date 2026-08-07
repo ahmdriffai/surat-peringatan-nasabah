@@ -12,13 +12,11 @@ datasource db {
   provider = "postgresql"
 }
 
-
-
 model Nasabah {
-  id              String  @id @default(cuid())
-  cif             String @unique
+  id              String            @id @default(cuid())
+  cif             String            @unique
   nama            String
-  nik             String @unique
+  nik             String            @unique
   nomorRekening   String            @unique
   email           String?
   telepon         String?
@@ -66,16 +64,18 @@ enum Role {
 }
 
 model User {
-  id          String       @id @default(cuid())
-  nama        String
-  jabatan     String?
-  email       String       @unique
-  password    String
-  role        Role         @default(PETUGAS)
-  aktif       Boolean      @default(true)
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  spApprovals SPApproval[]
+  id               String            @id @default(cuid())
+  nama             String
+  jabatan          String?
+  email            String            @unique
+  password         String
+  role             Role              @default(PETUGAS)
+  aktif            Boolean           @default(true)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  spApprovals      SPApproval[]
+  jenisSPApprovers JenisSPApprover[]
+  suratPeringatan  SuratPeringatan[]
 
   @@map("users")
 }
@@ -95,12 +95,14 @@ model KepalaKejaksaan {
 }
 
 model SuratPeringatan {
-  id                String            @id @default(cuid())
-  nomorSurat        String?           @unique
-  nasabahId         String
-  nasabah           Nasabah           @relation(fields: [nasabahId], references: [id], onDelete: Cascade)
-  kejaksaanId       String?
-  kejaksaan         KepalaKejaksaan?  @relation(fields: [kejaksaanId], references: [id])
+  id          String           @id @default(cuid())
+  nomorSurat  String?          @unique
+  nasabahId   String
+  nasabah     Nasabah          @relation(fields: [nasabahId], references: [id], onDelete: Cascade)
+  kejaksaanId String?
+  kejaksaan   KepalaKejaksaan? @relation(fields: [kejaksaanId], references: [id])
+  petugasId   String?
+  petugas     User?            @relation(fields: [petugasId], references: [id])
 
   // Data pinjaman
   noPjm             String
@@ -116,28 +118,28 @@ model SuratPeringatan {
   biayaAdministrasi Float?
 
   // Penentuan level SP
-  kolektibilitas    Int               // 1 Lancar, 2 DPK, 3 Kurang Lancar, 4 Diragukan, 5 Macet
+  kolektibilitas    Int // 1 Lancar, 2 DPK, 3 Kurang Lancar, 4 Diragukan, 5 Macet
   jenis             JenisSP
   alasan            String
   tanggalSurat      DateTime
-  tanggalJatuhTempo DateTime          // jatuh tempo pembayaran nasabah
+  tanggalJatuhTempo DateTime // jatuh tempo pembayaran nasabah
 
   // Approval
-  status            StatusSP          @default(DRAFT)
-  approvals         SPApproval[]
+  status    StatusSP     @default(DRAFT)
+  approvals SPApproval[]
 
   // Pengiriman
-  tanggalKirim      DateTime?
-  metodePengiriman  MetodePengiriman?
-  noResi            String?
-  buktiKirim        String?
-  buktiTandaTerima  String?
+  tanggalKirim     DateTime?
+  metodePengiriman MetodePengiriman?
+  noResi           String?
+  buktiKirim       String?
+  buktiTandaTerima String?
 
-  catatan           String?
-  lastVerifiedAt    DateTime?
-  arsipPdf          String?
-  createdAt         DateTime          @default(now())
-  updatedAt         DateTime          @updatedAt
+  catatan        String?
+  lastVerifiedAt DateTime?
+  arsipPdf       String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 
   @@map("surat_peringatan")
 }
@@ -157,4 +159,19 @@ model SPApproval {
   @@unique([spId, approverId])
   @@unique([spId, urutan])
   @@map("sp_approval")
+}
+
+// Aturan siapa saja approver untuk tiap jenis SP, diatur oleh admin.
+// Dipakai submitForApproval untuk membangun rantai approval sesuai jenis surat.
+model JenisSPApprover {
+  id         String   @id @default(cuid())
+  jenis      JenisSP
+  approverId String
+  approver   User     @relation(fields: [approverId], references: [id], onDelete: Cascade)
+  urutan     Int
+  createdAt  DateTime @default(now())
+
+  @@unique([jenis, approverId])
+  @@unique([jenis, urutan])
+  @@map("jenis_sp_approver")
 }

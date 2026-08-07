@@ -401,7 +401,8 @@ export const ModelName = {
   User: 'User',
   KepalaKejaksaan: 'KepalaKejaksaan',
   SuratPeringatan: 'SuratPeringatan',
-  SPApproval: 'SPApproval'
+  SPApproval: 'SPApproval',
+  JenisSPApprover: 'JenisSPApprover'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -417,7 +418,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "nasabah" | "user" | "kepalaKejaksaan" | "suratPeringatan" | "sPApproval"
+    modelProps: "nasabah" | "user" | "kepalaKejaksaan" | "suratPeringatan" | "sPApproval" | "jenisSPApprover"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -791,6 +792,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    JenisSPApprover: {
+      payload: Prisma.$JenisSPApproverPayload<ExtArgs>
+      fields: Prisma.JenisSPApproverFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.JenisSPApproverFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JenisSPApproverPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.JenisSPApproverFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JenisSPApproverPayload>
+        }
+        findFirst: {
+          args: Prisma.JenisSPApproverFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JenisSPApproverPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.JenisSPApproverFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JenisSPApproverPayload>
+        }
+        findMany: {
+          args: Prisma.JenisSPApproverFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JenisSPApproverPayload>[]
+        }
+        create: {
+          args: Prisma.JenisSPApproverCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JenisSPApproverPayload>
+        }
+        createMany: {
+          args: Prisma.JenisSPApproverCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.JenisSPApproverCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JenisSPApproverPayload>[]
+        }
+        delete: {
+          args: Prisma.JenisSPApproverDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JenisSPApproverPayload>
+        }
+        update: {
+          args: Prisma.JenisSPApproverUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JenisSPApproverPayload>
+        }
+        deleteMany: {
+          args: Prisma.JenisSPApproverDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.JenisSPApproverUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.JenisSPApproverUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JenisSPApproverPayload>[]
+        }
+        upsert: {
+          args: Prisma.JenisSPApproverUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JenisSPApproverPayload>
+        }
+        aggregate: {
+          args: Prisma.JenisSPApproverAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateJenisSPApprover>
+        }
+        groupBy: {
+          args: Prisma.JenisSPApproverGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JenisSPApproverGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.JenisSPApproverCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JenisSPApproverCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -880,6 +955,7 @@ export const SuratPeringatanScalarFieldEnum = {
   nomorSurat: 'nomorSurat',
   nasabahId: 'nasabahId',
   kejaksaanId: 'kejaksaanId',
+  petugasId: 'petugasId',
   noPjm: 'noPjm',
   jenisFasilitas: 'jenisFasilitas',
   tanggalAkadKredit: 'tanggalAkadKredit',
@@ -924,6 +1000,17 @@ export const SPApprovalScalarFieldEnum = {
 } as const
 
 export type SPApprovalScalarFieldEnum = (typeof SPApprovalScalarFieldEnum)[keyof typeof SPApprovalScalarFieldEnum]
+
+
+export const JenisSPApproverScalarFieldEnum = {
+  id: 'id',
+  jenis: 'jenis',
+  approverId: 'approverId',
+  urutan: 'urutan',
+  createdAt: 'createdAt'
+} as const
+
+export type JenisSPApproverScalarFieldEnum = (typeof JenisSPApproverScalarFieldEnum)[keyof typeof JenisSPApproverScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1244,6 +1331,7 @@ export type GlobalOmitConfig = {
   kepalaKejaksaan?: Prisma.KepalaKejaksaanOmit
   suratPeringatan?: Prisma.SuratPeringatanOmit
   sPApproval?: Prisma.SPApprovalOmit
+  jenisSPApprover?: Prisma.JenisSPApproverOmit
 }
 
 /* Types for Logging */

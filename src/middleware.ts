@@ -15,7 +15,8 @@ export async function middleware(request: NextRequest) {
 
   const isAdminOnly =
     request.nextUrl.pathname.startsWith("/users") ||
-    request.nextUrl.pathname.startsWith("/kejaksaan");
+    request.nextUrl.pathname.startsWith("/kejaksaan") ||
+    request.nextUrl.pathname.startsWith("/pengaturan-approval");
 
   if (isAdminOnly && token.role !== "ADMIN") {
     return NextResponse.redirect(new URL("/dashboard", request.url));
@@ -38,6 +39,8 @@ export const config = {
     "/persetujuan/:path*",
     "/users/:path*",
     "/kejaksaan/:path*",
+    "/pengaturan-approval/:path*",
     "/arsip-surat/:path*",
+    "/akun/:path*",
   ],
 };

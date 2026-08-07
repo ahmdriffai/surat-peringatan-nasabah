@@ -18,17 +18,63 @@ import {
 } from "@/features/sp/label";
 import { SPWithNasabah } from "@/features/sp/schema";
 import { cn } from "@/lib/utils";
-import { Printer } from "lucide-react";
+import html2canvas from "html2canvas-pro";
+import { jsPDF } from "jspdf";
+import { Download, Loader2, Printer } from "lucide-react";
 import { useParams } from "next/navigation";
+import { useRef, useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 
 type Approval = SPWithNasabah["approvals"][number];
+
+const DOWNLOADABLE_STATUS = ["DISETUJUI", "TERKIRIM", "SELESAI"];
 
 export default function CetakSPPage() {
   const params = useParams<{ id: string }>();
   const { data: sp, isLoading } = useGetDetailSP(params.id);
   const { data: kejaksaanList } = useGetAllKepalaKejaksaan();
   const { mutate: setKejaksaan } = useSetKejaksaanSP();
+  const printRef = useRef<HTMLDivElement>(null);
+  const [isDownloading, setIsDownloading] = useState(false);
+
+  const handleDownload = async () => {
+    if (!printRef.current || !sp) return;
+
+    setIsDownloading(true);
+    try {
+      const canvas = await html2canvas(printRef.current, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: "#ffffff",
+      });
+
+      const pdf = new jsPDF({ unit: "mm", format: [215, 330] });
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const imgWidth = pageWidth;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      const imgData = canvas.toDataURL("image/png");
+
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft > 0) {
+        position -= pageHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
+      const filename =
+        (sp.nomorSurat ?? sp.id).replace(/[\\/]/g, "-") + ".pdf";
+      pdf.save(filename);
+    } finally {
+      setIsDownloading(false);
+    }
+  };
 
   if (isLoading) {
     return <p className="p-8 text-sm text-muted-foreground">Memuat...</p>;
@@ -78,13 +124,30 @@ export default function CetakSPPage() {
             </SelectContent>
           </Select>
         )}
+        {DOWNLOADABLE_STATUS.includes(sp.status) && (
+          <Button
+            variant="outline"
+            disabled={isDownloading}
+            onClick={handleDownload}
+          >
+            {isDownloading ? (
+              <Loader2 className="size-4 animate-spin" />
+            ) : (
+              <Download className="size-4" />
+            )}
+            {isDownloading ? "Membuat PDF..." : "Download PDF"}
+          </Button>
+        )}
         <Button onClick={() => window.print()}>
           <Printer className="size-4" />
           Print
         </Button>
       </div>
 
-      <div className="relative rounded-lg border bg-white p-10 text-sm text-black print:border-none print:p-0">
+      <div
+        ref={printRef}
+        className="relative rounded-lg border bg-white p-10 text-sm text-black print:border-none print:p-0"
+      >
         {/* Watermark logo, centered behind the letter content */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img

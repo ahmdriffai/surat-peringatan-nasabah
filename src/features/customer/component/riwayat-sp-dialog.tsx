@@ -13,8 +13,8 @@ import { useGetAllSP } from "@/features/sp/hook";
 import {
   formatDate,
   JENIS_LABEL,
+  STATUS_BADGE_CLASS,
   STATUS_LABEL,
-  STATUS_VARIANT,
 } from "@/features/sp/label";
 import { Nasabah } from "@/generated/prisma/client";
 import { Eye } from "lucide-react";
@@ -67,7 +67,10 @@ export default function RiwayatSPDialog({ nasabah, onOpenChange }: Props) {
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Badge variant={STATUS_VARIANT[sp.status]}>
+                  <Badge
+                    variant="outline"
+                    className={STATUS_BADGE_CLASS[sp.status]}
+                  >
                     {STATUS_LABEL[sp.status]}
                   </Badge>
                   <Button variant="secondary" size="sm" asChild>

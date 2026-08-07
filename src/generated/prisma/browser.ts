@@ -42,3 +42,8 @@ export type SuratPeringatan = Prisma.SuratPeringatanModel
  * 
  */
 export type SPApproval = Prisma.SPApprovalModel
+/**
+ * Model JenisSPApprover
+ * 
+ */
+export type JenisSPApprover = Prisma.JenisSPApproverModel

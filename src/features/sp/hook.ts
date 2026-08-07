@@ -10,6 +10,7 @@ import { setKejaksaanSP } from "@/services/sp/set-kejaksaan";
 import { submitForApproval } from "@/services/sp/submit-for-approval";
 import { tandaiSelesai } from "@/services/sp/tandai-selesai";
 import { tandaiTerkirim } from "@/services/sp/tandai-terkirim";
+import { updateSP } from "@/services/sp/update";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import {
@@ -43,6 +44,25 @@ export const useCreateSP = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["sp"] });
       toast.success("Surat peringatan berhasil ditambahkan", {
+        position: "top-center",
+        richColors: true,
+      });
+    },
+    onError: (error) => {
+      toast.error(error.message, { position: "top-center", richColors: true });
+    },
+  });
+};
+
+export const useUpdateSP = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ id, data }: { id: string; data: SPCreateInput }) =>
+      await updateSP(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["sp"] });
+      toast.success("Surat peringatan berhasil diperbarui", {
         position: "top-center",
         richColors: true,
       });

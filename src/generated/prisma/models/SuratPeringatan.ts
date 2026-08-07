@@ -55,6 +55,7 @@ export type SuratPeringatanMinAggregateOutputType = {
   nomorSurat: string | null
   nasabahId: string | null
   kejaksaanId: string | null
+  petugasId: string | null
   noPjm: string | null
   jenisFasilitas: string | null
   tanggalAkadKredit: Date | null
@@ -89,6 +90,7 @@ export type SuratPeringatanMaxAggregateOutputType = {
   nomorSurat: string | null
   nasabahId: string | null
   kejaksaanId: string | null
+  petugasId: string | null
   noPjm: string | null
   jenisFasilitas: string | null
   tanggalAkadKredit: Date | null
@@ -123,6 +125,7 @@ export type SuratPeringatanCountAggregateOutputType = {
   nomorSurat: number
   nasabahId: number
   kejaksaanId: number
+  petugasId: number
   noPjm: number
   jenisFasilitas: number
   tanggalAkadKredit: number
@@ -183,6 +186,7 @@ export type SuratPeringatanMinAggregateInputType = {
   nomorSurat?: true
   nasabahId?: true
   kejaksaanId?: true
+  petugasId?: true
   noPjm?: true
   jenisFasilitas?: true
   tanggalAkadKredit?: true
@@ -217,6 +221,7 @@ export type SuratPeringatanMaxAggregateInputType = {
   nomorSurat?: true
   nasabahId?: true
   kejaksaanId?: true
+  petugasId?: true
   noPjm?: true
   jenisFasilitas?: true
   tanggalAkadKredit?: true
@@ -251,6 +256,7 @@ export type SuratPeringatanCountAggregateInputType = {
   nomorSurat?: true
   nasabahId?: true
   kejaksaanId?: true
+  petugasId?: true
   noPjm?: true
   jenisFasilitas?: true
   tanggalAkadKredit?: true
@@ -372,6 +378,7 @@ export type SuratPeringatanGroupByOutputType = {
   nomorSurat: string | null
   nasabahId: string
   kejaksaanId: string | null
+  petugasId: string | null
   noPjm: string
   jenisFasilitas: string | null
   tanggalAkadKredit: Date | null
@@ -429,6 +436,7 @@ export type SuratPeringatanWhereInput = {
   nomorSurat?: Prisma.StringNullableFilter<"SuratPeringatan"> | string | null
   nasabahId?: Prisma.StringFilter<"SuratPeringatan"> | string
   kejaksaanId?: Prisma.StringNullableFilter<"SuratPeringatan"> | string | null
+  petugasId?: Prisma.StringNullableFilter<"SuratPeringatan"> | string | null
   noPjm?: Prisma.StringFilter<"SuratPeringatan"> | string
   jenisFasilitas?: Prisma.StringNullableFilter<"SuratPeringatan"> | string | null
   tanggalAkadKredit?: Prisma.DateTimeNullableFilter<"SuratPeringatan"> | Date | string | null
@@ -458,6 +466,7 @@ export type SuratPeringatanWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"SuratPeringatan"> | Date | string
   nasabah?: Prisma.XOR<Prisma.NasabahScalarRelationFilter, Prisma.NasabahWhereInput>
   kejaksaan?: Prisma.XOR<Prisma.KepalaKejaksaanNullableScalarRelationFilter, Prisma.KepalaKejaksaanWhereInput> | null
+  petugas?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   approvals?: Prisma.SPApprovalListRelationFilter
 }
 
@@ -466,6 +475,7 @@ export type SuratPeringatanOrderByWithRelationInput = {
   nomorSurat?: Prisma.SortOrderInput | Prisma.SortOrder
   nasabahId?: Prisma.SortOrder
   kejaksaanId?: Prisma.SortOrderInput | Prisma.SortOrder
+  petugasId?: Prisma.SortOrderInput | Prisma.SortOrder
   noPjm?: Prisma.SortOrder
   jenisFasilitas?: Prisma.SortOrderInput | Prisma.SortOrder
   tanggalAkadKredit?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -495,6 +505,7 @@ export type SuratPeringatanOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   nasabah?: Prisma.NasabahOrderByWithRelationInput
   kejaksaan?: Prisma.KepalaKejaksaanOrderByWithRelationInput
+  petugas?: Prisma.UserOrderByWithRelationInput
   approvals?: Prisma.SPApprovalOrderByRelationAggregateInput
 }
 
@@ -506,6 +517,7 @@ export type SuratPeringatanWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.SuratPeringatanWhereInput | Prisma.SuratPeringatanWhereInput[]
   nasabahId?: Prisma.StringFilter<"SuratPeringatan"> | string
   kejaksaanId?: Prisma.StringNullableFilter<"SuratPeringatan"> | string | null
+  petugasId?: Prisma.StringNullableFilter<"SuratPeringatan"> | string | null
   noPjm?: Prisma.StringFilter<"SuratPeringatan"> | string
   jenisFasilitas?: Prisma.StringNullableFilter<"SuratPeringatan"> | string | null
   tanggalAkadKredit?: Prisma.DateTimeNullableFilter<"SuratPeringatan"> | Date | string | null
@@ -535,6 +547,7 @@ export type SuratPeringatanWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"SuratPeringatan"> | Date | string
   nasabah?: Prisma.XOR<Prisma.NasabahScalarRelationFilter, Prisma.NasabahWhereInput>
   kejaksaan?: Prisma.XOR<Prisma.KepalaKejaksaanNullableScalarRelationFilter, Prisma.KepalaKejaksaanWhereInput> | null
+  petugas?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   approvals?: Prisma.SPApprovalListRelationFilter
 }, "id" | "nomorSurat">
 
@@ -543,6 +556,7 @@ export type SuratPeringatanOrderByWithAggregationInput = {
   nomorSurat?: Prisma.SortOrderInput | Prisma.SortOrder
   nasabahId?: Prisma.SortOrder
   kejaksaanId?: Prisma.SortOrderInput | Prisma.SortOrder
+  petugasId?: Prisma.SortOrderInput | Prisma.SortOrder
   noPjm?: Prisma.SortOrder
   jenisFasilitas?: Prisma.SortOrderInput | Prisma.SortOrder
   tanggalAkadKredit?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -585,6 +599,7 @@ export type SuratPeringatanScalarWhereWithAggregatesInput = {
   nomorSurat?: Prisma.StringNullableWithAggregatesFilter<"SuratPeringatan"> | string | null
   nasabahId?: Prisma.StringWithAggregatesFilter<"SuratPeringatan"> | string
   kejaksaanId?: Prisma.StringNullableWithAggregatesFilter<"SuratPeringatan"> | string | null
+  petugasId?: Prisma.StringNullableWithAggregatesFilter<"SuratPeringatan"> | string | null
   noPjm?: Prisma.StringWithAggregatesFilter<"SuratPeringatan"> | string
   jenisFasilitas?: Prisma.StringNullableWithAggregatesFilter<"SuratPeringatan"> | string | null
   tanggalAkadKredit?: Prisma.DateTimeNullableWithAggregatesFilter<"SuratPeringatan"> | Date | string | null
@@ -646,6 +661,7 @@ export type SuratPeringatanCreateInput = {
   updatedAt?: Date | string
   nasabah: Prisma.NasabahCreateNestedOneWithoutSuratPeringatanInput
   kejaksaan?: Prisma.KepalaKejaksaanCreateNestedOneWithoutSuratPeringatanInput
+  petugas?: Prisma.UserCreateNestedOneWithoutSuratPeringatanInput
   approvals?: Prisma.SPApprovalCreateNestedManyWithoutSpInput
 }
 
@@ -654,6 +670,7 @@ export type SuratPeringatanUncheckedCreateInput = {
   nomorSurat?: string | null
   nasabahId: string
   kejaksaanId?: string | null
+  petugasId?: string | null
   noPjm: string
   jenisFasilitas?: string | null
   tanggalAkadKredit?: Date | string | null
@@ -716,6 +733,7 @@ export type SuratPeringatanUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   nasabah?: Prisma.NasabahUpdateOneRequiredWithoutSuratPeringatanNestedInput
   kejaksaan?: Prisma.KepalaKejaksaanUpdateOneWithoutSuratPeringatanNestedInput
+  petugas?: Prisma.UserUpdateOneWithoutSuratPeringatanNestedInput
   approvals?: Prisma.SPApprovalUpdateManyWithoutSpNestedInput
 }
 
@@ -724,6 +742,7 @@ export type SuratPeringatanUncheckedUpdateInput = {
   nomorSurat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nasabahId?: Prisma.StringFieldUpdateOperationsInput | string
   kejaksaanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  petugasId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   noPjm?: Prisma.StringFieldUpdateOperationsInput | string
   jenisFasilitas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tanggalAkadKredit?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -759,6 +778,7 @@ export type SuratPeringatanCreateManyInput = {
   nomorSurat?: string | null
   nasabahId: string
   kejaksaanId?: string | null
+  petugasId?: string | null
   noPjm: string
   jenisFasilitas?: string | null
   tanggalAkadKredit?: Date | string | null
@@ -825,6 +845,7 @@ export type SuratPeringatanUncheckedUpdateManyInput = {
   nomorSurat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nasabahId?: Prisma.StringFieldUpdateOperationsInput | string
   kejaksaanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  petugasId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   noPjm?: Prisma.StringFieldUpdateOperationsInput | string
   jenisFasilitas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tanggalAkadKredit?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -869,6 +890,7 @@ export type SuratPeringatanCountOrderByAggregateInput = {
   nomorSurat?: Prisma.SortOrder
   nasabahId?: Prisma.SortOrder
   kejaksaanId?: Prisma.SortOrder
+  petugasId?: Prisma.SortOrder
   noPjm?: Prisma.SortOrder
   jenisFasilitas?: Prisma.SortOrder
   tanggalAkadKredit?: Prisma.SortOrder
@@ -915,6 +937,7 @@ export type SuratPeringatanMaxOrderByAggregateInput = {
   nomorSurat?: Prisma.SortOrder
   nasabahId?: Prisma.SortOrder
   kejaksaanId?: Prisma.SortOrder
+  petugasId?: Prisma.SortOrder
   noPjm?: Prisma.SortOrder
   jenisFasilitas?: Prisma.SortOrder
   tanggalAkadKredit?: Prisma.SortOrder
@@ -949,6 +972,7 @@ export type SuratPeringatanMinOrderByAggregateInput = {
   nomorSurat?: Prisma.SortOrder
   nasabahId?: Prisma.SortOrder
   kejaksaanId?: Prisma.SortOrder
+  petugasId?: Prisma.SortOrder
   noPjm?: Prisma.SortOrder
   jenisFasilitas?: Prisma.SortOrder
   tanggalAkadKredit?: Prisma.SortOrder
@@ -1034,6 +1058,48 @@ export type SuratPeringatanUncheckedUpdateManyWithoutNasabahNestedInput = {
   connect?: Prisma.SuratPeringatanWhereUniqueInput | Prisma.SuratPeringatanWhereUniqueInput[]
   update?: Prisma.SuratPeringatanUpdateWithWhereUniqueWithoutNasabahInput | Prisma.SuratPeringatanUpdateWithWhereUniqueWithoutNasabahInput[]
   updateMany?: Prisma.SuratPeringatanUpdateManyWithWhereWithoutNasabahInput | Prisma.SuratPeringatanUpdateManyWithWhereWithoutNasabahInput[]
+  deleteMany?: Prisma.SuratPeringatanScalarWhereInput | Prisma.SuratPeringatanScalarWhereInput[]
+}
+
+export type SuratPeringatanCreateNestedManyWithoutPetugasInput = {
+  create?: Prisma.XOR<Prisma.SuratPeringatanCreateWithoutPetugasInput, Prisma.SuratPeringatanUncheckedCreateWithoutPetugasInput> | Prisma.SuratPeringatanCreateWithoutPetugasInput[] | Prisma.SuratPeringatanUncheckedCreateWithoutPetugasInput[]
+  connectOrCreate?: Prisma.SuratPeringatanCreateOrConnectWithoutPetugasInput | Prisma.SuratPeringatanCreateOrConnectWithoutPetugasInput[]
+  createMany?: Prisma.SuratPeringatanCreateManyPetugasInputEnvelope
+  connect?: Prisma.SuratPeringatanWhereUniqueInput | Prisma.SuratPeringatanWhereUniqueInput[]
+}
+
+export type SuratPeringatanUncheckedCreateNestedManyWithoutPetugasInput = {
+  create?: Prisma.XOR<Prisma.SuratPeringatanCreateWithoutPetugasInput, Prisma.SuratPeringatanUncheckedCreateWithoutPetugasInput> | Prisma.SuratPeringatanCreateWithoutPetugasInput[] | Prisma.SuratPeringatanUncheckedCreateWithoutPetugasInput[]
+  connectOrCreate?: Prisma.SuratPeringatanCreateOrConnectWithoutPetugasInput | Prisma.SuratPeringatanCreateOrConnectWithoutPetugasInput[]
+  createMany?: Prisma.SuratPeringatanCreateManyPetugasInputEnvelope
+  connect?: Prisma.SuratPeringatanWhereUniqueInput | Prisma.SuratPeringatanWhereUniqueInput[]
+}
+
+export type SuratPeringatanUpdateManyWithoutPetugasNestedInput = {
+  create?: Prisma.XOR<Prisma.SuratPeringatanCreateWithoutPetugasInput, Prisma.SuratPeringatanUncheckedCreateWithoutPetugasInput> | Prisma.SuratPeringatanCreateWithoutPetugasInput[] | Prisma.SuratPeringatanUncheckedCreateWithoutPetugasInput[]
+  connectOrCreate?: Prisma.SuratPeringatanCreateOrConnectWithoutPetugasInput | Prisma.SuratPeringatanCreateOrConnectWithoutPetugasInput[]
+  upsert?: Prisma.SuratPeringatanUpsertWithWhereUniqueWithoutPetugasInput | Prisma.SuratPeringatanUpsertWithWhereUniqueWithoutPetugasInput[]
+  createMany?: Prisma.SuratPeringatanCreateManyPetugasInputEnvelope
+  set?: Prisma.SuratPeringatanWhereUniqueInput | Prisma.SuratPeringatanWhereUniqueInput[]
+  disconnect?: Prisma.SuratPeringatanWhereUniqueInput | Prisma.SuratPeringatanWhereUniqueInput[]
+  delete?: Prisma.SuratPeringatanWhereUniqueInput | Prisma.SuratPeringatanWhereUniqueInput[]
+  connect?: Prisma.SuratPeringatanWhereUniqueInput | Prisma.SuratPeringatanWhereUniqueInput[]
+  update?: Prisma.SuratPeringatanUpdateWithWhereUniqueWithoutPetugasInput | Prisma.SuratPeringatanUpdateWithWhereUniqueWithoutPetugasInput[]
+  updateMany?: Prisma.SuratPeringatanUpdateManyWithWhereWithoutPetugasInput | Prisma.SuratPeringatanUpdateManyWithWhereWithoutPetugasInput[]
+  deleteMany?: Prisma.SuratPeringatanScalarWhereInput | Prisma.SuratPeringatanScalarWhereInput[]
+}
+
+export type SuratPeringatanUncheckedUpdateManyWithoutPetugasNestedInput = {
+  create?: Prisma.XOR<Prisma.SuratPeringatanCreateWithoutPetugasInput, Prisma.SuratPeringatanUncheckedCreateWithoutPetugasInput> | Prisma.SuratPeringatanCreateWithoutPetugasInput[] | Prisma.SuratPeringatanUncheckedCreateWithoutPetugasInput[]
+  connectOrCreate?: Prisma.SuratPeringatanCreateOrConnectWithoutPetugasInput | Prisma.SuratPeringatanCreateOrConnectWithoutPetugasInput[]
+  upsert?: Prisma.SuratPeringatanUpsertWithWhereUniqueWithoutPetugasInput | Prisma.SuratPeringatanUpsertWithWhereUniqueWithoutPetugasInput[]
+  createMany?: Prisma.SuratPeringatanCreateManyPetugasInputEnvelope
+  set?: Prisma.SuratPeringatanWhereUniqueInput | Prisma.SuratPeringatanWhereUniqueInput[]
+  disconnect?: Prisma.SuratPeringatanWhereUniqueInput | Prisma.SuratPeringatanWhereUniqueInput[]
+  delete?: Prisma.SuratPeringatanWhereUniqueInput | Prisma.SuratPeringatanWhereUniqueInput[]
+  connect?: Prisma.SuratPeringatanWhereUniqueInput | Prisma.SuratPeringatanWhereUniqueInput[]
+  update?: Prisma.SuratPeringatanUpdateWithWhereUniqueWithoutPetugasInput | Prisma.SuratPeringatanUpdateWithWhereUniqueWithoutPetugasInput[]
+  updateMany?: Prisma.SuratPeringatanUpdateManyWithWhereWithoutPetugasInput | Prisma.SuratPeringatanUpdateManyWithWhereWithoutPetugasInput[]
   deleteMany?: Prisma.SuratPeringatanScalarWhereInput | Prisma.SuratPeringatanScalarWhereInput[]
 }
 
@@ -1164,6 +1230,7 @@ export type SuratPeringatanCreateWithoutNasabahInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   kejaksaan?: Prisma.KepalaKejaksaanCreateNestedOneWithoutSuratPeringatanInput
+  petugas?: Prisma.UserCreateNestedOneWithoutSuratPeringatanInput
   approvals?: Prisma.SPApprovalCreateNestedManyWithoutSpInput
 }
 
@@ -1171,6 +1238,7 @@ export type SuratPeringatanUncheckedCreateWithoutNasabahInput = {
   id?: string
   nomorSurat?: string | null
   kejaksaanId?: string | null
+  petugasId?: string | null
   noPjm: string
   jenisFasilitas?: string | null
   tanggalAkadKredit?: Date | string | null
@@ -1235,6 +1303,7 @@ export type SuratPeringatanScalarWhereInput = {
   nomorSurat?: Prisma.StringNullableFilter<"SuratPeringatan"> | string | null
   nasabahId?: Prisma.StringFilter<"SuratPeringatan"> | string
   kejaksaanId?: Prisma.StringNullableFilter<"SuratPeringatan"> | string | null
+  petugasId?: Prisma.StringNullableFilter<"SuratPeringatan"> | string | null
   noPjm?: Prisma.StringFilter<"SuratPeringatan"> | string
   jenisFasilitas?: Prisma.StringNullableFilter<"SuratPeringatan"> | string | null
   tanggalAkadKredit?: Prisma.DateTimeNullableFilter<"SuratPeringatan"> | Date | string | null
@@ -1262,6 +1331,102 @@ export type SuratPeringatanScalarWhereInput = {
   arsipPdf?: Prisma.StringNullableFilter<"SuratPeringatan"> | string | null
   createdAt?: Prisma.DateTimeFilter<"SuratPeringatan"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SuratPeringatan"> | Date | string
+}
+
+export type SuratPeringatanCreateWithoutPetugasInput = {
+  id?: string
+  nomorSurat?: string | null
+  noPjm: string
+  jenisFasilitas?: string | null
+  tanggalAkadKredit?: Date | string | null
+  sukuBunga?: number | null
+  plafond: number
+  saldo: number
+  tgkPokok: number
+  tgkBunga: number
+  tgkPokokHari: number
+  tgkBungaHari: number
+  biayaAdministrasi?: number | null
+  kolektibilitas: number
+  jenis: $Enums.JenisSP
+  alasan: string
+  tanggalSurat: Date | string
+  tanggalJatuhTempo: Date | string
+  status?: $Enums.StatusSP
+  tanggalKirim?: Date | string | null
+  metodePengiriman?: $Enums.MetodePengiriman | null
+  noResi?: string | null
+  buktiKirim?: string | null
+  buktiTandaTerima?: string | null
+  catatan?: string | null
+  lastVerifiedAt?: Date | string | null
+  arsipPdf?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  nasabah: Prisma.NasabahCreateNestedOneWithoutSuratPeringatanInput
+  kejaksaan?: Prisma.KepalaKejaksaanCreateNestedOneWithoutSuratPeringatanInput
+  approvals?: Prisma.SPApprovalCreateNestedManyWithoutSpInput
+}
+
+export type SuratPeringatanUncheckedCreateWithoutPetugasInput = {
+  id?: string
+  nomorSurat?: string | null
+  nasabahId: string
+  kejaksaanId?: string | null
+  noPjm: string
+  jenisFasilitas?: string | null
+  tanggalAkadKredit?: Date | string | null
+  sukuBunga?: number | null
+  plafond: number
+  saldo: number
+  tgkPokok: number
+  tgkBunga: number
+  tgkPokokHari: number
+  tgkBungaHari: number
+  biayaAdministrasi?: number | null
+  kolektibilitas: number
+  jenis: $Enums.JenisSP
+  alasan: string
+  tanggalSurat: Date | string
+  tanggalJatuhTempo: Date | string
+  status?: $Enums.StatusSP
+  tanggalKirim?: Date | string | null
+  metodePengiriman?: $Enums.MetodePengiriman | null
+  noResi?: string | null
+  buktiKirim?: string | null
+  buktiTandaTerima?: string | null
+  catatan?: string | null
+  lastVerifiedAt?: Date | string | null
+  arsipPdf?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  approvals?: Prisma.SPApprovalUncheckedCreateNestedManyWithoutSpInput
+}
+
+export type SuratPeringatanCreateOrConnectWithoutPetugasInput = {
+  where: Prisma.SuratPeringatanWhereUniqueInput
+  create: Prisma.XOR<Prisma.SuratPeringatanCreateWithoutPetugasInput, Prisma.SuratPeringatanUncheckedCreateWithoutPetugasInput>
+}
+
+export type SuratPeringatanCreateManyPetugasInputEnvelope = {
+  data: Prisma.SuratPeringatanCreateManyPetugasInput | Prisma.SuratPeringatanCreateManyPetugasInput[]
+  skipDuplicates?: boolean
+}
+
+export type SuratPeringatanUpsertWithWhereUniqueWithoutPetugasInput = {
+  where: Prisma.SuratPeringatanWhereUniqueInput
+  update: Prisma.XOR<Prisma.SuratPeringatanUpdateWithoutPetugasInput, Prisma.SuratPeringatanUncheckedUpdateWithoutPetugasInput>
+  create: Prisma.XOR<Prisma.SuratPeringatanCreateWithoutPetugasInput, Prisma.SuratPeringatanUncheckedCreateWithoutPetugasInput>
+}
+
+export type SuratPeringatanUpdateWithWhereUniqueWithoutPetugasInput = {
+  where: Prisma.SuratPeringatanWhereUniqueInput
+  data: Prisma.XOR<Prisma.SuratPeringatanUpdateWithoutPetugasInput, Prisma.SuratPeringatanUncheckedUpdateWithoutPetugasInput>
+}
+
+export type SuratPeringatanUpdateManyWithWhereWithoutPetugasInput = {
+  where: Prisma.SuratPeringatanScalarWhereInput
+  data: Prisma.XOR<Prisma.SuratPeringatanUpdateManyMutationInput, Prisma.SuratPeringatanUncheckedUpdateManyWithoutPetugasInput>
 }
 
 export type SuratPeringatanCreateWithoutKejaksaanInput = {
@@ -1295,6 +1460,7 @@ export type SuratPeringatanCreateWithoutKejaksaanInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   nasabah: Prisma.NasabahCreateNestedOneWithoutSuratPeringatanInput
+  petugas?: Prisma.UserCreateNestedOneWithoutSuratPeringatanInput
   approvals?: Prisma.SPApprovalCreateNestedManyWithoutSpInput
 }
 
@@ -1302,6 +1468,7 @@ export type SuratPeringatanUncheckedCreateWithoutKejaksaanInput = {
   id?: string
   nomorSurat?: string | null
   nasabahId: string
+  petugasId?: string | null
   noPjm: string
   jenisFasilitas?: string | null
   tanggalAkadKredit?: Date | string | null
@@ -1390,6 +1557,7 @@ export type SuratPeringatanCreateWithoutApprovalsInput = {
   updatedAt?: Date | string
   nasabah: Prisma.NasabahCreateNestedOneWithoutSuratPeringatanInput
   kejaksaan?: Prisma.KepalaKejaksaanCreateNestedOneWithoutSuratPeringatanInput
+  petugas?: Prisma.UserCreateNestedOneWithoutSuratPeringatanInput
 }
 
 export type SuratPeringatanUncheckedCreateWithoutApprovalsInput = {
@@ -1397,6 +1565,7 @@ export type SuratPeringatanUncheckedCreateWithoutApprovalsInput = {
   nomorSurat?: string | null
   nasabahId: string
   kejaksaanId?: string | null
+  petugasId?: string | null
   noPjm: string
   jenisFasilitas?: string | null
   tanggalAkadKredit?: Date | string | null
@@ -1474,6 +1643,7 @@ export type SuratPeringatanUpdateWithoutApprovalsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   nasabah?: Prisma.NasabahUpdateOneRequiredWithoutSuratPeringatanNestedInput
   kejaksaan?: Prisma.KepalaKejaksaanUpdateOneWithoutSuratPeringatanNestedInput
+  petugas?: Prisma.UserUpdateOneWithoutSuratPeringatanNestedInput
 }
 
 export type SuratPeringatanUncheckedUpdateWithoutApprovalsInput = {
@@ -1481,6 +1651,7 @@ export type SuratPeringatanUncheckedUpdateWithoutApprovalsInput = {
   nomorSurat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nasabahId?: Prisma.StringFieldUpdateOperationsInput | string
   kejaksaanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  petugasId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   noPjm?: Prisma.StringFieldUpdateOperationsInput | string
   jenisFasilitas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tanggalAkadKredit?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1514,6 +1685,7 @@ export type SuratPeringatanCreateManyNasabahInput = {
   id?: string
   nomorSurat?: string | null
   kejaksaanId?: string | null
+  petugasId?: string | null
   noPjm: string
   jenisFasilitas?: string | null
   tanggalAkadKredit?: Date | string | null
@@ -1574,6 +1746,7 @@ export type SuratPeringatanUpdateWithoutNasabahInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   kejaksaan?: Prisma.KepalaKejaksaanUpdateOneWithoutSuratPeringatanNestedInput
+  petugas?: Prisma.UserUpdateOneWithoutSuratPeringatanNestedInput
   approvals?: Prisma.SPApprovalUpdateManyWithoutSpNestedInput
 }
 
@@ -1581,6 +1754,7 @@ export type SuratPeringatanUncheckedUpdateWithoutNasabahInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nomorSurat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   kejaksaanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  petugasId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   noPjm?: Prisma.StringFieldUpdateOperationsInput | string
   jenisFasilitas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tanggalAkadKredit?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1615,6 +1789,145 @@ export type SuratPeringatanUncheckedUpdateManyWithoutNasabahInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nomorSurat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   kejaksaanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  petugasId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  noPjm?: Prisma.StringFieldUpdateOperationsInput | string
+  jenisFasilitas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tanggalAkadKredit?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sukuBunga?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  plafond?: Prisma.FloatFieldUpdateOperationsInput | number
+  saldo?: Prisma.FloatFieldUpdateOperationsInput | number
+  tgkPokok?: Prisma.FloatFieldUpdateOperationsInput | number
+  tgkBunga?: Prisma.FloatFieldUpdateOperationsInput | number
+  tgkPokokHari?: Prisma.IntFieldUpdateOperationsInput | number
+  tgkBungaHari?: Prisma.IntFieldUpdateOperationsInput | number
+  biayaAdministrasi?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  kolektibilitas?: Prisma.IntFieldUpdateOperationsInput | number
+  jenis?: Prisma.EnumJenisSPFieldUpdateOperationsInput | $Enums.JenisSP
+  alasan?: Prisma.StringFieldUpdateOperationsInput | string
+  tanggalSurat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tanggalJatuhTempo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumStatusSPFieldUpdateOperationsInput | $Enums.StatusSP
+  tanggalKirim?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metodePengiriman?: Prisma.NullableEnumMetodePengirimanFieldUpdateOperationsInput | $Enums.MetodePengiriman | null
+  noResi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  buktiKirim?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  buktiTandaTerima?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  arsipPdf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type SuratPeringatanCreateManyPetugasInput = {
+  id?: string
+  nomorSurat?: string | null
+  nasabahId: string
+  kejaksaanId?: string | null
+  noPjm: string
+  jenisFasilitas?: string | null
+  tanggalAkadKredit?: Date | string | null
+  sukuBunga?: number | null
+  plafond: number
+  saldo: number
+  tgkPokok: number
+  tgkBunga: number
+  tgkPokokHari: number
+  tgkBungaHari: number
+  biayaAdministrasi?: number | null
+  kolektibilitas: number
+  jenis: $Enums.JenisSP
+  alasan: string
+  tanggalSurat: Date | string
+  tanggalJatuhTempo: Date | string
+  status?: $Enums.StatusSP
+  tanggalKirim?: Date | string | null
+  metodePengiriman?: $Enums.MetodePengiriman | null
+  noResi?: string | null
+  buktiKirim?: string | null
+  buktiTandaTerima?: string | null
+  catatan?: string | null
+  lastVerifiedAt?: Date | string | null
+  arsipPdf?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type SuratPeringatanUpdateWithoutPetugasInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  nomorSurat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  noPjm?: Prisma.StringFieldUpdateOperationsInput | string
+  jenisFasilitas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tanggalAkadKredit?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sukuBunga?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  plafond?: Prisma.FloatFieldUpdateOperationsInput | number
+  saldo?: Prisma.FloatFieldUpdateOperationsInput | number
+  tgkPokok?: Prisma.FloatFieldUpdateOperationsInput | number
+  tgkBunga?: Prisma.FloatFieldUpdateOperationsInput | number
+  tgkPokokHari?: Prisma.IntFieldUpdateOperationsInput | number
+  tgkBungaHari?: Prisma.IntFieldUpdateOperationsInput | number
+  biayaAdministrasi?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  kolektibilitas?: Prisma.IntFieldUpdateOperationsInput | number
+  jenis?: Prisma.EnumJenisSPFieldUpdateOperationsInput | $Enums.JenisSP
+  alasan?: Prisma.StringFieldUpdateOperationsInput | string
+  tanggalSurat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tanggalJatuhTempo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumStatusSPFieldUpdateOperationsInput | $Enums.StatusSP
+  tanggalKirim?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metodePengiriman?: Prisma.NullableEnumMetodePengirimanFieldUpdateOperationsInput | $Enums.MetodePengiriman | null
+  noResi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  buktiKirim?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  buktiTandaTerima?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  arsipPdf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  nasabah?: Prisma.NasabahUpdateOneRequiredWithoutSuratPeringatanNestedInput
+  kejaksaan?: Prisma.KepalaKejaksaanUpdateOneWithoutSuratPeringatanNestedInput
+  approvals?: Prisma.SPApprovalUpdateManyWithoutSpNestedInput
+}
+
+export type SuratPeringatanUncheckedUpdateWithoutPetugasInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  nomorSurat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nasabahId?: Prisma.StringFieldUpdateOperationsInput | string
+  kejaksaanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  noPjm?: Prisma.StringFieldUpdateOperationsInput | string
+  jenisFasilitas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tanggalAkadKredit?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sukuBunga?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  plafond?: Prisma.FloatFieldUpdateOperationsInput | number
+  saldo?: Prisma.FloatFieldUpdateOperationsInput | number
+  tgkPokok?: Prisma.FloatFieldUpdateOperationsInput | number
+  tgkBunga?: Prisma.FloatFieldUpdateOperationsInput | number
+  tgkPokokHari?: Prisma.IntFieldUpdateOperationsInput | number
+  tgkBungaHari?: Prisma.IntFieldUpdateOperationsInput | number
+  biayaAdministrasi?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  kolektibilitas?: Prisma.IntFieldUpdateOperationsInput | number
+  jenis?: Prisma.EnumJenisSPFieldUpdateOperationsInput | $Enums.JenisSP
+  alasan?: Prisma.StringFieldUpdateOperationsInput | string
+  tanggalSurat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tanggalJatuhTempo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  status?: Prisma.EnumStatusSPFieldUpdateOperationsInput | $Enums.StatusSP
+  tanggalKirim?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  metodePengiriman?: Prisma.NullableEnumMetodePengirimanFieldUpdateOperationsInput | $Enums.MetodePengiriman | null
+  noResi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  buktiKirim?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  buktiTandaTerima?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  arsipPdf?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  approvals?: Prisma.SPApprovalUncheckedUpdateManyWithoutSpNestedInput
+}
+
+export type SuratPeringatanUncheckedUpdateManyWithoutPetugasInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  nomorSurat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nasabahId?: Prisma.StringFieldUpdateOperationsInput | string
+  kejaksaanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   noPjm?: Prisma.StringFieldUpdateOperationsInput | string
   jenisFasilitas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tanggalAkadKredit?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1648,6 +1961,7 @@ export type SuratPeringatanCreateManyKejaksaanInput = {
   id?: string
   nomorSurat?: string | null
   nasabahId: string
+  petugasId?: string | null
   noPjm: string
   jenisFasilitas?: string | null
   tanggalAkadKredit?: Date | string | null
@@ -1708,6 +2022,7 @@ export type SuratPeringatanUpdateWithoutKejaksaanInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   nasabah?: Prisma.NasabahUpdateOneRequiredWithoutSuratPeringatanNestedInput
+  petugas?: Prisma.UserUpdateOneWithoutSuratPeringatanNestedInput
   approvals?: Prisma.SPApprovalUpdateManyWithoutSpNestedInput
 }
 
@@ -1715,6 +2030,7 @@ export type SuratPeringatanUncheckedUpdateWithoutKejaksaanInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nomorSurat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nasabahId?: Prisma.StringFieldUpdateOperationsInput | string
+  petugasId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   noPjm?: Prisma.StringFieldUpdateOperationsInput | string
   jenisFasilitas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tanggalAkadKredit?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1749,6 +2065,7 @@ export type SuratPeringatanUncheckedUpdateManyWithoutKejaksaanInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nomorSurat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   nasabahId?: Prisma.StringFieldUpdateOperationsInput | string
+  petugasId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   noPjm?: Prisma.StringFieldUpdateOperationsInput | string
   jenisFasilitas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tanggalAkadKredit?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1814,6 +2131,7 @@ export type SuratPeringatanSelect<ExtArgs extends runtime.Types.Extensions.Inter
   nomorSurat?: boolean
   nasabahId?: boolean
   kejaksaanId?: boolean
+  petugasId?: boolean
   noPjm?: boolean
   jenisFasilitas?: boolean
   tanggalAkadKredit?: boolean
@@ -1843,6 +2161,7 @@ export type SuratPeringatanSelect<ExtArgs extends runtime.Types.Extensions.Inter
   updatedAt?: boolean
   nasabah?: boolean | Prisma.NasabahDefaultArgs<ExtArgs>
   kejaksaan?: boolean | Prisma.SuratPeringatan$kejaksaanArgs<ExtArgs>
+  petugas?: boolean | Prisma.SuratPeringatan$petugasArgs<ExtArgs>
   approvals?: boolean | Prisma.SuratPeringatan$approvalsArgs<ExtArgs>
   _count?: boolean | Prisma.SuratPeringatanCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["suratPeringatan"]>
@@ -1852,6 +2171,7 @@ export type SuratPeringatanSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   nomorSurat?: boolean
   nasabahId?: boolean
   kejaksaanId?: boolean
+  petugasId?: boolean
   noPjm?: boolean
   jenisFasilitas?: boolean
   tanggalAkadKredit?: boolean
@@ -1881,6 +2201,7 @@ export type SuratPeringatanSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   updatedAt?: boolean
   nasabah?: boolean | Prisma.NasabahDefaultArgs<ExtArgs>
   kejaksaan?: boolean | Prisma.SuratPeringatan$kejaksaanArgs<ExtArgs>
+  petugas?: boolean | Prisma.SuratPeringatan$petugasArgs<ExtArgs>
 }, ExtArgs["result"]["suratPeringatan"]>
 
 export type SuratPeringatanSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1888,6 +2209,7 @@ export type SuratPeringatanSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   nomorSurat?: boolean
   nasabahId?: boolean
   kejaksaanId?: boolean
+  petugasId?: boolean
   noPjm?: boolean
   jenisFasilitas?: boolean
   tanggalAkadKredit?: boolean
@@ -1917,6 +2239,7 @@ export type SuratPeringatanSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   updatedAt?: boolean
   nasabah?: boolean | Prisma.NasabahDefaultArgs<ExtArgs>
   kejaksaan?: boolean | Prisma.SuratPeringatan$kejaksaanArgs<ExtArgs>
+  petugas?: boolean | Prisma.SuratPeringatan$petugasArgs<ExtArgs>
 }, ExtArgs["result"]["suratPeringatan"]>
 
 export type SuratPeringatanSelectScalar = {
@@ -1924,6 +2247,7 @@ export type SuratPeringatanSelectScalar = {
   nomorSurat?: boolean
   nasabahId?: boolean
   kejaksaanId?: boolean
+  petugasId?: boolean
   noPjm?: boolean
   jenisFasilitas?: boolean
   tanggalAkadKredit?: boolean
@@ -1953,20 +2277,23 @@ export type SuratPeringatanSelectScalar = {
   updatedAt?: boolean
 }
 
-export type SuratPeringatanOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nomorSurat" | "nasabahId" | "kejaksaanId" | "noPjm" | "jenisFasilitas" | "tanggalAkadKredit" | "sukuBunga" | "plafond" | "saldo" | "tgkPokok" | "tgkBunga" | "tgkPokokHari" | "tgkBungaHari" | "biayaAdministrasi" | "kolektibilitas" | "jenis" | "alasan" | "tanggalSurat" | "tanggalJatuhTempo" | "status" | "tanggalKirim" | "metodePengiriman" | "noResi" | "buktiKirim" | "buktiTandaTerima" | "catatan" | "lastVerifiedAt" | "arsipPdf" | "createdAt" | "updatedAt", ExtArgs["result"]["suratPeringatan"]>
+export type SuratPeringatanOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nomorSurat" | "nasabahId" | "kejaksaanId" | "petugasId" | "noPjm" | "jenisFasilitas" | "tanggalAkadKredit" | "sukuBunga" | "plafond" | "saldo" | "tgkPokok" | "tgkBunga" | "tgkPokokHari" | "tgkBungaHari" | "biayaAdministrasi" | "kolektibilitas" | "jenis" | "alasan" | "tanggalSurat" | "tanggalJatuhTempo" | "status" | "tanggalKirim" | "metodePengiriman" | "noResi" | "buktiKirim" | "buktiTandaTerima" | "catatan" | "lastVerifiedAt" | "arsipPdf" | "createdAt" | "updatedAt", ExtArgs["result"]["suratPeringatan"]>
 export type SuratPeringatanInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   nasabah?: boolean | Prisma.NasabahDefaultArgs<ExtArgs>
   kejaksaan?: boolean | Prisma.SuratPeringatan$kejaksaanArgs<ExtArgs>
+  petugas?: boolean | Prisma.SuratPeringatan$petugasArgs<ExtArgs>
   approvals?: boolean | Prisma.SuratPeringatan$approvalsArgs<ExtArgs>
   _count?: boolean | Prisma.SuratPeringatanCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SuratPeringatanIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   nasabah?: boolean | Prisma.NasabahDefaultArgs<ExtArgs>
   kejaksaan?: boolean | Prisma.SuratPeringatan$kejaksaanArgs<ExtArgs>
+  petugas?: boolean | Prisma.SuratPeringatan$petugasArgs<ExtArgs>
 }
 export type SuratPeringatanIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   nasabah?: boolean | Prisma.NasabahDefaultArgs<ExtArgs>
   kejaksaan?: boolean | Prisma.SuratPeringatan$kejaksaanArgs<ExtArgs>
+  petugas?: boolean | Prisma.SuratPeringatan$petugasArgs<ExtArgs>
 }
 
 export type $SuratPeringatanPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1974,6 +2301,7 @@ export type $SuratPeringatanPayload<ExtArgs extends runtime.Types.Extensions.Int
   objects: {
     nasabah: Prisma.$NasabahPayload<ExtArgs>
     kejaksaan: Prisma.$KepalaKejaksaanPayload<ExtArgs> | null
+    petugas: Prisma.$UserPayload<ExtArgs> | null
     approvals: Prisma.$SPApprovalPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1981,6 +2309,7 @@ export type $SuratPeringatanPayload<ExtArgs extends runtime.Types.Extensions.Int
     nomorSurat: string | null
     nasabahId: string
     kejaksaanId: string | null
+    petugasId: string | null
     noPjm: string
     jenisFasilitas: string | null
     tanggalAkadKredit: Date | null
@@ -2404,6 +2733,7 @@ export interface Prisma__SuratPeringatanClient<T, Null = never, ExtArgs extends 
   readonly [Symbol.toStringTag]: "PrismaPromise"
   nasabah<T extends Prisma.NasabahDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.NasabahDefaultArgs<ExtArgs>>): Prisma.Prisma__NasabahClient<runtime.Types.Result.GetResult<Prisma.$NasabahPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   kejaksaan<T extends Prisma.SuratPeringatan$kejaksaanArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SuratPeringatan$kejaksaanArgs<ExtArgs>>): Prisma.Prisma__KepalaKejaksaanClient<runtime.Types.Result.GetResult<Prisma.$KepalaKejaksaanPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  petugas<T extends Prisma.SuratPeringatan$petugasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SuratPeringatan$petugasArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   approvals<T extends Prisma.SuratPeringatan$approvalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SuratPeringatan$approvalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SPApprovalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2438,6 +2768,7 @@ export interface SuratPeringatanFieldRefs {
   readonly nomorSurat: Prisma.FieldRef<"SuratPeringatan", 'String'>
   readonly nasabahId: Prisma.FieldRef<"SuratPeringatan", 'String'>
   readonly kejaksaanId: Prisma.FieldRef<"SuratPeringatan", 'String'>
+  readonly petugasId: Prisma.FieldRef<"SuratPeringatan", 'String'>
   readonly noPjm: Prisma.FieldRef<"SuratPeringatan", 'String'>
   readonly jenisFasilitas: Prisma.FieldRef<"SuratPeringatan", 'String'>
   readonly tanggalAkadKredit: Prisma.FieldRef<"SuratPeringatan", 'DateTime'>
@@ -2882,6 +3213,25 @@ export type SuratPeringatan$kejaksaanArgs<ExtArgs extends runtime.Types.Extensio
    */
   include?: Prisma.KepalaKejaksaanInclude<ExtArgs> | null
   where?: Prisma.KepalaKejaksaanWhereInput
+}
+
+/**
+ * SuratPeringatan.petugas
+ */
+export type SuratPeringatan$petugasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

@@ -34,8 +34,8 @@ import {
   formatDate,
   JENIS_LABEL,
   METODE_PENGIRIMAN_LABEL,
+  STATUS_BADGE_CLASS,
   STATUS_LABEL,
-  STATUS_VARIANT,
 } from "../label";
 import { SPWithNasabah } from "../schema";
 
@@ -208,7 +208,10 @@ export default function SPDetail({ sp }: Props) {
               {sp.nomorSurat ?? "Belum diterbitkan"}
             </CardDescription>
           </div>
-          <Badge variant={STATUS_VARIANT[sp.status]} className="h-6 px-3">
+          <Badge
+            variant="outline"
+            className={cn("h-6 px-3", STATUS_BADGE_CLASS[sp.status])}
+          >
             {STATUS_LABEL[sp.status]}
           </Badge>
         </CardHeader>
@@ -240,6 +243,7 @@ export default function SPDetail({ sp }: Props) {
               label="Jenis SP"
               value={<Badge>{JENIS_LABEL[sp.jenis] ?? sp.jenis}</Badge>}
             />
+            <InfoRow label="Petugas" value={sp.petugas?.nama ?? "-"} />
             <InfoRow label="Tanggal Surat" value={formatDate(sp.tanggalSurat)} />
             <InfoRow
               label="Jatuh Tempo"
@@ -340,7 +344,10 @@ export default function SPDetail({ sp }: Props) {
                     </p>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <Badge variant={STATUS_VARIANT[s.status]}>
+                    <Badge
+                      variant="outline"
+                      className={STATUS_BADGE_CLASS[s.status]}
+                    >
                       {STATUS_LABEL[s.status]}
                     </Badge>
                     <Button variant="ghost" size="icon-sm" asChild>

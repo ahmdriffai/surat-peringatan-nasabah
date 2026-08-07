@@ -8,6 +8,8 @@ import {
   Home,
   MailCheck,
   NotepadText,
+  Settings2,
+  UserCog,
   Users2,
 } from "lucide-react";
 import { useSession } from "next-auth/react";
@@ -56,10 +58,24 @@ export const menuItems = [
     icon: ArchiveIcon,
   },
   {
+    id: "users",
+    url: "/users",
+    title: "Manajemen User",
+    icon: UserCog,
+    adminOnly: true,
+  },
+  {
     id: "kejaksaan",
     url: "/kejaksaan",
     title: "Kepala Kejaksaan Negeri",
     icon: Gavel,
+    adminOnly: true,
+  },
+  {
+    id: "pengaturan-approval",
+    url: "/pengaturan-approval",
+    title: "Pengaturan Approval",
+    icon: Settings2,
     adminOnly: true,
   },
 ];

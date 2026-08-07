@@ -17,16 +17,13 @@ export const STATUS_LABEL: Record<StatusSP, string> = {
   SELESAI: "Selesai",
 };
 
-export const STATUS_VARIANT: Record<
-  StatusSP,
-  "default" | "secondary" | "destructive" | "outline"
-> = {
-  DRAFT: "secondary",
-  MENUNGGU_APPROVAL: "outline",
-  DISETUJUI: "default",
-  DITOLAK: "destructive",
-  TERKIRIM: "default",
-  SELESAI: "secondary",
+export const STATUS_BADGE_CLASS: Record<StatusSP, string> = {
+  DRAFT: "bg-slate-500/15 text-slate-700 dark:text-slate-300",
+  MENUNGGU_APPROVAL: "bg-amber-500/15 text-amber-700 dark:text-amber-400",
+  DISETUJUI: "bg-blue-500/15 text-blue-700 dark:text-blue-400",
+  DITOLAK: "bg-red-500/15 text-red-700 dark:text-red-400",
+  TERKIRIM: "bg-violet-500/15 text-violet-700 dark:text-violet-400",
+  SELESAI: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-400",
 };
 
 export const APPROVAL_STATUS_LABEL: Record<ApprovalStatus, string> = {

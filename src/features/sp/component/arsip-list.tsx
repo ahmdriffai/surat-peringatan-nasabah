@@ -3,7 +3,12 @@ import { Button } from "@/components/ui/button";
 import Table from "@/components/ui/table";
 import { FileText } from "lucide-react";
 import Link from "next/link";
-import { formatDate, JENIS_LABEL, STATUS_LABEL, STATUS_VARIANT } from "../label";
+import {
+  formatDate,
+  JENIS_LABEL,
+  STATUS_BADGE_CLASS,
+  STATUS_LABEL,
+} from "../label";
 import { SPWithNasabah } from "../schema";
 
 interface Props {
@@ -47,7 +52,7 @@ export default function ArsipList({ sp }: Props) {
         {
           header: "Status",
           accessor: (row) => (
-            <Badge variant={STATUS_VARIANT[row.status]}>
+            <Badge variant="outline" className={STATUS_BADGE_CLASS[row.status]}>
               {STATUS_LABEL[row.status]}
             </Badge>
           ),

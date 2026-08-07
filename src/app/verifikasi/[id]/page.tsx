@@ -4,8 +4,8 @@ import {
   formatDate,
   formatDateTime,
   JENIS_LABEL,
+  STATUS_BADGE_CLASS,
   STATUS_LABEL,
-  STATUS_VARIANT,
 } from "@/features/sp/label";
 import { cn } from "@/lib/utils";
 import { getVerifikasiSP } from "@/services/sp/get-verifikasi";
@@ -92,7 +92,7 @@ export default async function VerifikasiPage({
           <InfoRow
             label="Status Dokumen"
             value={
-              <Badge variant={STATUS_VARIANT[sp.status]}>
+              <Badge variant="outline" className={STATUS_BADGE_CLASS[sp.status]}>
                 {STATUS_LABEL[sp.status]}
               </Badge>
             }

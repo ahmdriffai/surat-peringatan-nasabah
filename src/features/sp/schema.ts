@@ -6,6 +6,7 @@ export type SPWithNasabah = Prisma.SuratPeringatanGetPayload<{
   include: {
     nasabah: true;
     kejaksaan: true;
+    petugas: true;
     approvals: { include: { approver: true }; orderBy: { urutan: "asc" } };
   };
 }>;
