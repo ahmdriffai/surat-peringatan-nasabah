@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import Table from "@/components/ui/table";
+import Table from "@/components/ui/table-custom";
 import { FileText } from "lucide-react";
 import Link from "next/link";
 import { formatDate, JENIS_LABEL } from "../label";

@@ -34,6 +34,10 @@ enum JenisSP {
   SP2
   SP3
   PEMBERITAHUAN_SKK
+  SOMASI_1
+  SOMASI_2
+  SOMASI_3
+  PEMBERITAHUAN_LELANG
 }
 
 enum StatusSP {
@@ -116,13 +120,26 @@ model SuratPeringatan {
   tgkPokokHari      Int
   tgkBungaHari      Int
   biayaAdministrasi Float?
+  denda             Float?
 
-  // Penentuan level SP
+  // Penentuan level SP / Somasi / Lelang
   kolektibilitas    Int // 1 Lancar, 2 DPK, 3 Kurang Lancar, 4 Diragukan, 5 Macet
   jenis             JenisSP
   alasan            String
   tanggalSurat      DateTime
-  tanggalJatuhTempo DateTime // jatuh tempo pembayaran nasabah
+  tanggalJatuhTempo DateTime // jatuh tempo pembayaran nasabah / batas waktu somasi
+
+  // Data Khusus Somasi (Opsional)
+  batasWaktuHari    Int? // misal: 7 hari kalender untuk somasi
+
+  // Data Khusus Agunan & Lelang (Opsional)
+  jenisAgunan       String?   // misal: Sertifikat Hak Milik (SHM) / BPKB Kendaraan
+  dokumenAgunan     String?   // Nomor SHM/SHGB No. ... atau No. BPKB
+  atasNamaAgunan    String?   // Atas nama pada sertifikat/BPKB
+  lokasiAgunan      String?   // Alamat agunan / letak objek jaminan
+  nilaiLimitLelang  Float?    // Nilai limit lelang / taksiran
+  kpknl             String?   // Kantor Pelayanan Kekayaan Negara dan Lelang
+  tanggalLelang     DateTime? // Tanggal rencana pelaksanaan lelang
 
   // Approval
   status    StatusSP     @default(DRAFT)

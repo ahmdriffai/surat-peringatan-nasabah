@@ -20,7 +20,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import Table from "@/components/ui/table";
+import Table from "@/components/ui/table-custom";
 import {
   Tooltip,
   TooltipContent,

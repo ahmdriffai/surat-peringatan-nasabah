@@ -1,3 +1,8 @@
+import {
+  EnrichedLoanData,
+  SearchLoanParams,
+  searchExternalLoans,
+} from "@/services/external/loans";
 import { approveSP } from "@/services/sp/approve";
 import { createSP } from "@/services/sp/create";
 import { deleteSP } from "@/services/sp/delete";
@@ -157,3 +162,17 @@ export const useSetArsipSP = () =>
       await setArsipSP(id, file),
     "Arsip surat berhasil diunggah",
   );
+
+export const useSearchExternalLoans = () => {
+  return useMutation<EnrichedLoanData[], Error, SearchLoanParams>({
+    mutationFn: async (params: SearchLoanParams) => {
+      return await searchExternalLoans(params);
+    },
+    onError: (error) => {
+      toast.error(error.message || "Gagal mencari data pinjaman", {
+        position: "top-center",
+        richColors: true,
+      });
+    },
+  });
+};

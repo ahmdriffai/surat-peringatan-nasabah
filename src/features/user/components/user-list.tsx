@@ -36,7 +36,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import Table from "@/components/ui/table";
+import Table from "@/components/ui/table-custom";
 import {
   Tooltip,
   TooltipContent,

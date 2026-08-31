@@ -12,6 +12,10 @@ const JENIS_PREFIX: Record<JenisSP, string> = {
   SP2: "SP2",
   SP3: "SP3",
   PEMBERITAHUAN_SKK: "SKK",
+  SOMASI_1: "SMS1",
+  SOMASI_2: "SMS2",
+  SOMASI_3: "SMS3",
+  PEMBERITAHUAN_LELANG: "LLG",
 };
 
 const KODE_CABANG = "600557";

@@ -6,6 +6,10 @@ export const JENIS_LABEL: Record<string, string> = {
   SP2: "Surat Peringatan II",
   SP3: "Surat Peringatan III",
   PEMBERITAHUAN_SKK: "Surat Kuasa Khusus",
+  SOMASI_1: "Surat Somasi I",
+  SOMASI_2: "Surat Somasi II",
+  SOMASI_3: "Surat Somasi III (Terakhir)",
+  PEMBERITAHUAN_LELANG: "Surat Pemberitahuan Lelang",
 };
 
 export const STATUS_LABEL: Record<StatusSP, string> = {
@@ -24,6 +28,16 @@ export const STATUS_BADGE_CLASS: Record<StatusSP, string> = {
   DITOLAK: "bg-red-500/15 text-red-700 dark:text-red-400",
   TERKIRIM: "bg-violet-500/15 text-violet-700 dark:text-violet-400",
   SELESAI: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-400",
+};
+
+// Same hues as STATUS_BADGE_CLASS, solid fill — for bars/charts instead of badges.
+export const STATUS_BAR_CLASS: Record<StatusSP, string> = {
+  DRAFT: "bg-slate-500",
+  MENUNGGU_APPROVAL: "bg-amber-500",
+  DISETUJUI: "bg-blue-500",
+  DITOLAK: "bg-red-500",
+  TERKIRIM: "bg-violet-500",
+  SELESAI: "bg-emerald-500",
 };
 
 export const APPROVAL_STATUS_LABEL: Record<ApprovalStatus, string> = {

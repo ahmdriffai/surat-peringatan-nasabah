@@ -27,7 +27,7 @@ export async function updateSP(
     );
   }
 
-  const data = SPCreateInputSchema.parse(input);
+  const { nasabahData, ...data } = SPCreateInputSchema.parse(input);
 
   return prisma.suratPeringatan.update({
     where: { id },

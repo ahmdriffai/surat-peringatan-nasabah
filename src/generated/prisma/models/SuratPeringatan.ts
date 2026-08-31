@@ -35,7 +35,10 @@ export type SuratPeringatanAvgAggregateOutputType = {
   tgkPokokHari: number | null
   tgkBungaHari: number | null
   biayaAdministrasi: number | null
+  denda: number | null
   kolektibilitas: number | null
+  batasWaktuHari: number | null
+  nilaiLimitLelang: number | null
 }
 
 export type SuratPeringatanSumAggregateOutputType = {
@@ -47,7 +50,10 @@ export type SuratPeringatanSumAggregateOutputType = {
   tgkPokokHari: number | null
   tgkBungaHari: number | null
   biayaAdministrasi: number | null
+  denda: number | null
   kolektibilitas: number | null
+  batasWaktuHari: number | null
+  nilaiLimitLelang: number | null
 }
 
 export type SuratPeringatanMinAggregateOutputType = {
@@ -67,11 +73,20 @@ export type SuratPeringatanMinAggregateOutputType = {
   tgkPokokHari: number | null
   tgkBungaHari: number | null
   biayaAdministrasi: number | null
+  denda: number | null
   kolektibilitas: number | null
   jenis: $Enums.JenisSP | null
   alasan: string | null
   tanggalSurat: Date | null
   tanggalJatuhTempo: Date | null
+  batasWaktuHari: number | null
+  jenisAgunan: string | null
+  dokumenAgunan: string | null
+  atasNamaAgunan: string | null
+  lokasiAgunan: string | null
+  nilaiLimitLelang: number | null
+  kpknl: string | null
+  tanggalLelang: Date | null
   status: $Enums.StatusSP | null
   tanggalKirim: Date | null
   metodePengiriman: $Enums.MetodePengiriman | null
@@ -102,11 +117,20 @@ export type SuratPeringatanMaxAggregateOutputType = {
   tgkPokokHari: number | null
   tgkBungaHari: number | null
   biayaAdministrasi: number | null
+  denda: number | null
   kolektibilitas: number | null
   jenis: $Enums.JenisSP | null
   alasan: string | null
   tanggalSurat: Date | null
   tanggalJatuhTempo: Date | null
+  batasWaktuHari: number | null
+  jenisAgunan: string | null
+  dokumenAgunan: string | null
+  atasNamaAgunan: string | null
+  lokasiAgunan: string | null
+  nilaiLimitLelang: number | null
+  kpknl: string | null
+  tanggalLelang: Date | null
   status: $Enums.StatusSP | null
   tanggalKirim: Date | null
   metodePengiriman: $Enums.MetodePengiriman | null
@@ -137,11 +161,20 @@ export type SuratPeringatanCountAggregateOutputType = {
   tgkPokokHari: number
   tgkBungaHari: number
   biayaAdministrasi: number
+  denda: number
   kolektibilitas: number
   jenis: number
   alasan: number
   tanggalSurat: number
   tanggalJatuhTempo: number
+  batasWaktuHari: number
+  jenisAgunan: number
+  dokumenAgunan: number
+  atasNamaAgunan: number
+  lokasiAgunan: number
+  nilaiLimitLelang: number
+  kpknl: number
+  tanggalLelang: number
   status: number
   tanggalKirim: number
   metodePengiriman: number
@@ -166,7 +199,10 @@ export type SuratPeringatanAvgAggregateInputType = {
   tgkPokokHari?: true
   tgkBungaHari?: true
   biayaAdministrasi?: true
+  denda?: true
   kolektibilitas?: true
+  batasWaktuHari?: true
+  nilaiLimitLelang?: true
 }
 
 export type SuratPeringatanSumAggregateInputType = {
@@ -178,7 +214,10 @@ export type SuratPeringatanSumAggregateInputType = {
   tgkPokokHari?: true
   tgkBungaHari?: true
   biayaAdministrasi?: true
+  denda?: true
   kolektibilitas?: true
+  batasWaktuHari?: true
+  nilaiLimitLelang?: true
 }
 
 export type SuratPeringatanMinAggregateInputType = {
@@ -198,11 +237,20 @@ export type SuratPeringatanMinAggregateInputType = {
   tgkPokokHari?: true
   tgkBungaHari?: true
   biayaAdministrasi?: true
+  denda?: true
   kolektibilitas?: true
   jenis?: true
   alasan?: true
   tanggalSurat?: true
   tanggalJatuhTempo?: true
+  batasWaktuHari?: true
+  jenisAgunan?: true
+  dokumenAgunan?: true
+  atasNamaAgunan?: true
+  lokasiAgunan?: true
+  nilaiLimitLelang?: true
+  kpknl?: true
+  tanggalLelang?: true
   status?: true
   tanggalKirim?: true
   metodePengiriman?: true
@@ -233,11 +281,20 @@ export type SuratPeringatanMaxAggregateInputType = {
   tgkPokokHari?: true
   tgkBungaHari?: true
   biayaAdministrasi?: true
+  denda?: true
   kolektibilitas?: true
   jenis?: true
   alasan?: true
   tanggalSurat?: true
   tanggalJatuhTempo?: true
+  batasWaktuHari?: true
+  jenisAgunan?: true
+  dokumenAgunan?: true
+  atasNamaAgunan?: true
+  lokasiAgunan?: true
+  nilaiLimitLelang?: true
+  kpknl?: true
+  tanggalLelang?: true
   status?: true
   tanggalKirim?: true
   metodePengiriman?: true
@@ -268,11 +325,20 @@ export type SuratPeringatanCountAggregateInputType = {
   tgkPokokHari?: true
   tgkBungaHari?: true
   biayaAdministrasi?: true
+  denda?: true
   kolektibilitas?: true
   jenis?: true
   alasan?: true
   tanggalSurat?: true
   tanggalJatuhTempo?: true
+  batasWaktuHari?: true
+  jenisAgunan?: true
+  dokumenAgunan?: true
+  atasNamaAgunan?: true
+  lokasiAgunan?: true
+  nilaiLimitLelang?: true
+  kpknl?: true
+  tanggalLelang?: true
   status?: true
   tanggalKirim?: true
   metodePengiriman?: true
@@ -390,11 +456,20 @@ export type SuratPeringatanGroupByOutputType = {
   tgkPokokHari: number
   tgkBungaHari: number
   biayaAdministrasi: number | null
+  denda: number | null
   kolektibilitas: number
   jenis: $Enums.JenisSP
   alasan: string
   tanggalSurat: Date
   tanggalJatuhTempo: Date
+  batasWaktuHari: number | null
+  jenisAgunan: string | null
+  dokumenAgunan: string | null
+  atasNamaAgunan: string | null
+  lokasiAgunan: string | null
+  nilaiLimitLelang: number | null
+  kpknl: string | null
+  tanggalLelang: Date | null
   status: $Enums.StatusSP
   tanggalKirim: Date | null
   metodePengiriman: $Enums.MetodePengiriman | null
@@ -448,11 +523,20 @@ export type SuratPeringatanWhereInput = {
   tgkPokokHari?: Prisma.IntFilter<"SuratPeringatan"> | number
   tgkBungaHari?: Prisma.IntFilter<"SuratPeringatan"> | number
   biayaAdministrasi?: Prisma.FloatNullableFilter<"SuratPeringatan"> | number | null
+  denda?: Prisma.FloatNullableFilter<"SuratPeringatan"> | number | null
   kolektibilitas?: Prisma.IntFilter<"SuratPeringatan"> | number
   jenis?: Prisma.EnumJenisSPFilter<"SuratPeringatan"> | $Enums.JenisSP
   alasan?: Prisma.StringFilter<"SuratPeringatan"> | string
   tanggalSurat?: Prisma.DateTimeFilter<"SuratPeringatan"> | Date | string
   tanggalJatuhTempo?: Prisma.DateTimeFilter<"SuratPeringatan"> | Date | string
+  batasWaktuHari?: Prisma.IntNullableFilter<"SuratPeringatan"> | number | null
+  jenisAgunan?: Prisma.StringNullableFilter<"SuratPeringatan"> | string | null
+  dokumenAgunan?: Prisma.StringNullableFilter<"SuratPeringatan"> | string | null
+  atasNamaAgunan?: Prisma.StringNullableFilter<"SuratPeringatan"> | string | null
+  lokasiAgunan?: Prisma.StringNullableFilter<"SuratPeringatan"> | string | null
+  nilaiLimitLelang?: Prisma.FloatNullableFilter<"SuratPeringatan"> | number | null
+  kpknl?: Prisma.StringNullableFilter<"SuratPeringatan"> | string | null
+  tanggalLelang?: Prisma.DateTimeNullableFilter<"SuratPeringatan"> | Date | string | null
   status?: Prisma.EnumStatusSPFilter<"SuratPeringatan"> | $Enums.StatusSP
   tanggalKirim?: Prisma.DateTimeNullableFilter<"SuratPeringatan"> | Date | string | null
   metodePengiriman?: Prisma.EnumMetodePengirimanNullableFilter<"SuratPeringatan"> | $Enums.MetodePengiriman | null
@@ -487,11 +571,20 @@ export type SuratPeringatanOrderByWithRelationInput = {
   tgkPokokHari?: Prisma.SortOrder
   tgkBungaHari?: Prisma.SortOrder
   biayaAdministrasi?: Prisma.SortOrderInput | Prisma.SortOrder
+  denda?: Prisma.SortOrderInput | Prisma.SortOrder
   kolektibilitas?: Prisma.SortOrder
   jenis?: Prisma.SortOrder
   alasan?: Prisma.SortOrder
   tanggalSurat?: Prisma.SortOrder
   tanggalJatuhTempo?: Prisma.SortOrder
+  batasWaktuHari?: Prisma.SortOrderInput | Prisma.SortOrder
+  jenisAgunan?: Prisma.SortOrderInput | Prisma.SortOrder
+  dokumenAgunan?: Prisma.SortOrderInput | Prisma.SortOrder
+  atasNamaAgunan?: Prisma.SortOrderInput | Prisma.SortOrder
+  lokasiAgunan?: Prisma.SortOrderInput | Prisma.SortOrder
+  nilaiLimitLelang?: Prisma.SortOrderInput | Prisma.SortOrder
+  kpknl?: Prisma.SortOrderInput | Prisma.SortOrder
+  tanggalLelang?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   tanggalKirim?: Prisma.SortOrderInput | Prisma.SortOrder
   metodePengiriman?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -529,11 +622,20 @@ export type SuratPeringatanWhereUniqueInput = Prisma.AtLeast<{
   tgkPokokHari?: Prisma.IntFilter<"SuratPeringatan"> | number
   tgkBungaHari?: Prisma.IntFilter<"SuratPeringatan"> | number
   biayaAdministrasi?: Prisma.FloatNullableFilter<"SuratPeringatan"> | number | null
+  denda?: Prisma.FloatNullableFilter<"SuratPeringatan"> | number | null
   kolektibilitas?: Prisma.IntFilter<"SuratPeringatan"> | number
   jenis?: Prisma.EnumJenisSPFilter<"SuratPeringatan"> | $Enums.JenisSP
   alasan?: Prisma.StringFilter<"SuratPeringatan"> | string
   tanggalSurat?: Prisma.DateTimeFilter<"SuratPeringatan"> | Date | string
   tanggalJatuhTempo?: Prisma.DateTimeFilter<"SuratPeringatan"> | Date | string
+  batasWaktuHari?: Prisma.IntNullableFilter<"SuratPeringatan"> | number | null
+  jenisAgunan?: Prisma.StringNullableFilter<"SuratPeringatan"> | string | null
+  dokumenAgunan?: Prisma.StringNullableFilter<"SuratPeringatan"> | string | null
+  atasNamaAgunan?: Prisma.StringNullableFilter<"SuratPeringatan"> | string | null
+  lokasiAgunan?: Prisma.StringNullableFilter<"SuratPeringatan"> | string | null
+  nilaiLimitLelang?: Prisma.FloatNullableFilter<"SuratPeringatan"> | number | null
+  kpknl?: Prisma.StringNullableFilter<"SuratPeringatan"> | string | null
+  tanggalLelang?: Prisma.DateTimeNullableFilter<"SuratPeringatan"> | Date | string | null
   status?: Prisma.EnumStatusSPFilter<"SuratPeringatan"> | $Enums.StatusSP
   tanggalKirim?: Prisma.DateTimeNullableFilter<"SuratPeringatan"> | Date | string | null
   metodePengiriman?: Prisma.EnumMetodePengirimanNullableFilter<"SuratPeringatan"> | $Enums.MetodePengiriman | null
@@ -568,11 +670,20 @@ export type SuratPeringatanOrderByWithAggregationInput = {
   tgkPokokHari?: Prisma.SortOrder
   tgkBungaHari?: Prisma.SortOrder
   biayaAdministrasi?: Prisma.SortOrderInput | Prisma.SortOrder
+  denda?: Prisma.SortOrderInput | Prisma.SortOrder
   kolektibilitas?: Prisma.SortOrder
   jenis?: Prisma.SortOrder
   alasan?: Prisma.SortOrder
   tanggalSurat?: Prisma.SortOrder
   tanggalJatuhTempo?: Prisma.SortOrder
+  batasWaktuHari?: Prisma.SortOrderInput | Prisma.SortOrder
+  jenisAgunan?: Prisma.SortOrderInput | Prisma.SortOrder
+  dokumenAgunan?: Prisma.SortOrderInput | Prisma.SortOrder
+  atasNamaAgunan?: Prisma.SortOrderInput | Prisma.SortOrder
+  lokasiAgunan?: Prisma.SortOrderInput | Prisma.SortOrder
+  nilaiLimitLelang?: Prisma.SortOrderInput | Prisma.SortOrder
+  kpknl?: Prisma.SortOrderInput | Prisma.SortOrder
+  tanggalLelang?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   tanggalKirim?: Prisma.SortOrderInput | Prisma.SortOrder
   metodePengiriman?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -611,11 +722,20 @@ export type SuratPeringatanScalarWhereWithAggregatesInput = {
   tgkPokokHari?: Prisma.IntWithAggregatesFilter<"SuratPeringatan"> | number
   tgkBungaHari?: Prisma.IntWithAggregatesFilter<"SuratPeringatan"> | number
   biayaAdministrasi?: Prisma.FloatNullableWithAggregatesFilter<"SuratPeringatan"> | number | null
+  denda?: Prisma.FloatNullableWithAggregatesFilter<"SuratPeringatan"> | number | null
   kolektibilitas?: Prisma.IntWithAggregatesFilter<"SuratPeringatan"> | number
   jenis?: Prisma.EnumJenisSPWithAggregatesFilter<"SuratPeringatan"> | $Enums.JenisSP
   alasan?: Prisma.StringWithAggregatesFilter<"SuratPeringatan"> | string
   tanggalSurat?: Prisma.DateTimeWithAggregatesFilter<"SuratPeringatan"> | Date | string
   tanggalJatuhTempo?: Prisma.DateTimeWithAggregatesFilter<"SuratPeringatan"> | Date | string
+  batasWaktuHari?: Prisma.IntNullableWithAggregatesFilter<"SuratPeringatan"> | number | null
+  jenisAgunan?: Prisma.StringNullableWithAggregatesFilter<"SuratPeringatan"> | string | null
+  dokumenAgunan?: Prisma.StringNullableWithAggregatesFilter<"SuratPeringatan"> | string | null
+  atasNamaAgunan?: Prisma.StringNullableWithAggregatesFilter<"SuratPeringatan"> | string | null
+  lokasiAgunan?: Prisma.StringNullableWithAggregatesFilter<"SuratPeringatan"> | string | null
+  nilaiLimitLelang?: Prisma.FloatNullableWithAggregatesFilter<"SuratPeringatan"> | number | null
+  kpknl?: Prisma.StringNullableWithAggregatesFilter<"SuratPeringatan"> | string | null
+  tanggalLelang?: Prisma.DateTimeNullableWithAggregatesFilter<"SuratPeringatan"> | Date | string | null
   status?: Prisma.EnumStatusSPWithAggregatesFilter<"SuratPeringatan"> | $Enums.StatusSP
   tanggalKirim?: Prisma.DateTimeNullableWithAggregatesFilter<"SuratPeringatan"> | Date | string | null
   metodePengiriman?: Prisma.EnumMetodePengirimanNullableWithAggregatesFilter<"SuratPeringatan"> | $Enums.MetodePengiriman | null
@@ -643,11 +763,20 @@ export type SuratPeringatanCreateInput = {
   tgkPokokHari: number
   tgkBungaHari: number
   biayaAdministrasi?: number | null
+  denda?: number | null
   kolektibilitas: number
   jenis: $Enums.JenisSP
   alasan: string
   tanggalSurat: Date | string
   tanggalJatuhTempo: Date | string
+  batasWaktuHari?: number | null
+  jenisAgunan?: string | null
+  dokumenAgunan?: string | null
+  atasNamaAgunan?: string | null
+  lokasiAgunan?: string | null
+  nilaiLimitLelang?: number | null
+  kpknl?: string | null
+  tanggalLelang?: Date | string | null
   status?: $Enums.StatusSP
   tanggalKirim?: Date | string | null
   metodePengiriman?: $Enums.MetodePengiriman | null
@@ -682,11 +811,20 @@ export type SuratPeringatanUncheckedCreateInput = {
   tgkPokokHari: number
   tgkBungaHari: number
   biayaAdministrasi?: number | null
+  denda?: number | null
   kolektibilitas: number
   jenis: $Enums.JenisSP
   alasan: string
   tanggalSurat: Date | string
   tanggalJatuhTempo: Date | string
+  batasWaktuHari?: number | null
+  jenisAgunan?: string | null
+  dokumenAgunan?: string | null
+  atasNamaAgunan?: string | null
+  lokasiAgunan?: string | null
+  nilaiLimitLelang?: number | null
+  kpknl?: string | null
+  tanggalLelang?: Date | string | null
   status?: $Enums.StatusSP
   tanggalKirim?: Date | string | null
   metodePengiriman?: $Enums.MetodePengiriman | null
@@ -715,11 +853,20 @@ export type SuratPeringatanUpdateInput = {
   tgkPokokHari?: Prisma.IntFieldUpdateOperationsInput | number
   tgkBungaHari?: Prisma.IntFieldUpdateOperationsInput | number
   biayaAdministrasi?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  denda?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   kolektibilitas?: Prisma.IntFieldUpdateOperationsInput | number
   jenis?: Prisma.EnumJenisSPFieldUpdateOperationsInput | $Enums.JenisSP
   alasan?: Prisma.StringFieldUpdateOperationsInput | string
   tanggalSurat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tanggalJatuhTempo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batasWaktuHari?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  jenisAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dokumenAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  atasNamaAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lokasiAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nilaiLimitLelang?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  kpknl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tanggalLelang?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumStatusSPFieldUpdateOperationsInput | $Enums.StatusSP
   tanggalKirim?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metodePengiriman?: Prisma.NullableEnumMetodePengirimanFieldUpdateOperationsInput | $Enums.MetodePengiriman | null
@@ -754,11 +901,20 @@ export type SuratPeringatanUncheckedUpdateInput = {
   tgkPokokHari?: Prisma.IntFieldUpdateOperationsInput | number
   tgkBungaHari?: Prisma.IntFieldUpdateOperationsInput | number
   biayaAdministrasi?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  denda?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   kolektibilitas?: Prisma.IntFieldUpdateOperationsInput | number
   jenis?: Prisma.EnumJenisSPFieldUpdateOperationsInput | $Enums.JenisSP
   alasan?: Prisma.StringFieldUpdateOperationsInput | string
   tanggalSurat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tanggalJatuhTempo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batasWaktuHari?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  jenisAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dokumenAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  atasNamaAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lokasiAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nilaiLimitLelang?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  kpknl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tanggalLelang?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumStatusSPFieldUpdateOperationsInput | $Enums.StatusSP
   tanggalKirim?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metodePengiriman?: Prisma.NullableEnumMetodePengirimanFieldUpdateOperationsInput | $Enums.MetodePengiriman | null
@@ -790,11 +946,20 @@ export type SuratPeringatanCreateManyInput = {
   tgkPokokHari: number
   tgkBungaHari: number
   biayaAdministrasi?: number | null
+  denda?: number | null
   kolektibilitas: number
   jenis: $Enums.JenisSP
   alasan: string
   tanggalSurat: Date | string
   tanggalJatuhTempo: Date | string
+  batasWaktuHari?: number | null
+  jenisAgunan?: string | null
+  dokumenAgunan?: string | null
+  atasNamaAgunan?: string | null
+  lokasiAgunan?: string | null
+  nilaiLimitLelang?: number | null
+  kpknl?: string | null
+  tanggalLelang?: Date | string | null
   status?: $Enums.StatusSP
   tanggalKirim?: Date | string | null
   metodePengiriman?: $Enums.MetodePengiriman | null
@@ -822,11 +987,20 @@ export type SuratPeringatanUpdateManyMutationInput = {
   tgkPokokHari?: Prisma.IntFieldUpdateOperationsInput | number
   tgkBungaHari?: Prisma.IntFieldUpdateOperationsInput | number
   biayaAdministrasi?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  denda?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   kolektibilitas?: Prisma.IntFieldUpdateOperationsInput | number
   jenis?: Prisma.EnumJenisSPFieldUpdateOperationsInput | $Enums.JenisSP
   alasan?: Prisma.StringFieldUpdateOperationsInput | string
   tanggalSurat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tanggalJatuhTempo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batasWaktuHari?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  jenisAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dokumenAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  atasNamaAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lokasiAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nilaiLimitLelang?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  kpknl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tanggalLelang?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumStatusSPFieldUpdateOperationsInput | $Enums.StatusSP
   tanggalKirim?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metodePengiriman?: Prisma.NullableEnumMetodePengirimanFieldUpdateOperationsInput | $Enums.MetodePengiriman | null
@@ -857,11 +1031,20 @@ export type SuratPeringatanUncheckedUpdateManyInput = {
   tgkPokokHari?: Prisma.IntFieldUpdateOperationsInput | number
   tgkBungaHari?: Prisma.IntFieldUpdateOperationsInput | number
   biayaAdministrasi?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  denda?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   kolektibilitas?: Prisma.IntFieldUpdateOperationsInput | number
   jenis?: Prisma.EnumJenisSPFieldUpdateOperationsInput | $Enums.JenisSP
   alasan?: Prisma.StringFieldUpdateOperationsInput | string
   tanggalSurat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tanggalJatuhTempo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batasWaktuHari?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  jenisAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dokumenAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  atasNamaAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lokasiAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nilaiLimitLelang?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  kpknl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tanggalLelang?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumStatusSPFieldUpdateOperationsInput | $Enums.StatusSP
   tanggalKirim?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metodePengiriman?: Prisma.NullableEnumMetodePengirimanFieldUpdateOperationsInput | $Enums.MetodePengiriman | null
@@ -902,11 +1085,20 @@ export type SuratPeringatanCountOrderByAggregateInput = {
   tgkPokokHari?: Prisma.SortOrder
   tgkBungaHari?: Prisma.SortOrder
   biayaAdministrasi?: Prisma.SortOrder
+  denda?: Prisma.SortOrder
   kolektibilitas?: Prisma.SortOrder
   jenis?: Prisma.SortOrder
   alasan?: Prisma.SortOrder
   tanggalSurat?: Prisma.SortOrder
   tanggalJatuhTempo?: Prisma.SortOrder
+  batasWaktuHari?: Prisma.SortOrder
+  jenisAgunan?: Prisma.SortOrder
+  dokumenAgunan?: Prisma.SortOrder
+  atasNamaAgunan?: Prisma.SortOrder
+  lokasiAgunan?: Prisma.SortOrder
+  nilaiLimitLelang?: Prisma.SortOrder
+  kpknl?: Prisma.SortOrder
+  tanggalLelang?: Prisma.SortOrder
   status?: Prisma.SortOrder
   tanggalKirim?: Prisma.SortOrder
   metodePengiriman?: Prisma.SortOrder
@@ -929,7 +1121,10 @@ export type SuratPeringatanAvgOrderByAggregateInput = {
   tgkPokokHari?: Prisma.SortOrder
   tgkBungaHari?: Prisma.SortOrder
   biayaAdministrasi?: Prisma.SortOrder
+  denda?: Prisma.SortOrder
   kolektibilitas?: Prisma.SortOrder
+  batasWaktuHari?: Prisma.SortOrder
+  nilaiLimitLelang?: Prisma.SortOrder
 }
 
 export type SuratPeringatanMaxOrderByAggregateInput = {
@@ -949,11 +1144,20 @@ export type SuratPeringatanMaxOrderByAggregateInput = {
   tgkPokokHari?: Prisma.SortOrder
   tgkBungaHari?: Prisma.SortOrder
   biayaAdministrasi?: Prisma.SortOrder
+  denda?: Prisma.SortOrder
   kolektibilitas?: Prisma.SortOrder
   jenis?: Prisma.SortOrder
   alasan?: Prisma.SortOrder
   tanggalSurat?: Prisma.SortOrder
   tanggalJatuhTempo?: Prisma.SortOrder
+  batasWaktuHari?: Prisma.SortOrder
+  jenisAgunan?: Prisma.SortOrder
+  dokumenAgunan?: Prisma.SortOrder
+  atasNamaAgunan?: Prisma.SortOrder
+  lokasiAgunan?: Prisma.SortOrder
+  nilaiLimitLelang?: Prisma.SortOrder
+  kpknl?: Prisma.SortOrder
+  tanggalLelang?: Prisma.SortOrder
   status?: Prisma.SortOrder
   tanggalKirim?: Prisma.SortOrder
   metodePengiriman?: Prisma.SortOrder
@@ -984,11 +1188,20 @@ export type SuratPeringatanMinOrderByAggregateInput = {
   tgkPokokHari?: Prisma.SortOrder
   tgkBungaHari?: Prisma.SortOrder
   biayaAdministrasi?: Prisma.SortOrder
+  denda?: Prisma.SortOrder
   kolektibilitas?: Prisma.SortOrder
   jenis?: Prisma.SortOrder
   alasan?: Prisma.SortOrder
   tanggalSurat?: Prisma.SortOrder
   tanggalJatuhTempo?: Prisma.SortOrder
+  batasWaktuHari?: Prisma.SortOrder
+  jenisAgunan?: Prisma.SortOrder
+  dokumenAgunan?: Prisma.SortOrder
+  atasNamaAgunan?: Prisma.SortOrder
+  lokasiAgunan?: Prisma.SortOrder
+  nilaiLimitLelang?: Prisma.SortOrder
+  kpknl?: Prisma.SortOrder
+  tanggalLelang?: Prisma.SortOrder
   status?: Prisma.SortOrder
   tanggalKirim?: Prisma.SortOrder
   metodePengiriman?: Prisma.SortOrder
@@ -1011,7 +1224,10 @@ export type SuratPeringatanSumOrderByAggregateInput = {
   tgkPokokHari?: Prisma.SortOrder
   tgkBungaHari?: Prisma.SortOrder
   biayaAdministrasi?: Prisma.SortOrder
+  denda?: Prisma.SortOrder
   kolektibilitas?: Prisma.SortOrder
+  batasWaktuHari?: Prisma.SortOrder
+  nilaiLimitLelang?: Prisma.SortOrder
 }
 
 export type SuratPeringatanScalarRelationFilter = {
@@ -1177,6 +1393,14 @@ export type EnumJenisSPFieldUpdateOperationsInput = {
   set?: $Enums.JenisSP
 }
 
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type EnumStatusSPFieldUpdateOperationsInput = {
   set?: $Enums.StatusSP
 }
@@ -1213,11 +1437,20 @@ export type SuratPeringatanCreateWithoutNasabahInput = {
   tgkPokokHari: number
   tgkBungaHari: number
   biayaAdministrasi?: number | null
+  denda?: number | null
   kolektibilitas: number
   jenis: $Enums.JenisSP
   alasan: string
   tanggalSurat: Date | string
   tanggalJatuhTempo: Date | string
+  batasWaktuHari?: number | null
+  jenisAgunan?: string | null
+  dokumenAgunan?: string | null
+  atasNamaAgunan?: string | null
+  lokasiAgunan?: string | null
+  nilaiLimitLelang?: number | null
+  kpknl?: string | null
+  tanggalLelang?: Date | string | null
   status?: $Enums.StatusSP
   tanggalKirim?: Date | string | null
   metodePengiriman?: $Enums.MetodePengiriman | null
@@ -1250,11 +1483,20 @@ export type SuratPeringatanUncheckedCreateWithoutNasabahInput = {
   tgkPokokHari: number
   tgkBungaHari: number
   biayaAdministrasi?: number | null
+  denda?: number | null
   kolektibilitas: number
   jenis: $Enums.JenisSP
   alasan: string
   tanggalSurat: Date | string
   tanggalJatuhTempo: Date | string
+  batasWaktuHari?: number | null
+  jenisAgunan?: string | null
+  dokumenAgunan?: string | null
+  atasNamaAgunan?: string | null
+  lokasiAgunan?: string | null
+  nilaiLimitLelang?: number | null
+  kpknl?: string | null
+  tanggalLelang?: Date | string | null
   status?: $Enums.StatusSP
   tanggalKirim?: Date | string | null
   metodePengiriman?: $Enums.MetodePengiriman | null
@@ -1315,11 +1557,20 @@ export type SuratPeringatanScalarWhereInput = {
   tgkPokokHari?: Prisma.IntFilter<"SuratPeringatan"> | number
   tgkBungaHari?: Prisma.IntFilter<"SuratPeringatan"> | number
   biayaAdministrasi?: Prisma.FloatNullableFilter<"SuratPeringatan"> | number | null
+  denda?: Prisma.FloatNullableFilter<"SuratPeringatan"> | number | null
   kolektibilitas?: Prisma.IntFilter<"SuratPeringatan"> | number
   jenis?: Prisma.EnumJenisSPFilter<"SuratPeringatan"> | $Enums.JenisSP
   alasan?: Prisma.StringFilter<"SuratPeringatan"> | string
   tanggalSurat?: Prisma.DateTimeFilter<"SuratPeringatan"> | Date | string
   tanggalJatuhTempo?: Prisma.DateTimeFilter<"SuratPeringatan"> | Date | string
+  batasWaktuHari?: Prisma.IntNullableFilter<"SuratPeringatan"> | number | null
+  jenisAgunan?: Prisma.StringNullableFilter<"SuratPeringatan"> | string | null
+  dokumenAgunan?: Prisma.StringNullableFilter<"SuratPeringatan"> | string | null
+  atasNamaAgunan?: Prisma.StringNullableFilter<"SuratPeringatan"> | string | null
+  lokasiAgunan?: Prisma.StringNullableFilter<"SuratPeringatan"> | string | null
+  nilaiLimitLelang?: Prisma.FloatNullableFilter<"SuratPeringatan"> | number | null
+  kpknl?: Prisma.StringNullableFilter<"SuratPeringatan"> | string | null
+  tanggalLelang?: Prisma.DateTimeNullableFilter<"SuratPeringatan"> | Date | string | null
   status?: Prisma.EnumStatusSPFilter<"SuratPeringatan"> | $Enums.StatusSP
   tanggalKirim?: Prisma.DateTimeNullableFilter<"SuratPeringatan"> | Date | string | null
   metodePengiriman?: Prisma.EnumMetodePengirimanNullableFilter<"SuratPeringatan"> | $Enums.MetodePengiriman | null
@@ -1347,11 +1598,20 @@ export type SuratPeringatanCreateWithoutPetugasInput = {
   tgkPokokHari: number
   tgkBungaHari: number
   biayaAdministrasi?: number | null
+  denda?: number | null
   kolektibilitas: number
   jenis: $Enums.JenisSP
   alasan: string
   tanggalSurat: Date | string
   tanggalJatuhTempo: Date | string
+  batasWaktuHari?: number | null
+  jenisAgunan?: string | null
+  dokumenAgunan?: string | null
+  atasNamaAgunan?: string | null
+  lokasiAgunan?: string | null
+  nilaiLimitLelang?: number | null
+  kpknl?: string | null
+  tanggalLelang?: Date | string | null
   status?: $Enums.StatusSP
   tanggalKirim?: Date | string | null
   metodePengiriman?: $Enums.MetodePengiriman | null
@@ -1384,11 +1644,20 @@ export type SuratPeringatanUncheckedCreateWithoutPetugasInput = {
   tgkPokokHari: number
   tgkBungaHari: number
   biayaAdministrasi?: number | null
+  denda?: number | null
   kolektibilitas: number
   jenis: $Enums.JenisSP
   alasan: string
   tanggalSurat: Date | string
   tanggalJatuhTempo: Date | string
+  batasWaktuHari?: number | null
+  jenisAgunan?: string | null
+  dokumenAgunan?: string | null
+  atasNamaAgunan?: string | null
+  lokasiAgunan?: string | null
+  nilaiLimitLelang?: number | null
+  kpknl?: string | null
+  tanggalLelang?: Date | string | null
   status?: $Enums.StatusSP
   tanggalKirim?: Date | string | null
   metodePengiriman?: $Enums.MetodePengiriman | null
@@ -1443,11 +1712,20 @@ export type SuratPeringatanCreateWithoutKejaksaanInput = {
   tgkPokokHari: number
   tgkBungaHari: number
   biayaAdministrasi?: number | null
+  denda?: number | null
   kolektibilitas: number
   jenis: $Enums.JenisSP
   alasan: string
   tanggalSurat: Date | string
   tanggalJatuhTempo: Date | string
+  batasWaktuHari?: number | null
+  jenisAgunan?: string | null
+  dokumenAgunan?: string | null
+  atasNamaAgunan?: string | null
+  lokasiAgunan?: string | null
+  nilaiLimitLelang?: number | null
+  kpknl?: string | null
+  tanggalLelang?: Date | string | null
   status?: $Enums.StatusSP
   tanggalKirim?: Date | string | null
   metodePengiriman?: $Enums.MetodePengiriman | null
@@ -1480,11 +1758,20 @@ export type SuratPeringatanUncheckedCreateWithoutKejaksaanInput = {
   tgkPokokHari: number
   tgkBungaHari: number
   biayaAdministrasi?: number | null
+  denda?: number | null
   kolektibilitas: number
   jenis: $Enums.JenisSP
   alasan: string
   tanggalSurat: Date | string
   tanggalJatuhTempo: Date | string
+  batasWaktuHari?: number | null
+  jenisAgunan?: string | null
+  dokumenAgunan?: string | null
+  atasNamaAgunan?: string | null
+  lokasiAgunan?: string | null
+  nilaiLimitLelang?: number | null
+  kpknl?: string | null
+  tanggalLelang?: Date | string | null
   status?: $Enums.StatusSP
   tanggalKirim?: Date | string | null
   metodePengiriman?: $Enums.MetodePengiriman | null
@@ -1539,11 +1826,20 @@ export type SuratPeringatanCreateWithoutApprovalsInput = {
   tgkPokokHari: number
   tgkBungaHari: number
   biayaAdministrasi?: number | null
+  denda?: number | null
   kolektibilitas: number
   jenis: $Enums.JenisSP
   alasan: string
   tanggalSurat: Date | string
   tanggalJatuhTempo: Date | string
+  batasWaktuHari?: number | null
+  jenisAgunan?: string | null
+  dokumenAgunan?: string | null
+  atasNamaAgunan?: string | null
+  lokasiAgunan?: string | null
+  nilaiLimitLelang?: number | null
+  kpknl?: string | null
+  tanggalLelang?: Date | string | null
   status?: $Enums.StatusSP
   tanggalKirim?: Date | string | null
   metodePengiriman?: $Enums.MetodePengiriman | null
@@ -1577,11 +1873,20 @@ export type SuratPeringatanUncheckedCreateWithoutApprovalsInput = {
   tgkPokokHari: number
   tgkBungaHari: number
   biayaAdministrasi?: number | null
+  denda?: number | null
   kolektibilitas: number
   jenis: $Enums.JenisSP
   alasan: string
   tanggalSurat: Date | string
   tanggalJatuhTempo: Date | string
+  batasWaktuHari?: number | null
+  jenisAgunan?: string | null
+  dokumenAgunan?: string | null
+  atasNamaAgunan?: string | null
+  lokasiAgunan?: string | null
+  nilaiLimitLelang?: number | null
+  kpknl?: string | null
+  tanggalLelang?: Date | string | null
   status?: $Enums.StatusSP
   tanggalKirim?: Date | string | null
   metodePengiriman?: $Enums.MetodePengiriman | null
@@ -1625,11 +1930,20 @@ export type SuratPeringatanUpdateWithoutApprovalsInput = {
   tgkPokokHari?: Prisma.IntFieldUpdateOperationsInput | number
   tgkBungaHari?: Prisma.IntFieldUpdateOperationsInput | number
   biayaAdministrasi?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  denda?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   kolektibilitas?: Prisma.IntFieldUpdateOperationsInput | number
   jenis?: Prisma.EnumJenisSPFieldUpdateOperationsInput | $Enums.JenisSP
   alasan?: Prisma.StringFieldUpdateOperationsInput | string
   tanggalSurat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tanggalJatuhTempo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batasWaktuHari?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  jenisAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dokumenAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  atasNamaAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lokasiAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nilaiLimitLelang?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  kpknl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tanggalLelang?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumStatusSPFieldUpdateOperationsInput | $Enums.StatusSP
   tanggalKirim?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metodePengiriman?: Prisma.NullableEnumMetodePengirimanFieldUpdateOperationsInput | $Enums.MetodePengiriman | null
@@ -1663,11 +1977,20 @@ export type SuratPeringatanUncheckedUpdateWithoutApprovalsInput = {
   tgkPokokHari?: Prisma.IntFieldUpdateOperationsInput | number
   tgkBungaHari?: Prisma.IntFieldUpdateOperationsInput | number
   biayaAdministrasi?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  denda?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   kolektibilitas?: Prisma.IntFieldUpdateOperationsInput | number
   jenis?: Prisma.EnumJenisSPFieldUpdateOperationsInput | $Enums.JenisSP
   alasan?: Prisma.StringFieldUpdateOperationsInput | string
   tanggalSurat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tanggalJatuhTempo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batasWaktuHari?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  jenisAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dokumenAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  atasNamaAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lokasiAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nilaiLimitLelang?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  kpknl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tanggalLelang?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumStatusSPFieldUpdateOperationsInput | $Enums.StatusSP
   tanggalKirim?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metodePengiriman?: Prisma.NullableEnumMetodePengirimanFieldUpdateOperationsInput | $Enums.MetodePengiriman | null
@@ -1697,11 +2020,20 @@ export type SuratPeringatanCreateManyNasabahInput = {
   tgkPokokHari: number
   tgkBungaHari: number
   biayaAdministrasi?: number | null
+  denda?: number | null
   kolektibilitas: number
   jenis: $Enums.JenisSP
   alasan: string
   tanggalSurat: Date | string
   tanggalJatuhTempo: Date | string
+  batasWaktuHari?: number | null
+  jenisAgunan?: string | null
+  dokumenAgunan?: string | null
+  atasNamaAgunan?: string | null
+  lokasiAgunan?: string | null
+  nilaiLimitLelang?: number | null
+  kpknl?: string | null
+  tanggalLelang?: Date | string | null
   status?: $Enums.StatusSP
   tanggalKirim?: Date | string | null
   metodePengiriman?: $Enums.MetodePengiriman | null
@@ -1729,11 +2061,20 @@ export type SuratPeringatanUpdateWithoutNasabahInput = {
   tgkPokokHari?: Prisma.IntFieldUpdateOperationsInput | number
   tgkBungaHari?: Prisma.IntFieldUpdateOperationsInput | number
   biayaAdministrasi?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  denda?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   kolektibilitas?: Prisma.IntFieldUpdateOperationsInput | number
   jenis?: Prisma.EnumJenisSPFieldUpdateOperationsInput | $Enums.JenisSP
   alasan?: Prisma.StringFieldUpdateOperationsInput | string
   tanggalSurat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tanggalJatuhTempo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batasWaktuHari?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  jenisAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dokumenAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  atasNamaAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lokasiAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nilaiLimitLelang?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  kpknl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tanggalLelang?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumStatusSPFieldUpdateOperationsInput | $Enums.StatusSP
   tanggalKirim?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metodePengiriman?: Prisma.NullableEnumMetodePengirimanFieldUpdateOperationsInput | $Enums.MetodePengiriman | null
@@ -1766,11 +2107,20 @@ export type SuratPeringatanUncheckedUpdateWithoutNasabahInput = {
   tgkPokokHari?: Prisma.IntFieldUpdateOperationsInput | number
   tgkBungaHari?: Prisma.IntFieldUpdateOperationsInput | number
   biayaAdministrasi?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  denda?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   kolektibilitas?: Prisma.IntFieldUpdateOperationsInput | number
   jenis?: Prisma.EnumJenisSPFieldUpdateOperationsInput | $Enums.JenisSP
   alasan?: Prisma.StringFieldUpdateOperationsInput | string
   tanggalSurat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tanggalJatuhTempo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batasWaktuHari?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  jenisAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dokumenAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  atasNamaAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lokasiAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nilaiLimitLelang?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  kpknl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tanggalLelang?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumStatusSPFieldUpdateOperationsInput | $Enums.StatusSP
   tanggalKirim?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metodePengiriman?: Prisma.NullableEnumMetodePengirimanFieldUpdateOperationsInput | $Enums.MetodePengiriman | null
@@ -1801,11 +2151,20 @@ export type SuratPeringatanUncheckedUpdateManyWithoutNasabahInput = {
   tgkPokokHari?: Prisma.IntFieldUpdateOperationsInput | number
   tgkBungaHari?: Prisma.IntFieldUpdateOperationsInput | number
   biayaAdministrasi?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  denda?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   kolektibilitas?: Prisma.IntFieldUpdateOperationsInput | number
   jenis?: Prisma.EnumJenisSPFieldUpdateOperationsInput | $Enums.JenisSP
   alasan?: Prisma.StringFieldUpdateOperationsInput | string
   tanggalSurat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tanggalJatuhTempo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batasWaktuHari?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  jenisAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dokumenAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  atasNamaAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lokasiAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nilaiLimitLelang?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  kpknl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tanggalLelang?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumStatusSPFieldUpdateOperationsInput | $Enums.StatusSP
   tanggalKirim?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metodePengiriman?: Prisma.NullableEnumMetodePengirimanFieldUpdateOperationsInput | $Enums.MetodePengiriman | null
@@ -1835,11 +2194,20 @@ export type SuratPeringatanCreateManyPetugasInput = {
   tgkPokokHari: number
   tgkBungaHari: number
   biayaAdministrasi?: number | null
+  denda?: number | null
   kolektibilitas: number
   jenis: $Enums.JenisSP
   alasan: string
   tanggalSurat: Date | string
   tanggalJatuhTempo: Date | string
+  batasWaktuHari?: number | null
+  jenisAgunan?: string | null
+  dokumenAgunan?: string | null
+  atasNamaAgunan?: string | null
+  lokasiAgunan?: string | null
+  nilaiLimitLelang?: number | null
+  kpknl?: string | null
+  tanggalLelang?: Date | string | null
   status?: $Enums.StatusSP
   tanggalKirim?: Date | string | null
   metodePengiriman?: $Enums.MetodePengiriman | null
@@ -1867,11 +2235,20 @@ export type SuratPeringatanUpdateWithoutPetugasInput = {
   tgkPokokHari?: Prisma.IntFieldUpdateOperationsInput | number
   tgkBungaHari?: Prisma.IntFieldUpdateOperationsInput | number
   biayaAdministrasi?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  denda?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   kolektibilitas?: Prisma.IntFieldUpdateOperationsInput | number
   jenis?: Prisma.EnumJenisSPFieldUpdateOperationsInput | $Enums.JenisSP
   alasan?: Prisma.StringFieldUpdateOperationsInput | string
   tanggalSurat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tanggalJatuhTempo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batasWaktuHari?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  jenisAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dokumenAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  atasNamaAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lokasiAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nilaiLimitLelang?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  kpknl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tanggalLelang?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumStatusSPFieldUpdateOperationsInput | $Enums.StatusSP
   tanggalKirim?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metodePengiriman?: Prisma.NullableEnumMetodePengirimanFieldUpdateOperationsInput | $Enums.MetodePengiriman | null
@@ -1904,11 +2281,20 @@ export type SuratPeringatanUncheckedUpdateWithoutPetugasInput = {
   tgkPokokHari?: Prisma.IntFieldUpdateOperationsInput | number
   tgkBungaHari?: Prisma.IntFieldUpdateOperationsInput | number
   biayaAdministrasi?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  denda?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   kolektibilitas?: Prisma.IntFieldUpdateOperationsInput | number
   jenis?: Prisma.EnumJenisSPFieldUpdateOperationsInput | $Enums.JenisSP
   alasan?: Prisma.StringFieldUpdateOperationsInput | string
   tanggalSurat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tanggalJatuhTempo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batasWaktuHari?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  jenisAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dokumenAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  atasNamaAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lokasiAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nilaiLimitLelang?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  kpknl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tanggalLelang?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumStatusSPFieldUpdateOperationsInput | $Enums.StatusSP
   tanggalKirim?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metodePengiriman?: Prisma.NullableEnumMetodePengirimanFieldUpdateOperationsInput | $Enums.MetodePengiriman | null
@@ -1939,11 +2325,20 @@ export type SuratPeringatanUncheckedUpdateManyWithoutPetugasInput = {
   tgkPokokHari?: Prisma.IntFieldUpdateOperationsInput | number
   tgkBungaHari?: Prisma.IntFieldUpdateOperationsInput | number
   biayaAdministrasi?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  denda?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   kolektibilitas?: Prisma.IntFieldUpdateOperationsInput | number
   jenis?: Prisma.EnumJenisSPFieldUpdateOperationsInput | $Enums.JenisSP
   alasan?: Prisma.StringFieldUpdateOperationsInput | string
   tanggalSurat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tanggalJatuhTempo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batasWaktuHari?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  jenisAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dokumenAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  atasNamaAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lokasiAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nilaiLimitLelang?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  kpknl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tanggalLelang?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumStatusSPFieldUpdateOperationsInput | $Enums.StatusSP
   tanggalKirim?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metodePengiriman?: Prisma.NullableEnumMetodePengirimanFieldUpdateOperationsInput | $Enums.MetodePengiriman | null
@@ -1973,11 +2368,20 @@ export type SuratPeringatanCreateManyKejaksaanInput = {
   tgkPokokHari: number
   tgkBungaHari: number
   biayaAdministrasi?: number | null
+  denda?: number | null
   kolektibilitas: number
   jenis: $Enums.JenisSP
   alasan: string
   tanggalSurat: Date | string
   tanggalJatuhTempo: Date | string
+  batasWaktuHari?: number | null
+  jenisAgunan?: string | null
+  dokumenAgunan?: string | null
+  atasNamaAgunan?: string | null
+  lokasiAgunan?: string | null
+  nilaiLimitLelang?: number | null
+  kpknl?: string | null
+  tanggalLelang?: Date | string | null
   status?: $Enums.StatusSP
   tanggalKirim?: Date | string | null
   metodePengiriman?: $Enums.MetodePengiriman | null
@@ -2005,11 +2409,20 @@ export type SuratPeringatanUpdateWithoutKejaksaanInput = {
   tgkPokokHari?: Prisma.IntFieldUpdateOperationsInput | number
   tgkBungaHari?: Prisma.IntFieldUpdateOperationsInput | number
   biayaAdministrasi?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  denda?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   kolektibilitas?: Prisma.IntFieldUpdateOperationsInput | number
   jenis?: Prisma.EnumJenisSPFieldUpdateOperationsInput | $Enums.JenisSP
   alasan?: Prisma.StringFieldUpdateOperationsInput | string
   tanggalSurat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tanggalJatuhTempo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batasWaktuHari?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  jenisAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dokumenAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  atasNamaAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lokasiAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nilaiLimitLelang?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  kpknl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tanggalLelang?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumStatusSPFieldUpdateOperationsInput | $Enums.StatusSP
   tanggalKirim?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metodePengiriman?: Prisma.NullableEnumMetodePengirimanFieldUpdateOperationsInput | $Enums.MetodePengiriman | null
@@ -2042,11 +2455,20 @@ export type SuratPeringatanUncheckedUpdateWithoutKejaksaanInput = {
   tgkPokokHari?: Prisma.IntFieldUpdateOperationsInput | number
   tgkBungaHari?: Prisma.IntFieldUpdateOperationsInput | number
   biayaAdministrasi?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  denda?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   kolektibilitas?: Prisma.IntFieldUpdateOperationsInput | number
   jenis?: Prisma.EnumJenisSPFieldUpdateOperationsInput | $Enums.JenisSP
   alasan?: Prisma.StringFieldUpdateOperationsInput | string
   tanggalSurat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tanggalJatuhTempo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batasWaktuHari?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  jenisAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dokumenAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  atasNamaAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lokasiAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nilaiLimitLelang?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  kpknl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tanggalLelang?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumStatusSPFieldUpdateOperationsInput | $Enums.StatusSP
   tanggalKirim?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metodePengiriman?: Prisma.NullableEnumMetodePengirimanFieldUpdateOperationsInput | $Enums.MetodePengiriman | null
@@ -2077,11 +2499,20 @@ export type SuratPeringatanUncheckedUpdateManyWithoutKejaksaanInput = {
   tgkPokokHari?: Prisma.IntFieldUpdateOperationsInput | number
   tgkBungaHari?: Prisma.IntFieldUpdateOperationsInput | number
   biayaAdministrasi?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  denda?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   kolektibilitas?: Prisma.IntFieldUpdateOperationsInput | number
   jenis?: Prisma.EnumJenisSPFieldUpdateOperationsInput | $Enums.JenisSP
   alasan?: Prisma.StringFieldUpdateOperationsInput | string
   tanggalSurat?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tanggalJatuhTempo?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  batasWaktuHari?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  jenisAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dokumenAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  atasNamaAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lokasiAgunan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nilaiLimitLelang?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  kpknl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tanggalLelang?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   status?: Prisma.EnumStatusSPFieldUpdateOperationsInput | $Enums.StatusSP
   tanggalKirim?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   metodePengiriman?: Prisma.NullableEnumMetodePengirimanFieldUpdateOperationsInput | $Enums.MetodePengiriman | null
@@ -2143,11 +2574,20 @@ export type SuratPeringatanSelect<ExtArgs extends runtime.Types.Extensions.Inter
   tgkPokokHari?: boolean
   tgkBungaHari?: boolean
   biayaAdministrasi?: boolean
+  denda?: boolean
   kolektibilitas?: boolean
   jenis?: boolean
   alasan?: boolean
   tanggalSurat?: boolean
   tanggalJatuhTempo?: boolean
+  batasWaktuHari?: boolean
+  jenisAgunan?: boolean
+  dokumenAgunan?: boolean
+  atasNamaAgunan?: boolean
+  lokasiAgunan?: boolean
+  nilaiLimitLelang?: boolean
+  kpknl?: boolean
+  tanggalLelang?: boolean
   status?: boolean
   tanggalKirim?: boolean
   metodePengiriman?: boolean
@@ -2183,11 +2623,20 @@ export type SuratPeringatanSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   tgkPokokHari?: boolean
   tgkBungaHari?: boolean
   biayaAdministrasi?: boolean
+  denda?: boolean
   kolektibilitas?: boolean
   jenis?: boolean
   alasan?: boolean
   tanggalSurat?: boolean
   tanggalJatuhTempo?: boolean
+  batasWaktuHari?: boolean
+  jenisAgunan?: boolean
+  dokumenAgunan?: boolean
+  atasNamaAgunan?: boolean
+  lokasiAgunan?: boolean
+  nilaiLimitLelang?: boolean
+  kpknl?: boolean
+  tanggalLelang?: boolean
   status?: boolean
   tanggalKirim?: boolean
   metodePengiriman?: boolean
@@ -2221,11 +2670,20 @@ export type SuratPeringatanSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   tgkPokokHari?: boolean
   tgkBungaHari?: boolean
   biayaAdministrasi?: boolean
+  denda?: boolean
   kolektibilitas?: boolean
   jenis?: boolean
   alasan?: boolean
   tanggalSurat?: boolean
   tanggalJatuhTempo?: boolean
+  batasWaktuHari?: boolean
+  jenisAgunan?: boolean
+  dokumenAgunan?: boolean
+  atasNamaAgunan?: boolean
+  lokasiAgunan?: boolean
+  nilaiLimitLelang?: boolean
+  kpknl?: boolean
+  tanggalLelang?: boolean
   status?: boolean
   tanggalKirim?: boolean
   metodePengiriman?: boolean
@@ -2259,11 +2717,20 @@ export type SuratPeringatanSelectScalar = {
   tgkPokokHari?: boolean
   tgkBungaHari?: boolean
   biayaAdministrasi?: boolean
+  denda?: boolean
   kolektibilitas?: boolean
   jenis?: boolean
   alasan?: boolean
   tanggalSurat?: boolean
   tanggalJatuhTempo?: boolean
+  batasWaktuHari?: boolean
+  jenisAgunan?: boolean
+  dokumenAgunan?: boolean
+  atasNamaAgunan?: boolean
+  lokasiAgunan?: boolean
+  nilaiLimitLelang?: boolean
+  kpknl?: boolean
+  tanggalLelang?: boolean
   status?: boolean
   tanggalKirim?: boolean
   metodePengiriman?: boolean
@@ -2277,7 +2744,7 @@ export type SuratPeringatanSelectScalar = {
   updatedAt?: boolean
 }
 
-export type SuratPeringatanOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nomorSurat" | "nasabahId" | "kejaksaanId" | "petugasId" | "noPjm" | "jenisFasilitas" | "tanggalAkadKredit" | "sukuBunga" | "plafond" | "saldo" | "tgkPokok" | "tgkBunga" | "tgkPokokHari" | "tgkBungaHari" | "biayaAdministrasi" | "kolektibilitas" | "jenis" | "alasan" | "tanggalSurat" | "tanggalJatuhTempo" | "status" | "tanggalKirim" | "metodePengiriman" | "noResi" | "buktiKirim" | "buktiTandaTerima" | "catatan" | "lastVerifiedAt" | "arsipPdf" | "createdAt" | "updatedAt", ExtArgs["result"]["suratPeringatan"]>
+export type SuratPeringatanOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nomorSurat" | "nasabahId" | "kejaksaanId" | "petugasId" | "noPjm" | "jenisFasilitas" | "tanggalAkadKredit" | "sukuBunga" | "plafond" | "saldo" | "tgkPokok" | "tgkBunga" | "tgkPokokHari" | "tgkBungaHari" | "biayaAdministrasi" | "denda" | "kolektibilitas" | "jenis" | "alasan" | "tanggalSurat" | "tanggalJatuhTempo" | "batasWaktuHari" | "jenisAgunan" | "dokumenAgunan" | "atasNamaAgunan" | "lokasiAgunan" | "nilaiLimitLelang" | "kpknl" | "tanggalLelang" | "status" | "tanggalKirim" | "metodePengiriman" | "noResi" | "buktiKirim" | "buktiTandaTerima" | "catatan" | "lastVerifiedAt" | "arsipPdf" | "createdAt" | "updatedAt", ExtArgs["result"]["suratPeringatan"]>
 export type SuratPeringatanInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   nasabah?: boolean | Prisma.NasabahDefaultArgs<ExtArgs>
   kejaksaan?: boolean | Prisma.SuratPeringatan$kejaksaanArgs<ExtArgs>
@@ -2321,11 +2788,20 @@ export type $SuratPeringatanPayload<ExtArgs extends runtime.Types.Extensions.Int
     tgkPokokHari: number
     tgkBungaHari: number
     biayaAdministrasi: number | null
+    denda: number | null
     kolektibilitas: number
     jenis: $Enums.JenisSP
     alasan: string
     tanggalSurat: Date
     tanggalJatuhTempo: Date
+    batasWaktuHari: number | null
+    jenisAgunan: string | null
+    dokumenAgunan: string | null
+    atasNamaAgunan: string | null
+    lokasiAgunan: string | null
+    nilaiLimitLelang: number | null
+    kpknl: string | null
+    tanggalLelang: Date | null
     status: $Enums.StatusSP
     tanggalKirim: Date | null
     metodePengiriman: $Enums.MetodePengiriman | null
@@ -2780,11 +3256,20 @@ export interface SuratPeringatanFieldRefs {
   readonly tgkPokokHari: Prisma.FieldRef<"SuratPeringatan", 'Int'>
   readonly tgkBungaHari: Prisma.FieldRef<"SuratPeringatan", 'Int'>
   readonly biayaAdministrasi: Prisma.FieldRef<"SuratPeringatan", 'Float'>
+  readonly denda: Prisma.FieldRef<"SuratPeringatan", 'Float'>
   readonly kolektibilitas: Prisma.FieldRef<"SuratPeringatan", 'Int'>
   readonly jenis: Prisma.FieldRef<"SuratPeringatan", 'JenisSP'>
   readonly alasan: Prisma.FieldRef<"SuratPeringatan", 'String'>
   readonly tanggalSurat: Prisma.FieldRef<"SuratPeringatan", 'DateTime'>
   readonly tanggalJatuhTempo: Prisma.FieldRef<"SuratPeringatan", 'DateTime'>
+  readonly batasWaktuHari: Prisma.FieldRef<"SuratPeringatan", 'Int'>
+  readonly jenisAgunan: Prisma.FieldRef<"SuratPeringatan", 'String'>
+  readonly dokumenAgunan: Prisma.FieldRef<"SuratPeringatan", 'String'>
+  readonly atasNamaAgunan: Prisma.FieldRef<"SuratPeringatan", 'String'>
+  readonly lokasiAgunan: Prisma.FieldRef<"SuratPeringatan", 'String'>
+  readonly nilaiLimitLelang: Prisma.FieldRef<"SuratPeringatan", 'Float'>
+  readonly kpknl: Prisma.FieldRef<"SuratPeringatan", 'String'>
+  readonly tanggalLelang: Prisma.FieldRef<"SuratPeringatan", 'DateTime'>
   readonly status: Prisma.FieldRef<"SuratPeringatan", 'StatusSP'>
   readonly tanggalKirim: Prisma.FieldRef<"SuratPeringatan", 'DateTime'>
   readonly metodePengiriman: Prisma.FieldRef<"SuratPeringatan", 'MetodePengiriman'>

@@ -12,7 +12,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import Table from "@/components/ui/table";
 import {
   Tooltip,
   TooltipContent,
@@ -32,6 +31,7 @@ import {
   STATUS_LABEL,
 } from "../label";
 import { SPWithNasabah } from "../schema";
+import Table from "@/components/ui/table-custom";
 
 interface Props {
   sp: SPWithNasabah[];

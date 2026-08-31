@@ -262,11 +262,21 @@ export default function SPDetail({ sp }: Props) {
             )}
           </SectionCard>
 
-          <SectionCard icon={Landmark} title="Data Pinjaman">
+          <SectionCard icon={Landmark} title="Data Pinjaman & Kewajiban">
             <InfoRow label="No. Pinjaman" value={sp.noPjm} mono />
+            <InfoRow label="Jenis Fasilitas" value={sp.jenisFasilitas ?? "-"} />
+            {sp.tanggalAkadKredit && (
+              <InfoRow
+                label="Tanggal Akad Kredit"
+                value={formatDate(sp.tanggalAkadKredit)}
+              />
+            )}
+            {sp.sukuBunga != null && (
+              <InfoRow label="Suku Bunga" value={`${sp.sukuBunga}%`} />
+            )}
             <InfoRow label="Kolektibilitas" value={sp.kolektibilitas} />
             <InfoRow label="Plafond" value={formatCurrency(sp.plafond)} />
-            <InfoRow label="Saldo" value={formatCurrency(sp.saldo)} />
+            <InfoRow label="Saldo / Baki Debet" value={formatCurrency(sp.saldo)} />
             <InfoRow
               label="Tunggakan Pokok"
               value={`${formatCurrency(sp.tgkPokok)} (${sp.tgkPokokHari} hari)`}
@@ -275,7 +285,87 @@ export default function SPDetail({ sp }: Props) {
               label="Tunggakan Bunga"
               value={`${formatCurrency(sp.tgkBunga)} (${sp.tgkBungaHari} hari)`}
             />
+            {sp.denda != null && sp.denda > 0 && (
+              <InfoRow label="Denda Keterlambatan" value={formatCurrency(sp.denda)} />
+            )}
+            {sp.biayaAdministrasi != null && sp.biayaAdministrasi > 0 && (
+              <InfoRow
+                label="Biaya Administrasi"
+                value={formatCurrency(sp.biayaAdministrasi)}
+              />
+            )}
+            <InfoRow
+              label="Total Kewajiban"
+              value={
+                <span className="font-bold text-primary">
+                  {formatCurrency(
+                    sp.tgkPokok +
+                      sp.tgkBunga +
+                      (sp.denda ?? 0) +
+                      (sp.biayaAdministrasi ?? 0),
+                  )}
+                </span>
+              }
+            />
           </SectionCard>
+
+          {/* Card Khusus Somasi */}
+          {(sp.jenis === "SOMASI_1" ||
+            sp.jenis === "SOMASI_2" ||
+            sp.jenis === "SOMASI_3" ||
+            sp.batasWaktuHari) && (
+            <SectionCard icon={AlertTriangle} title="Detail Surat Somasi (Teguran Hukum)">
+              {sp.batasWaktuHari && (
+                <InfoRow
+                  label="Batas Waktu Penyelesaian"
+                  value={`${sp.batasWaktuHari} hari kalender`}
+                />
+              )}
+              <InfoRow
+                label="Batas Akhir Pelunasan"
+                value={formatDate(sp.tanggalJatuhTempo)}
+              />
+              <InfoRow
+                label="Dasar Hukum"
+                value="Pasal 1238 KUHPerdata & Perjanjian Kredit"
+              />
+            </SectionCard>
+          )}
+
+          {/* Card Khusus Agunan & Lelang */}
+          {(sp.jenis === "PEMBERITAHUAN_LELANG" || sp.jenisAgunan) && (
+            <SectionCard icon={FileText} title="Data Agunan & Rencana Lelang">
+              {sp.jenisAgunan && (
+                <InfoRow label="Jenis Agunan" value={sp.jenisAgunan} />
+              )}
+              {sp.dokumenAgunan && (
+                <InfoRow
+                  label="Bukti Kepemilikan (SHM/BPKB)"
+                  value={sp.dokumenAgunan}
+                  mono
+                />
+              )}
+              {sp.atasNamaAgunan && (
+                <InfoRow label="Atas Nama" value={sp.atasNamaAgunan} />
+              )}
+              {sp.lokasiAgunan && (
+                <InfoRow label="Lokasi Agunan" value={sp.lokasiAgunan} />
+              )}
+              {sp.nilaiLimitLelang != null && sp.nilaiLimitLelang > 0 && (
+                <InfoRow
+                  label="Nilai Limit Lelang"
+                  value={formatCurrency(sp.nilaiLimitLelang)}
+                />
+              )}
+              {sp.kpknl && <InfoRow label="KPKNL Pelaksana" value={sp.kpknl} />}
+              {sp.tanggalLelang && (
+                <InfoRow
+                  label="Tanggal Rencana Lelang"
+                  value={formatDate(sp.tanggalLelang)}
+                />
+              )}
+            </SectionCard>
+          )}
         </div>
 
         {/* Sidebar */}

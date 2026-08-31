@@ -14,7 +14,11 @@ export const JenisSP = {
   SP1: 'SP1',
   SP2: 'SP2',
   SP3: 'SP3',
-  PEMBERITAHUAN_SKK: 'PEMBERITAHUAN_SKK'
+  PEMBERITAHUAN_SKK: 'PEMBERITAHUAN_SKK',
+  SOMASI_1: 'SOMASI_1',
+  SOMASI_2: 'SOMASI_2',
+  SOMASI_3: 'SOMASI_3',
+  PEMBERITAHUAN_LELANG: 'PEMBERITAHUAN_LELANG'
 } as const
 
 export type JenisSP = (typeof JenisSP)[keyof typeof JenisSP]
