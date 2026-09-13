@@ -399,12 +399,14 @@ export default function CetakSPPage() {
                     sp.jenis === "SOMASI_3" ? (
                     <SuratSomasiBody
                       sp={sp}
+                      riwayatSP={getRiwayatSomasi(sp, allSP)}
                       penandaTangan={penandaTangan}
                       verifikasiUrl={verifikasiUrl}
                     />
                   ) : sp.jenis === "PEMBERITAHUAN_LELANG" ? (
                     <SuratPemberitahuanLelangBody
                       sp={sp}
+                      riwayatSP={getRiwayatLelang(sp, allSP)}
                       penandaTangan={penandaTangan}
                       verifikasiUrl={verifikasiUrl}
                     />
@@ -484,6 +486,71 @@ function getRiwayatPeringatan(
       (a, b) =>
         (LEVEL_PERINGATAN[a.jenis] ?? 0) - (LEVEL_PERINGATAN[b.jenis] ?? 0),
     );
+}
+
+function RiwayatSPReferences({
+  riwayatSP,
+}: {
+  riwayatSP: SPWithNasabah[];
+}) {
+  return (
+    <div className="mt-1 space-y-0.5 text-xs font-bold">
+      {riwayatSP.map((riwayat) => (
+        <p key={riwayat.id}>
+          {JENIS_LABEL[riwayat.jenis] ?? riwayat.jenis} No. {riwayat.nomorSurat}{" "}
+          Tanggal {formatDateNumeric(riwayat.tanggalSurat)}
+        </p>
+      ))}
+    </div>
+  );
+}
+
+function getRiwayatSomasi(
+  sp: SPWithNasabah,
+  allSP: SPWithNasabah[] | undefined,
+): SPWithNasabah[] {
+  const levelSomasi: Partial<Record<SPWithNasabah["jenis"], number>> = {
+    SOMASI_1: 1,
+    SOMASI_2: 2,
+    SOMASI_3: 3,
+  };
+  const levelSaatIni = levelSomasi[sp.jenis];
+
+  if (!levelSaatIni || !allSP) return [];
+
+  return allSP
+    .filter((riwayat) => {
+      const levelRiwayat = levelSomasi[riwayat.jenis];
+
+      return (
+        riwayat.id !== sp.id &&
+        riwayat.nasabahId === sp.nasabahId &&
+        levelRiwayat != null &&
+        levelRiwayat < levelSaatIni &&
+        riwayat.nomorSurat != null
+      );
+    })
+    .sort((a, b) => a.tanggalSurat.getTime() - b.tanggalSurat.getTime());
+}
+
+function getRiwayatLelang(
+  sp: SPWithNasabah,
+  allSP: SPWithNasabah[] | undefined,
+): SPWithNasabah[] {
+  if (!allSP) return [];
+
+  return allSP
+    .filter(
+      (riwayat) =>
+        riwayat.id !== sp.id &&
+        riwayat.nasabahId === sp.nasabahId &&
+        (LEVEL_PERINGATAN[riwayat.jenis] != null ||
+          riwayat.jenis === "SOMASI_1" ||
+          riwayat.jenis === "SOMASI_2" ||
+          riwayat.jenis === "SOMASI_3") &&
+        riwayat.nomorSurat != null,
+    )
+    .sort((a, b) => a.tanggalSurat.getTime() - b.tanggalSurat.getTime());
 }
 
 /* =============================================================
@@ -836,10 +903,13 @@ function formatDateNumeric(date: Date): string {
 
 function SuratSomasiBody({
   sp,
+  riwayatSP,
   penandaTangan,
   verifikasiUrl,
 }: {
   sp: SPWithNasabah;
+
+  riwayatSP: SPWithNasabah[];
 
   penandaTangan: Approval | undefined;
 
@@ -888,6 +958,8 @@ function SuratSomasiBody({
         Perihal: Surat Perjanjian Kredit No. {sp.noPjm}
         {sp.tanggalAkadKredit && ` Tanggal ${formatDate(sp.tanggalAkadKredit)}`}
       </p>
+
+      <RiwayatSPReferences riwayatSP={riwayatSP} />
 
       <p className={cn("mt-5", paragraphClass)}>
         Dengan hormat, menunjuk Surat Perjanjian Kredit tersebut di atas,
@@ -1032,10 +1104,13 @@ function SuratSomasiBody({
 
 function SuratPemberitahuanLelangBody({
   sp,
+  riwayatSP,
   penandaTangan,
   verifikasiUrl,
 }: {
   sp: SPWithNasabah;
+
+  riwayatSP: SPWithNasabah[];
 
   penandaTangan: Approval | undefined;
 
@@ -1087,6 +1162,13 @@ function SuratPemberitahuanLelangBody({
             {sp.tanggalAkadKredit &&
               ` Tanggal ${formatDate(sp.tanggalAkadKredit)}`}
           </li>
+
+          {riwayatSP.map((riwayat) => (
+            <li key={riwayat.id}>
+              {JENIS_LABEL[riwayat.jenis] ?? riwayat.jenis} No. {riwayat.nomorSurat}{" "}
+              Tanggal {formatDateNumeric(riwayat.tanggalSurat)}
+            </li>
+          ))}
 
           <li>
             Surat-surat Peringatan dan Surat Somasi yang telah diterbitkan
