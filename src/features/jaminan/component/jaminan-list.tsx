@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import Table from "@/components/ui/table-custom";
 import { Nasabah } from "@/generated/prisma/client";
-import { formatDateTime } from "@/features/sp/label";
+import { formatDate, formatDateTime } from "@/features/sp/label";
 import { Eye, History, Loader2, Pen, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
 import {
@@ -120,7 +120,15 @@ export default function JaminanList({ data, nasabah }: Props) {
                 <div>
                   <Badge variant={item.arah === "MASUK" ? "default" : "secondary"}>{item.arah === "MASUK" ? "Masuk" : "Keluar"}</Badge>
                   <p className="mt-1">{formatDateTime(item.terjadiPada)} · {item.dicatatOleh.nama}</p>
-                  <p className="text-muted-foreground">{item.keperluan || item.catatan || "-"}</p>
+                  <dl className="mt-2 grid gap-x-6 gap-y-1 text-muted-foreground sm:grid-cols-2">
+                    <div><dt className="inline font-medium">Diserahkan kepada: </dt><dd className="inline">{item.diserahkanKepada || "-"}</dd></div>
+                    <div><dt className="inline font-medium">Diterima dari: </dt><dd className="inline">{item.diterimaDari || "-"}</dd></div>
+                    <div><dt className="inline font-medium">Keperluan: </dt><dd className="inline">{item.keperluan || "-"}</dd></div>
+                    <div><dt className="inline font-medium">Lokasi: </dt><dd className="inline">{item.lokasi || "-"}</dd></div>
+                    <div><dt className="inline font-medium">Rencana kembali: </dt><dd className="inline">{item.tanggalKembaliRencana ? formatDate(item.tanggalKembaliRencana) : "-"}</dd></div>
+                    <div><dt className="inline font-medium">Realisasi kembali: </dt><dd className="inline">{item.tanggalKembali ? formatDate(item.tanggalKembali) : "-"}</dd></div>
+                    <div className="sm:col-span-2"><dt className="inline font-medium">Catatan: </dt><dd className="inline">{item.catatan || "-"}</dd></div>
+                  </dl>
                 </div>
                 <div className="flex items-center gap-2">
                   {item.bukti && <Button asChild size="sm" variant="outline"><a href={item.bukti} target="_blank" rel="noreferrer"><Eye /> Bukti</a></Button>}
