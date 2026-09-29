@@ -402,7 +402,9 @@ export const ModelName = {
   KepalaKejaksaan: 'KepalaKejaksaan',
   SuratPeringatan: 'SuratPeringatan',
   SPApproval: 'SPApproval',
-  JenisSPApprover: 'JenisSPApprover'
+  JenisSPApprover: 'JenisSPApprover',
+  JaminanPinjaman: 'JaminanPinjaman',
+  MutasiJaminan: 'MutasiJaminan'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -418,7 +420,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "nasabah" | "user" | "kepalaKejaksaan" | "suratPeringatan" | "sPApproval" | "jenisSPApprover"
+    modelProps: "nasabah" | "user" | "kepalaKejaksaan" | "suratPeringatan" | "sPApproval" | "jenisSPApprover" | "jaminanPinjaman" | "mutasiJaminan"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -866,6 +868,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    JaminanPinjaman: {
+      payload: Prisma.$JaminanPinjamanPayload<ExtArgs>
+      fields: Prisma.JaminanPinjamanFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.JaminanPinjamanFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JaminanPinjamanPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.JaminanPinjamanFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JaminanPinjamanPayload>
+        }
+        findFirst: {
+          args: Prisma.JaminanPinjamanFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JaminanPinjamanPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.JaminanPinjamanFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JaminanPinjamanPayload>
+        }
+        findMany: {
+          args: Prisma.JaminanPinjamanFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JaminanPinjamanPayload>[]
+        }
+        create: {
+          args: Prisma.JaminanPinjamanCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JaminanPinjamanPayload>
+        }
+        createMany: {
+          args: Prisma.JaminanPinjamanCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.JaminanPinjamanCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JaminanPinjamanPayload>[]
+        }
+        delete: {
+          args: Prisma.JaminanPinjamanDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JaminanPinjamanPayload>
+        }
+        update: {
+          args: Prisma.JaminanPinjamanUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JaminanPinjamanPayload>
+        }
+        deleteMany: {
+          args: Prisma.JaminanPinjamanDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.JaminanPinjamanUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.JaminanPinjamanUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JaminanPinjamanPayload>[]
+        }
+        upsert: {
+          args: Prisma.JaminanPinjamanUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JaminanPinjamanPayload>
+        }
+        aggregate: {
+          args: Prisma.JaminanPinjamanAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateJaminanPinjaman>
+        }
+        groupBy: {
+          args: Prisma.JaminanPinjamanGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JaminanPinjamanGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.JaminanPinjamanCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JaminanPinjamanCountAggregateOutputType> | number
+        }
+      }
+    }
+    MutasiJaminan: {
+      payload: Prisma.$MutasiJaminanPayload<ExtArgs>
+      fields: Prisma.MutasiJaminanFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MutasiJaminanFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MutasiJaminanPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MutasiJaminanFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MutasiJaminanPayload>
+        }
+        findFirst: {
+          args: Prisma.MutasiJaminanFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MutasiJaminanPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MutasiJaminanFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MutasiJaminanPayload>
+        }
+        findMany: {
+          args: Prisma.MutasiJaminanFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MutasiJaminanPayload>[]
+        }
+        create: {
+          args: Prisma.MutasiJaminanCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MutasiJaminanPayload>
+        }
+        createMany: {
+          args: Prisma.MutasiJaminanCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MutasiJaminanCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MutasiJaminanPayload>[]
+        }
+        delete: {
+          args: Prisma.MutasiJaminanDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MutasiJaminanPayload>
+        }
+        update: {
+          args: Prisma.MutasiJaminanUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MutasiJaminanPayload>
+        }
+        deleteMany: {
+          args: Prisma.MutasiJaminanDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MutasiJaminanUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MutasiJaminanUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MutasiJaminanPayload>[]
+        }
+        upsert: {
+          args: Prisma.MutasiJaminanUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MutasiJaminanPayload>
+        }
+        aggregate: {
+          args: Prisma.MutasiJaminanAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMutasiJaminan>
+        }
+        groupBy: {
+          args: Prisma.MutasiJaminanGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MutasiJaminanGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MutasiJaminanCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MutasiJaminanCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1020,6 +1170,46 @@ export const JenisSPApproverScalarFieldEnum = {
 } as const
 
 export type JenisSPApproverScalarFieldEnum = (typeof JenisSPApproverScalarFieldEnum)[keyof typeof JenisSPApproverScalarFieldEnum]
+
+
+export const JaminanPinjamanScalarFieldEnum = {
+  id: 'id',
+  nasabahId: 'nasabahId',
+  noPjm: 'noPjm',
+  jenis: 'jenis',
+  nomorDokumen: 'nomorDokumen',
+  deskripsi: 'deskripsi',
+  atasNama: 'atasNama',
+  nilaiTaksiran: 'nilaiTaksiran',
+  lokasiPenyimpanan: 'lokasiPenyimpanan',
+  status: 'status',
+  tanggalDiterima: 'tanggalDiterima',
+  catatan: 'catatan',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type JaminanPinjamanScalarFieldEnum = (typeof JaminanPinjamanScalarFieldEnum)[keyof typeof JaminanPinjamanScalarFieldEnum]
+
+
+export const MutasiJaminanScalarFieldEnum = {
+  id: 'id',
+  jaminanId: 'jaminanId',
+  arah: 'arah',
+  terjadiPada: 'terjadiPada',
+  dicatatOlehId: 'dicatatOlehId',
+  diserahkanKepada: 'diserahkanKepada',
+  diterimaDari: 'diterimaDari',
+  keperluan: 'keperluan',
+  lokasi: 'lokasi',
+  bukti: 'bukti',
+  tanggalKembaliRencana: 'tanggalKembaliRencana',
+  tanggalKembali: 'tanggalKembali',
+  catatan: 'catatan',
+  createdAt: 'createdAt'
+} as const
+
+export type MutasiJaminanScalarFieldEnum = (typeof MutasiJaminanScalarFieldEnum)[keyof typeof MutasiJaminanScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1184,6 +1374,34 @@ export type EnumApprovalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$P
 export type ListEnumApprovalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApprovalStatus[]'>
     
 
+
+/**
+ * Reference to a field of type 'StatusJaminan'
+ */
+export type EnumStatusJaminanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusJaminan'>
+    
+
+
+/**
+ * Reference to a field of type 'StatusJaminan[]'
+ */
+export type ListEnumStatusJaminanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusJaminan[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ArahJaminan'
+ */
+export type EnumArahJaminanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ArahJaminan'>
+    
+
+
+/**
+ * Reference to a field of type 'ArahJaminan[]'
+ */
+export type ListEnumArahJaminanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ArahJaminan[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -1341,6 +1559,8 @@ export type GlobalOmitConfig = {
   suratPeringatan?: Prisma.SuratPeringatanOmit
   sPApproval?: Prisma.SPApprovalOmit
   jenisSPApprover?: Prisma.JenisSPApproverOmit
+  jaminanPinjaman?: Prisma.JaminanPinjamanOmit
+  mutasiJaminan?: Prisma.MutasiJaminanOmit
 }
 
 /* Types for Logging */

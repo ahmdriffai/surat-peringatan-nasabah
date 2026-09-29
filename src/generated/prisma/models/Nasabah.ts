@@ -223,6 +223,7 @@ export type NasabahWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Nasabah"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Nasabah"> | Date | string
   suratPeringatan?: Prisma.SuratPeringatanListRelationFilter
+  jaminanPinjaman?: Prisma.JaminanPinjamanListRelationFilter
 }
 
 export type NasabahOrderByWithRelationInput = {
@@ -237,6 +238,7 @@ export type NasabahOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   suratPeringatan?: Prisma.SuratPeringatanOrderByRelationAggregateInput
+  jaminanPinjaman?: Prisma.JaminanPinjamanOrderByRelationAggregateInput
 }
 
 export type NasabahWhereUniqueInput = Prisma.AtLeast<{
@@ -254,6 +256,7 @@ export type NasabahWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Nasabah"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Nasabah"> | Date | string
   suratPeringatan?: Prisma.SuratPeringatanListRelationFilter
+  jaminanPinjaman?: Prisma.JaminanPinjamanListRelationFilter
 }, "id" | "cif" | "nik" | "nomorRekening">
 
 export type NasabahOrderByWithAggregationInput = {
@@ -300,6 +303,7 @@ export type NasabahCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   suratPeringatan?: Prisma.SuratPeringatanCreateNestedManyWithoutNasabahInput
+  jaminanPinjaman?: Prisma.JaminanPinjamanCreateNestedManyWithoutNasabahInput
 }
 
 export type NasabahUncheckedCreateInput = {
@@ -314,6 +318,7 @@ export type NasabahUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   suratPeringatan?: Prisma.SuratPeringatanUncheckedCreateNestedManyWithoutNasabahInput
+  jaminanPinjaman?: Prisma.JaminanPinjamanUncheckedCreateNestedManyWithoutNasabahInput
 }
 
 export type NasabahUpdateInput = {
@@ -328,6 +333,7 @@ export type NasabahUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   suratPeringatan?: Prisma.SuratPeringatanUpdateManyWithoutNasabahNestedInput
+  jaminanPinjaman?: Prisma.JaminanPinjamanUpdateManyWithoutNasabahNestedInput
 }
 
 export type NasabahUncheckedUpdateInput = {
@@ -342,6 +348,7 @@ export type NasabahUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   suratPeringatan?: Prisma.SuratPeringatanUncheckedUpdateManyWithoutNasabahNestedInput
+  jaminanPinjaman?: Prisma.JaminanPinjamanUncheckedUpdateManyWithoutNasabahNestedInput
 }
 
 export type NasabahCreateManyInput = {
@@ -453,6 +460,20 @@ export type NasabahUpdateOneRequiredWithoutSuratPeringatanNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.NasabahUpdateToOneWithWhereWithoutSuratPeringatanInput, Prisma.NasabahUpdateWithoutSuratPeringatanInput>, Prisma.NasabahUncheckedUpdateWithoutSuratPeringatanInput>
 }
 
+export type NasabahCreateNestedOneWithoutJaminanPinjamanInput = {
+  create?: Prisma.XOR<Prisma.NasabahCreateWithoutJaminanPinjamanInput, Prisma.NasabahUncheckedCreateWithoutJaminanPinjamanInput>
+  connectOrCreate?: Prisma.NasabahCreateOrConnectWithoutJaminanPinjamanInput
+  connect?: Prisma.NasabahWhereUniqueInput
+}
+
+export type NasabahUpdateOneRequiredWithoutJaminanPinjamanNestedInput = {
+  create?: Prisma.XOR<Prisma.NasabahCreateWithoutJaminanPinjamanInput, Prisma.NasabahUncheckedCreateWithoutJaminanPinjamanInput>
+  connectOrCreate?: Prisma.NasabahCreateOrConnectWithoutJaminanPinjamanInput
+  upsert?: Prisma.NasabahUpsertWithoutJaminanPinjamanInput
+  connect?: Prisma.NasabahWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.NasabahUpdateToOneWithWhereWithoutJaminanPinjamanInput, Prisma.NasabahUpdateWithoutJaminanPinjamanInput>, Prisma.NasabahUncheckedUpdateWithoutJaminanPinjamanInput>
+}
+
 export type NasabahCreateWithoutSuratPeringatanInput = {
   id?: string
   cif: string
@@ -464,6 +485,7 @@ export type NasabahCreateWithoutSuratPeringatanInput = {
   alamat?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  jaminanPinjaman?: Prisma.JaminanPinjamanCreateNestedManyWithoutNasabahInput
 }
 
 export type NasabahUncheckedCreateWithoutSuratPeringatanInput = {
@@ -477,6 +499,7 @@ export type NasabahUncheckedCreateWithoutSuratPeringatanInput = {
   alamat?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  jaminanPinjaman?: Prisma.JaminanPinjamanUncheckedCreateNestedManyWithoutNasabahInput
 }
 
 export type NasabahCreateOrConnectWithoutSuratPeringatanInput = {
@@ -506,6 +529,7 @@ export type NasabahUpdateWithoutSuratPeringatanInput = {
   alamat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  jaminanPinjaman?: Prisma.JaminanPinjamanUpdateManyWithoutNasabahNestedInput
 }
 
 export type NasabahUncheckedUpdateWithoutSuratPeringatanInput = {
@@ -519,6 +543,79 @@ export type NasabahUncheckedUpdateWithoutSuratPeringatanInput = {
   alamat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  jaminanPinjaman?: Prisma.JaminanPinjamanUncheckedUpdateManyWithoutNasabahNestedInput
+}
+
+export type NasabahCreateWithoutJaminanPinjamanInput = {
+  id?: string
+  cif: string
+  nama: string
+  nik: string
+  nomorRekening: string
+  email?: string | null
+  telepon?: string | null
+  alamat?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  suratPeringatan?: Prisma.SuratPeringatanCreateNestedManyWithoutNasabahInput
+}
+
+export type NasabahUncheckedCreateWithoutJaminanPinjamanInput = {
+  id?: string
+  cif: string
+  nama: string
+  nik: string
+  nomorRekening: string
+  email?: string | null
+  telepon?: string | null
+  alamat?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  suratPeringatan?: Prisma.SuratPeringatanUncheckedCreateNestedManyWithoutNasabahInput
+}
+
+export type NasabahCreateOrConnectWithoutJaminanPinjamanInput = {
+  where: Prisma.NasabahWhereUniqueInput
+  create: Prisma.XOR<Prisma.NasabahCreateWithoutJaminanPinjamanInput, Prisma.NasabahUncheckedCreateWithoutJaminanPinjamanInput>
+}
+
+export type NasabahUpsertWithoutJaminanPinjamanInput = {
+  update: Prisma.XOR<Prisma.NasabahUpdateWithoutJaminanPinjamanInput, Prisma.NasabahUncheckedUpdateWithoutJaminanPinjamanInput>
+  create: Prisma.XOR<Prisma.NasabahCreateWithoutJaminanPinjamanInput, Prisma.NasabahUncheckedCreateWithoutJaminanPinjamanInput>
+  where?: Prisma.NasabahWhereInput
+}
+
+export type NasabahUpdateToOneWithWhereWithoutJaminanPinjamanInput = {
+  where?: Prisma.NasabahWhereInput
+  data: Prisma.XOR<Prisma.NasabahUpdateWithoutJaminanPinjamanInput, Prisma.NasabahUncheckedUpdateWithoutJaminanPinjamanInput>
+}
+
+export type NasabahUpdateWithoutJaminanPinjamanInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  cif?: Prisma.StringFieldUpdateOperationsInput | string
+  nama?: Prisma.StringFieldUpdateOperationsInput | string
+  nik?: Prisma.StringFieldUpdateOperationsInput | string
+  nomorRekening?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  telepon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alamat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  suratPeringatan?: Prisma.SuratPeringatanUpdateManyWithoutNasabahNestedInput
+}
+
+export type NasabahUncheckedUpdateWithoutJaminanPinjamanInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  cif?: Prisma.StringFieldUpdateOperationsInput | string
+  nama?: Prisma.StringFieldUpdateOperationsInput | string
+  nik?: Prisma.StringFieldUpdateOperationsInput | string
+  nomorRekening?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  telepon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alamat?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  suratPeringatan?: Prisma.SuratPeringatanUncheckedUpdateManyWithoutNasabahNestedInput
 }
 
 
@@ -528,10 +625,12 @@ export type NasabahUncheckedUpdateWithoutSuratPeringatanInput = {
 
 export type NasabahCountOutputType = {
   suratPeringatan: number
+  jaminanPinjaman: number
 }
 
 export type NasabahCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   suratPeringatan?: boolean | NasabahCountOutputTypeCountSuratPeringatanArgs
+  jaminanPinjaman?: boolean | NasabahCountOutputTypeCountJaminanPinjamanArgs
 }
 
 /**
@@ -551,6 +650,13 @@ export type NasabahCountOutputTypeCountSuratPeringatanArgs<ExtArgs extends runti
   where?: Prisma.SuratPeringatanWhereInput
 }
 
+/**
+ * NasabahCountOutputType without action
+ */
+export type NasabahCountOutputTypeCountJaminanPinjamanArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.JaminanPinjamanWhereInput
+}
+
 
 export type NasabahSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -564,6 +670,7 @@ export type NasabahSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   createdAt?: boolean
   updatedAt?: boolean
   suratPeringatan?: boolean | Prisma.Nasabah$suratPeringatanArgs<ExtArgs>
+  jaminanPinjaman?: boolean | Prisma.Nasabah$jaminanPinjamanArgs<ExtArgs>
   _count?: boolean | Prisma.NasabahCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["nasabah"]>
 
@@ -609,6 +716,7 @@ export type NasabahSelectScalar = {
 export type NasabahOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "cif" | "nama" | "nik" | "nomorRekening" | "email" | "telepon" | "alamat" | "createdAt" | "updatedAt", ExtArgs["result"]["nasabah"]>
 export type NasabahInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   suratPeringatan?: boolean | Prisma.Nasabah$suratPeringatanArgs<ExtArgs>
+  jaminanPinjaman?: boolean | Prisma.Nasabah$jaminanPinjamanArgs<ExtArgs>
   _count?: boolean | Prisma.NasabahCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type NasabahIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -618,6 +726,7 @@ export type $NasabahPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   name: "Nasabah"
   objects: {
     suratPeringatan: Prisma.$SuratPeringatanPayload<ExtArgs>[]
+    jaminanPinjaman: Prisma.$JaminanPinjamanPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1025,6 +1134,7 @@ readonly fields: NasabahFieldRefs;
 export interface Prisma__NasabahClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   suratPeringatan<T extends Prisma.Nasabah$suratPeringatanArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Nasabah$suratPeringatanArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SuratPeringatanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  jaminanPinjaman<T extends Prisma.Nasabah$jaminanPinjamanArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Nasabah$jaminanPinjamanArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JaminanPinjamanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1478,6 +1588,30 @@ export type Nasabah$suratPeringatanArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.SuratPeringatanScalarFieldEnum | Prisma.SuratPeringatanScalarFieldEnum[]
+}
+
+/**
+ * Nasabah.jaminanPinjaman
+ */
+export type Nasabah$jaminanPinjamanArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the JaminanPinjaman
+   */
+  select?: Prisma.JaminanPinjamanSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the JaminanPinjaman
+   */
+  omit?: Prisma.JaminanPinjamanOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.JaminanPinjamanInclude<ExtArgs> | null
+  where?: Prisma.JaminanPinjamanWhereInput
+  orderBy?: Prisma.JaminanPinjamanOrderByWithRelationInput | Prisma.JaminanPinjamanOrderByWithRelationInput[]
+  cursor?: Prisma.JaminanPinjamanWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.JaminanPinjamanScalarFieldEnum | Prisma.JaminanPinjamanScalarFieldEnum[]
 }
 
 /**

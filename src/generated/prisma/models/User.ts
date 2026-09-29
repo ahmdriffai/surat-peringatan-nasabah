@@ -217,6 +217,7 @@ export type UserWhereInput = {
   spApprovals?: Prisma.SPApprovalListRelationFilter
   jenisSPApprovers?: Prisma.JenisSPApproverListRelationFilter
   suratPeringatan?: Prisma.SuratPeringatanListRelationFilter
+  mutasiJaminan?: Prisma.MutasiJaminanListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -232,6 +233,7 @@ export type UserOrderByWithRelationInput = {
   spApprovals?: Prisma.SPApprovalOrderByRelationAggregateInput
   jenisSPApprovers?: Prisma.JenisSPApproverOrderByRelationAggregateInput
   suratPeringatan?: Prisma.SuratPeringatanOrderByRelationAggregateInput
+  mutasiJaminan?: Prisma.MutasiJaminanOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -250,6 +252,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   spApprovals?: Prisma.SPApprovalListRelationFilter
   jenisSPApprovers?: Prisma.JenisSPApproverListRelationFilter
   suratPeringatan?: Prisma.SuratPeringatanListRelationFilter
+  mutasiJaminan?: Prisma.MutasiJaminanListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -295,6 +298,7 @@ export type UserCreateInput = {
   spApprovals?: Prisma.SPApprovalCreateNestedManyWithoutApproverInput
   jenisSPApprovers?: Prisma.JenisSPApproverCreateNestedManyWithoutApproverInput
   suratPeringatan?: Prisma.SuratPeringatanCreateNestedManyWithoutPetugasInput
+  mutasiJaminan?: Prisma.MutasiJaminanCreateNestedManyWithoutDicatatOlehInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -310,6 +314,7 @@ export type UserUncheckedCreateInput = {
   spApprovals?: Prisma.SPApprovalUncheckedCreateNestedManyWithoutApproverInput
   jenisSPApprovers?: Prisma.JenisSPApproverUncheckedCreateNestedManyWithoutApproverInput
   suratPeringatan?: Prisma.SuratPeringatanUncheckedCreateNestedManyWithoutPetugasInput
+  mutasiJaminan?: Prisma.MutasiJaminanUncheckedCreateNestedManyWithoutDicatatOlehInput
 }
 
 export type UserUpdateInput = {
@@ -325,6 +330,7 @@ export type UserUpdateInput = {
   spApprovals?: Prisma.SPApprovalUpdateManyWithoutApproverNestedInput
   jenisSPApprovers?: Prisma.JenisSPApproverUpdateManyWithoutApproverNestedInput
   suratPeringatan?: Prisma.SuratPeringatanUpdateManyWithoutPetugasNestedInput
+  mutasiJaminan?: Prisma.MutasiJaminanUpdateManyWithoutDicatatOlehNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -340,6 +346,7 @@ export type UserUncheckedUpdateInput = {
   spApprovals?: Prisma.SPApprovalUncheckedUpdateManyWithoutApproverNestedInput
   jenisSPApprovers?: Prisma.JenisSPApproverUncheckedUpdateManyWithoutApproverNestedInput
   suratPeringatan?: Prisma.SuratPeringatanUncheckedUpdateManyWithoutPetugasNestedInput
+  mutasiJaminan?: Prisma.MutasiJaminanUncheckedUpdateManyWithoutDicatatOlehNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -476,6 +483,20 @@ export type UserUpdateOneRequiredWithoutJenisSPApproversNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutJenisSPApproversInput, Prisma.UserUpdateWithoutJenisSPApproversInput>, Prisma.UserUncheckedUpdateWithoutJenisSPApproversInput>
 }
 
+export type UserCreateNestedOneWithoutMutasiJaminanInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMutasiJaminanInput, Prisma.UserUncheckedCreateWithoutMutasiJaminanInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMutasiJaminanInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutMutasiJaminanNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMutasiJaminanInput, Prisma.UserUncheckedCreateWithoutMutasiJaminanInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMutasiJaminanInput
+  upsert?: Prisma.UserUpsertWithoutMutasiJaminanInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMutasiJaminanInput, Prisma.UserUpdateWithoutMutasiJaminanInput>, Prisma.UserUncheckedUpdateWithoutMutasiJaminanInput>
+}
+
 export type UserCreateWithoutSuratPeringatanInput = {
   id?: string
   nama: string
@@ -488,6 +509,7 @@ export type UserCreateWithoutSuratPeringatanInput = {
   updatedAt?: Date | string
   spApprovals?: Prisma.SPApprovalCreateNestedManyWithoutApproverInput
   jenisSPApprovers?: Prisma.JenisSPApproverCreateNestedManyWithoutApproverInput
+  mutasiJaminan?: Prisma.MutasiJaminanCreateNestedManyWithoutDicatatOlehInput
 }
 
 export type UserUncheckedCreateWithoutSuratPeringatanInput = {
@@ -502,6 +524,7 @@ export type UserUncheckedCreateWithoutSuratPeringatanInput = {
   updatedAt?: Date | string
   spApprovals?: Prisma.SPApprovalUncheckedCreateNestedManyWithoutApproverInput
   jenisSPApprovers?: Prisma.JenisSPApproverUncheckedCreateNestedManyWithoutApproverInput
+  mutasiJaminan?: Prisma.MutasiJaminanUncheckedCreateNestedManyWithoutDicatatOlehInput
 }
 
 export type UserCreateOrConnectWithoutSuratPeringatanInput = {
@@ -532,6 +555,7 @@ export type UserUpdateWithoutSuratPeringatanInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   spApprovals?: Prisma.SPApprovalUpdateManyWithoutApproverNestedInput
   jenisSPApprovers?: Prisma.JenisSPApproverUpdateManyWithoutApproverNestedInput
+  mutasiJaminan?: Prisma.MutasiJaminanUpdateManyWithoutDicatatOlehNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSuratPeringatanInput = {
@@ -546,6 +570,7 @@ export type UserUncheckedUpdateWithoutSuratPeringatanInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   spApprovals?: Prisma.SPApprovalUncheckedUpdateManyWithoutApproverNestedInput
   jenisSPApprovers?: Prisma.JenisSPApproverUncheckedUpdateManyWithoutApproverNestedInput
+  mutasiJaminan?: Prisma.MutasiJaminanUncheckedUpdateManyWithoutDicatatOlehNestedInput
 }
 
 export type UserCreateWithoutSpApprovalsInput = {
@@ -560,6 +585,7 @@ export type UserCreateWithoutSpApprovalsInput = {
   updatedAt?: Date | string
   jenisSPApprovers?: Prisma.JenisSPApproverCreateNestedManyWithoutApproverInput
   suratPeringatan?: Prisma.SuratPeringatanCreateNestedManyWithoutPetugasInput
+  mutasiJaminan?: Prisma.MutasiJaminanCreateNestedManyWithoutDicatatOlehInput
 }
 
 export type UserUncheckedCreateWithoutSpApprovalsInput = {
@@ -574,6 +600,7 @@ export type UserUncheckedCreateWithoutSpApprovalsInput = {
   updatedAt?: Date | string
   jenisSPApprovers?: Prisma.JenisSPApproverUncheckedCreateNestedManyWithoutApproverInput
   suratPeringatan?: Prisma.SuratPeringatanUncheckedCreateNestedManyWithoutPetugasInput
+  mutasiJaminan?: Prisma.MutasiJaminanUncheckedCreateNestedManyWithoutDicatatOlehInput
 }
 
 export type UserCreateOrConnectWithoutSpApprovalsInput = {
@@ -604,6 +631,7 @@ export type UserUpdateWithoutSpApprovalsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   jenisSPApprovers?: Prisma.JenisSPApproverUpdateManyWithoutApproverNestedInput
   suratPeringatan?: Prisma.SuratPeringatanUpdateManyWithoutPetugasNestedInput
+  mutasiJaminan?: Prisma.MutasiJaminanUpdateManyWithoutDicatatOlehNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSpApprovalsInput = {
@@ -618,6 +646,7 @@ export type UserUncheckedUpdateWithoutSpApprovalsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   jenisSPApprovers?: Prisma.JenisSPApproverUncheckedUpdateManyWithoutApproverNestedInput
   suratPeringatan?: Prisma.SuratPeringatanUncheckedUpdateManyWithoutPetugasNestedInput
+  mutasiJaminan?: Prisma.MutasiJaminanUncheckedUpdateManyWithoutDicatatOlehNestedInput
 }
 
 export type UserCreateWithoutJenisSPApproversInput = {
@@ -632,6 +661,7 @@ export type UserCreateWithoutJenisSPApproversInput = {
   updatedAt?: Date | string
   spApprovals?: Prisma.SPApprovalCreateNestedManyWithoutApproverInput
   suratPeringatan?: Prisma.SuratPeringatanCreateNestedManyWithoutPetugasInput
+  mutasiJaminan?: Prisma.MutasiJaminanCreateNestedManyWithoutDicatatOlehInput
 }
 
 export type UserUncheckedCreateWithoutJenisSPApproversInput = {
@@ -646,6 +676,7 @@ export type UserUncheckedCreateWithoutJenisSPApproversInput = {
   updatedAt?: Date | string
   spApprovals?: Prisma.SPApprovalUncheckedCreateNestedManyWithoutApproverInput
   suratPeringatan?: Prisma.SuratPeringatanUncheckedCreateNestedManyWithoutPetugasInput
+  mutasiJaminan?: Prisma.MutasiJaminanUncheckedCreateNestedManyWithoutDicatatOlehInput
 }
 
 export type UserCreateOrConnectWithoutJenisSPApproversInput = {
@@ -676,6 +707,7 @@ export type UserUpdateWithoutJenisSPApproversInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   spApprovals?: Prisma.SPApprovalUpdateManyWithoutApproverNestedInput
   suratPeringatan?: Prisma.SuratPeringatanUpdateManyWithoutPetugasNestedInput
+  mutasiJaminan?: Prisma.MutasiJaminanUpdateManyWithoutDicatatOlehNestedInput
 }
 
 export type UserUncheckedUpdateWithoutJenisSPApproversInput = {
@@ -690,6 +722,83 @@ export type UserUncheckedUpdateWithoutJenisSPApproversInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   spApprovals?: Prisma.SPApprovalUncheckedUpdateManyWithoutApproverNestedInput
   suratPeringatan?: Prisma.SuratPeringatanUncheckedUpdateManyWithoutPetugasNestedInput
+  mutasiJaminan?: Prisma.MutasiJaminanUncheckedUpdateManyWithoutDicatatOlehNestedInput
+}
+
+export type UserCreateWithoutMutasiJaminanInput = {
+  id?: string
+  nama: string
+  jabatan?: string | null
+  email: string
+  password: string
+  role?: $Enums.Role
+  aktif?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  spApprovals?: Prisma.SPApprovalCreateNestedManyWithoutApproverInput
+  jenisSPApprovers?: Prisma.JenisSPApproverCreateNestedManyWithoutApproverInput
+  suratPeringatan?: Prisma.SuratPeringatanCreateNestedManyWithoutPetugasInput
+}
+
+export type UserUncheckedCreateWithoutMutasiJaminanInput = {
+  id?: string
+  nama: string
+  jabatan?: string | null
+  email: string
+  password: string
+  role?: $Enums.Role
+  aktif?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  spApprovals?: Prisma.SPApprovalUncheckedCreateNestedManyWithoutApproverInput
+  jenisSPApprovers?: Prisma.JenisSPApproverUncheckedCreateNestedManyWithoutApproverInput
+  suratPeringatan?: Prisma.SuratPeringatanUncheckedCreateNestedManyWithoutPetugasInput
+}
+
+export type UserCreateOrConnectWithoutMutasiJaminanInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMutasiJaminanInput, Prisma.UserUncheckedCreateWithoutMutasiJaminanInput>
+}
+
+export type UserUpsertWithoutMutasiJaminanInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMutasiJaminanInput, Prisma.UserUncheckedUpdateWithoutMutasiJaminanInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMutasiJaminanInput, Prisma.UserUncheckedCreateWithoutMutasiJaminanInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMutasiJaminanInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMutasiJaminanInput, Prisma.UserUncheckedUpdateWithoutMutasiJaminanInput>
+}
+
+export type UserUpdateWithoutMutasiJaminanInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  nama?: Prisma.StringFieldUpdateOperationsInput | string
+  jabatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  aktif?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  spApprovals?: Prisma.SPApprovalUpdateManyWithoutApproverNestedInput
+  jenisSPApprovers?: Prisma.JenisSPApproverUpdateManyWithoutApproverNestedInput
+  suratPeringatan?: Prisma.SuratPeringatanUpdateManyWithoutPetugasNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMutasiJaminanInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  nama?: Prisma.StringFieldUpdateOperationsInput | string
+  jabatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  aktif?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  spApprovals?: Prisma.SPApprovalUncheckedUpdateManyWithoutApproverNestedInput
+  jenisSPApprovers?: Prisma.JenisSPApproverUncheckedUpdateManyWithoutApproverNestedInput
+  suratPeringatan?: Prisma.SuratPeringatanUncheckedUpdateManyWithoutPetugasNestedInput
 }
 
 
@@ -701,12 +810,14 @@ export type UserCountOutputType = {
   spApprovals: number
   jenisSPApprovers: number
   suratPeringatan: number
+  mutasiJaminan: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   spApprovals?: boolean | UserCountOutputTypeCountSpApprovalsArgs
   jenisSPApprovers?: boolean | UserCountOutputTypeCountJenisSPApproversArgs
   suratPeringatan?: boolean | UserCountOutputTypeCountSuratPeringatanArgs
+  mutasiJaminan?: boolean | UserCountOutputTypeCountMutasiJaminanArgs
 }
 
 /**
@@ -740,6 +851,13 @@ export type UserCountOutputTypeCountSuratPeringatanArgs<ExtArgs extends runtime.
   where?: Prisma.SuratPeringatanWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMutasiJaminanArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MutasiJaminanWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -754,6 +872,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   spApprovals?: boolean | Prisma.User$spApprovalsArgs<ExtArgs>
   jenisSPApprovers?: boolean | Prisma.User$jenisSPApproversArgs<ExtArgs>
   suratPeringatan?: boolean | Prisma.User$suratPeringatanArgs<ExtArgs>
+  mutasiJaminan?: boolean | Prisma.User$mutasiJaminanArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -798,6 +917,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   spApprovals?: boolean | Prisma.User$spApprovalsArgs<ExtArgs>
   jenisSPApprovers?: boolean | Prisma.User$jenisSPApproversArgs<ExtArgs>
   suratPeringatan?: boolean | Prisma.User$suratPeringatanArgs<ExtArgs>
+  mutasiJaminan?: boolean | Prisma.User$mutasiJaminanArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -809,6 +929,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     spApprovals: Prisma.$SPApprovalPayload<ExtArgs>[]
     jenisSPApprovers: Prisma.$JenisSPApproverPayload<ExtArgs>[]
     suratPeringatan: Prisma.$SuratPeringatanPayload<ExtArgs>[]
+    mutasiJaminan: Prisma.$MutasiJaminanPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1217,6 +1338,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   spApprovals<T extends Prisma.User$spApprovalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$spApprovalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SPApprovalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   jenisSPApprovers<T extends Prisma.User$jenisSPApproversArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$jenisSPApproversArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JenisSPApproverPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   suratPeringatan<T extends Prisma.User$suratPeringatanArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$suratPeringatanArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SuratPeringatanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  mutasiJaminan<T extends Prisma.User$mutasiJaminanArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$mutasiJaminanArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MutasiJaminanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1717,6 +1839,30 @@ export type User$suratPeringatanArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.SuratPeringatanScalarFieldEnum | Prisma.SuratPeringatanScalarFieldEnum[]
+}
+
+/**
+ * User.mutasiJaminan
+ */
+export type User$mutasiJaminanArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MutasiJaminan
+   */
+  select?: Prisma.MutasiJaminanSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MutasiJaminan
+   */
+  omit?: Prisma.MutasiJaminanOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MutasiJaminanInclude<ExtArgs> | null
+  where?: Prisma.MutasiJaminanWhereInput
+  orderBy?: Prisma.MutasiJaminanOrderByWithRelationInput | Prisma.MutasiJaminanOrderByWithRelationInput[]
+  cursor?: Prisma.MutasiJaminanWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MutasiJaminanScalarFieldEnum | Prisma.MutasiJaminanScalarFieldEnum[]
 }
 
 /**

@@ -24,6 +24,7 @@ model Nasabah {
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
   suratPeringatan SuratPeringatan[]
+  jaminanPinjaman JaminanPinjaman[]
 
   @@map("nasabah")
 }
@@ -80,6 +81,7 @@ model User {
   spApprovals      SPApproval[]
   jenisSPApprovers JenisSPApprover[]
   suratPeringatan  SuratPeringatan[]
+  mutasiJaminan    MutasiJaminan[]
 
   @@map("users")
 }
@@ -130,16 +132,16 @@ model SuratPeringatan {
   tanggalJatuhTempo DateTime // jatuh tempo pembayaran nasabah / batas waktu somasi
 
   // Data Khusus Somasi (Opsional)
-  batasWaktuHari    Int? // misal: 7 hari kalender untuk somasi
+  batasWaktuHari Int? // misal: 7 hari kalender untuk somasi
 
   // Data Khusus Agunan & Lelang (Opsional)
-  jenisAgunan       String?   // misal: Sertifikat Hak Milik (SHM) / BPKB Kendaraan
-  dokumenAgunan     String?   // Nomor SHM/SHGB No. ... atau No. BPKB
-  atasNamaAgunan    String?   // Atas nama pada sertifikat/BPKB
-  lokasiAgunan      String?   // Alamat agunan / letak objek jaminan
-  nilaiLimitLelang  Float?    // Nilai limit lelang / taksiran
-  kpknl             String?   // Kantor Pelayanan Kekayaan Negara dan Lelang
-  tanggalLelang     DateTime? // Tanggal rencana pelaksanaan lelang
+  jenisAgunan      String? // misal: Sertifikat Hak Milik (SHM) / BPKB Kendaraan
+  dokumenAgunan    String? // Nomor SHM/SHGB No. ... atau No. BPKB
+  atasNamaAgunan   String? // Atas nama pada sertifikat/BPKB
+  lokasiAgunan     String? // Alamat agunan / letak objek jaminan
+  nilaiLimitLelang Float? // Nilai limit lelang / taksiran
+  kpknl            String? // Kantor Pelayanan Kekayaan Negara dan Lelang
+  tanggalLelang    DateTime? // Tanggal rencana pelaksanaan lelang
 
   // Approval
   status    StatusSP     @default(DRAFT)
@@ -191,4 +193,62 @@ model JenisSPApprover {
   @@unique([jenis, approverId])
   @@unique([jenis, urutan])
   @@map("jenis_sp_approver")
+}
+
+enum ArahJaminan {
+  MASUK
+  KELUAR
+}
+
+enum StatusJaminan {
+  TERSIMPAN
+  DIBAWA_KELUAR
+}
+
+// Data jaminan yang diterima dan disimpan untuk suatu fasilitas pinjaman.
+model JaminanPinjaman {
+  id                String          @id @default(cuid())
+  nasabahId         String
+  nasabah           Nasabah         @relation(fields: [nasabahId], references: [id], onDelete: Cascade)
+  noPjm             String
+  jenis             String
+  nomorDokumen      String?
+  deskripsi         String?
+  atasNama          String?
+  nilaiTaksiran     Float?
+  lokasiPenyimpanan String?
+  status            StatusJaminan   @default(TERSIMPAN)
+  tanggalDiterima   DateTime?
+  catatan           String?
+  mutasi            MutasiJaminan[]
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+
+  @@index([nasabahId])
+  @@index([noPjm])
+  @@map("jaminan_pinjaman")
+}
+
+// Buku mutasi keluar-masuk jaminan; setiap penyerahan atau penerimaan dicatat sebagai satu baris.
+model MutasiJaminan {
+  id                    String          @id @default(cuid())
+  jaminanId             String
+  jaminan               JaminanPinjaman @relation(fields: [jaminanId], references: [id], onDelete: Cascade)
+  arah                  ArahJaminan
+  terjadiPada           DateTime        @default(now())
+  dicatatOlehId         String
+  dicatatOleh           User            @relation(fields: [dicatatOlehId], references: [id])
+  diserahkanKepada      String?
+  diterimaDari          String?
+  keperluan             String?
+  lokasi                String?
+  bukti                 String?
+  tanggalKembaliRencana DateTime?
+  tanggalKembali        DateTime?
+  catatan               String?
+  createdAt             DateTime        @default(now())
+
+  @@index([jaminanId, terjadiPada])
+  @@index([dicatatOlehId])
+  @@map("mutasi_jaminan")
 }

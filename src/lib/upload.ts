@@ -57,3 +57,14 @@ export async function saveUploadedPdf(
 
   return saveUploadedBytes(file, folder, "pdf", "application/pdf");
 }
+
+export async function saveUploadedEvidence(
+  file: File,
+  folder: string,
+): Promise<string> {
+  if (file.type === "application/pdf") {
+    return saveUploadedPdf(file, folder);
+  }
+
+  return saveUploadedImage(file, folder);
+}

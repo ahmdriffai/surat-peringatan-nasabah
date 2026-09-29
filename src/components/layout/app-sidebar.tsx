@@ -8,6 +8,7 @@ import {
   Home,
   MailCheck,
   NotepadText,
+  PackageOpen,
   Settings2,
   UserCog,
   Users2,
@@ -32,6 +33,12 @@ import { countMyPendingApprovals } from "@/features/sp/utils";
 export const menuItems = [
   { id: "dashboard", url: "/dashboard", title: "Dashboard", icon: Home },
   { id: "customers", url: "/customers", title: "Nasabah", icon: Users2 },
+  {
+    id: "jaminan-pinjaman",
+    url: "/jaminan-pinjaman",
+    title: "Jaminan Pinjaman",
+    icon: PackageOpen,
+  },
   {
     id: "surat-peringatan",
     url: "/surat-peringatan",

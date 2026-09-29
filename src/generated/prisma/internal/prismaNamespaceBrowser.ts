@@ -56,7 +56,9 @@ export const ModelName = {
   KepalaKejaksaan: 'KepalaKejaksaan',
   SuratPeringatan: 'SuratPeringatan',
   SPApproval: 'SPApproval',
-  JenisSPApprover: 'JenisSPApprover'
+  JenisSPApprover: 'JenisSPApprover',
+  JaminanPinjaman: 'JaminanPinjaman',
+  MutasiJaminan: 'MutasiJaminan'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -190,6 +192,46 @@ export const JenisSPApproverScalarFieldEnum = {
 } as const
 
 export type JenisSPApproverScalarFieldEnum = (typeof JenisSPApproverScalarFieldEnum)[keyof typeof JenisSPApproverScalarFieldEnum]
+
+
+export const JaminanPinjamanScalarFieldEnum = {
+  id: 'id',
+  nasabahId: 'nasabahId',
+  noPjm: 'noPjm',
+  jenis: 'jenis',
+  nomorDokumen: 'nomorDokumen',
+  deskripsi: 'deskripsi',
+  atasNama: 'atasNama',
+  nilaiTaksiran: 'nilaiTaksiran',
+  lokasiPenyimpanan: 'lokasiPenyimpanan',
+  status: 'status',
+  tanggalDiterima: 'tanggalDiterima',
+  catatan: 'catatan',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type JaminanPinjamanScalarFieldEnum = (typeof JaminanPinjamanScalarFieldEnum)[keyof typeof JaminanPinjamanScalarFieldEnum]
+
+
+export const MutasiJaminanScalarFieldEnum = {
+  id: 'id',
+  jaminanId: 'jaminanId',
+  arah: 'arah',
+  terjadiPada: 'terjadiPada',
+  dicatatOlehId: 'dicatatOlehId',
+  diserahkanKepada: 'diserahkanKepada',
+  diterimaDari: 'diterimaDari',
+  keperluan: 'keperluan',
+  lokasi: 'lokasi',
+  bukti: 'bukti',
+  tanggalKembaliRencana: 'tanggalKembaliRencana',
+  tanggalKembali: 'tanggalKembali',
+  catatan: 'catatan',
+  createdAt: 'createdAt'
+} as const
+
+export type MutasiJaminanScalarFieldEnum = (typeof MutasiJaminanScalarFieldEnum)[keyof typeof MutasiJaminanScalarFieldEnum]
 
 
 export const SortOrder = {
