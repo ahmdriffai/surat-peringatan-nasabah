@@ -61,7 +61,7 @@ export default function CetakSPPage() {
    * Semua SP digunakan untuk mengambil
    * history surat peringatan sebelumnya.
    */
-  const { data: allSP } = useGetAllSP();
+  const { data: allSP, isLoading: isLoadingAllSP } = useGetAllSP();
 
   const { data: kejaksaanList } = useGetAllKepalaKejaksaan();
 
@@ -232,7 +232,7 @@ export default function CetakSPPage() {
     }
   };
 
-  if (isLoading) {
+  if (isLoading || isLoadingAllSP) {
     return <p className="p-8 text-sm text-muted-foreground">Memuat...</p>;
   }
 
@@ -488,11 +488,7 @@ function getRiwayatPeringatan(
     );
 }
 
-function RiwayatSPReferences({
-  riwayatSP,
-}: {
-  riwayatSP: SPWithNasabah[];
-}) {
+function RiwayatSPReferences({ riwayatSP }: { riwayatSP: SPWithNasabah[] }) {
   return (
     <div className="mt-1 space-y-0.5 text-xs font-bold">
       {riwayatSP.map((riwayat) => (
@@ -1165,8 +1161,9 @@ function SuratPemberitahuanLelangBody({
 
           {riwayatSP.map((riwayat) => (
             <li key={riwayat.id}>
-              {JENIS_LABEL[riwayat.jenis] ?? riwayat.jenis} No. {riwayat.nomorSurat}{" "}
-              Tanggal {formatDateNumeric(riwayat.tanggalSurat)}
+              {JENIS_LABEL[riwayat.jenis] ?? riwayat.jenis} No.{" "}
+              {riwayat.nomorSurat} Tanggal{" "}
+              {formatDateNumeric(riwayat.tanggalSurat)}
             </li>
           ))}
 
