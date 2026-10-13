@@ -119,6 +119,10 @@ export default function UserList({
             ),
           },
           {
+            header: "Petugas Jaminan",
+            accessor: (row) => row.petugasJaminan ? <Badge>Ya</Badge> : "-",
+          },
+          {
             header: "Action",
             accessor: (row) => (
               <div className="flex gap-2 justify-start">
@@ -241,6 +245,7 @@ function EditUserForm({
       email: user.email,
       role: user.role,
       aktif: user.aktif,
+      petugasJaminan: user.petugasJaminan,
     },
   });
 
@@ -333,6 +338,20 @@ function EditUserForm({
               onCheckedChange={field.onChange}
             />
             <FieldLabel htmlFor="aktif">Aktif</FieldLabel>
+          </Field>
+        )}
+      />
+      <Controller
+        control={form.control}
+        name="petugasJaminan"
+        render={({ field }) => (
+          <Field orientation="horizontal">
+            <Checkbox
+              id="petugasJaminan"
+              checked={field.value === true}
+              onCheckedChange={field.onChange}
+            />
+            <FieldLabel htmlFor="petugasJaminan">Petugas Jaminan</FieldLabel>
           </Field>
         )}
       />

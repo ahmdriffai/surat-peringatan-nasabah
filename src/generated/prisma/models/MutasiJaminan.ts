@@ -256,6 +256,7 @@ export type MutasiJaminanWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"MutasiJaminan"> | Date | string
   jaminan?: Prisma.XOR<Prisma.JaminanPinjamanScalarRelationFilter, Prisma.JaminanPinjamanWhereInput>
   dicatatOleh?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  approval?: Prisma.XOR<Prisma.JaminanApprovalNullableScalarRelationFilter, Prisma.JaminanApprovalWhereInput> | null
 }
 
 export type MutasiJaminanOrderByWithRelationInput = {
@@ -275,6 +276,7 @@ export type MutasiJaminanOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   jaminan?: Prisma.JaminanPinjamanOrderByWithRelationInput
   dicatatOleh?: Prisma.UserOrderByWithRelationInput
+  approval?: Prisma.JaminanApprovalOrderByWithRelationInput
 }
 
 export type MutasiJaminanWhereUniqueInput = Prisma.AtLeast<{
@@ -297,6 +299,7 @@ export type MutasiJaminanWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"MutasiJaminan"> | Date | string
   jaminan?: Prisma.XOR<Prisma.JaminanPinjamanScalarRelationFilter, Prisma.JaminanPinjamanWhereInput>
   dicatatOleh?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  approval?: Prisma.XOR<Prisma.JaminanApprovalNullableScalarRelationFilter, Prisma.JaminanApprovalWhereInput> | null
 }, "id">
 
 export type MutasiJaminanOrderByWithAggregationInput = {
@@ -354,6 +357,7 @@ export type MutasiJaminanCreateInput = {
   createdAt?: Date | string
   jaminan: Prisma.JaminanPinjamanCreateNestedOneWithoutMutasiInput
   dicatatOleh: Prisma.UserCreateNestedOneWithoutMutasiJaminanInput
+  approval?: Prisma.JaminanApprovalCreateNestedOneWithoutMutasiInput
 }
 
 export type MutasiJaminanUncheckedCreateInput = {
@@ -371,6 +375,7 @@ export type MutasiJaminanUncheckedCreateInput = {
   tanggalKembali?: Date | string | null
   catatan?: string | null
   createdAt?: Date | string
+  approval?: Prisma.JaminanApprovalUncheckedCreateNestedOneWithoutMutasiInput
 }
 
 export type MutasiJaminanUpdateInput = {
@@ -388,6 +393,7 @@ export type MutasiJaminanUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   jaminan?: Prisma.JaminanPinjamanUpdateOneRequiredWithoutMutasiNestedInput
   dicatatOleh?: Prisma.UserUpdateOneRequiredWithoutMutasiJaminanNestedInput
+  approval?: Prisma.JaminanApprovalUpdateOneWithoutMutasiNestedInput
 }
 
 export type MutasiJaminanUncheckedUpdateInput = {
@@ -405,6 +411,7 @@ export type MutasiJaminanUncheckedUpdateInput = {
   tanggalKembali?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  approval?: Prisma.JaminanApprovalUncheckedUpdateOneWithoutMutasiNestedInput
 }
 
 export type MutasiJaminanCreateManyInput = {
@@ -517,6 +524,11 @@ export type MutasiJaminanMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
 }
 
+export type MutasiJaminanScalarRelationFilter = {
+  is?: Prisma.MutasiJaminanWhereInput
+  isNot?: Prisma.MutasiJaminanWhereInput
+}
+
 export type MutasiJaminanCreateNestedManyWithoutDicatatOlehInput = {
   create?: Prisma.XOR<Prisma.MutasiJaminanCreateWithoutDicatatOlehInput, Prisma.MutasiJaminanUncheckedCreateWithoutDicatatOlehInput> | Prisma.MutasiJaminanCreateWithoutDicatatOlehInput[] | Prisma.MutasiJaminanUncheckedCreateWithoutDicatatOlehInput[]
   connectOrCreate?: Prisma.MutasiJaminanCreateOrConnectWithoutDicatatOlehInput | Prisma.MutasiJaminanCreateOrConnectWithoutDicatatOlehInput[]
@@ -605,6 +617,20 @@ export type EnumArahJaminanFieldUpdateOperationsInput = {
   set?: $Enums.ArahJaminan
 }
 
+export type MutasiJaminanCreateNestedOneWithoutApprovalInput = {
+  create?: Prisma.XOR<Prisma.MutasiJaminanCreateWithoutApprovalInput, Prisma.MutasiJaminanUncheckedCreateWithoutApprovalInput>
+  connectOrCreate?: Prisma.MutasiJaminanCreateOrConnectWithoutApprovalInput
+  connect?: Prisma.MutasiJaminanWhereUniqueInput
+}
+
+export type MutasiJaminanUpdateOneRequiredWithoutApprovalNestedInput = {
+  create?: Prisma.XOR<Prisma.MutasiJaminanCreateWithoutApprovalInput, Prisma.MutasiJaminanUncheckedCreateWithoutApprovalInput>
+  connectOrCreate?: Prisma.MutasiJaminanCreateOrConnectWithoutApprovalInput
+  upsert?: Prisma.MutasiJaminanUpsertWithoutApprovalInput
+  connect?: Prisma.MutasiJaminanWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MutasiJaminanUpdateToOneWithWhereWithoutApprovalInput, Prisma.MutasiJaminanUpdateWithoutApprovalInput>, Prisma.MutasiJaminanUncheckedUpdateWithoutApprovalInput>
+}
+
 export type MutasiJaminanCreateWithoutDicatatOlehInput = {
   id?: string
   arah: $Enums.ArahJaminan
@@ -619,6 +645,7 @@ export type MutasiJaminanCreateWithoutDicatatOlehInput = {
   catatan?: string | null
   createdAt?: Date | string
   jaminan: Prisma.JaminanPinjamanCreateNestedOneWithoutMutasiInput
+  approval?: Prisma.JaminanApprovalCreateNestedOneWithoutMutasiInput
 }
 
 export type MutasiJaminanUncheckedCreateWithoutDicatatOlehInput = {
@@ -635,6 +662,7 @@ export type MutasiJaminanUncheckedCreateWithoutDicatatOlehInput = {
   tanggalKembali?: Date | string | null
   catatan?: string | null
   createdAt?: Date | string
+  approval?: Prisma.JaminanApprovalUncheckedCreateNestedOneWithoutMutasiInput
 }
 
 export type MutasiJaminanCreateOrConnectWithoutDicatatOlehInput = {
@@ -697,6 +725,7 @@ export type MutasiJaminanCreateWithoutJaminanInput = {
   catatan?: string | null
   createdAt?: Date | string
   dicatatOleh: Prisma.UserCreateNestedOneWithoutMutasiJaminanInput
+  approval?: Prisma.JaminanApprovalCreateNestedOneWithoutMutasiInput
 }
 
 export type MutasiJaminanUncheckedCreateWithoutJaminanInput = {
@@ -713,6 +742,7 @@ export type MutasiJaminanUncheckedCreateWithoutJaminanInput = {
   tanggalKembali?: Date | string | null
   catatan?: string | null
   createdAt?: Date | string
+  approval?: Prisma.JaminanApprovalUncheckedCreateNestedOneWithoutMutasiInput
 }
 
 export type MutasiJaminanCreateOrConnectWithoutJaminanInput = {
@@ -739,6 +769,90 @@ export type MutasiJaminanUpdateWithWhereUniqueWithoutJaminanInput = {
 export type MutasiJaminanUpdateManyWithWhereWithoutJaminanInput = {
   where: Prisma.MutasiJaminanScalarWhereInput
   data: Prisma.XOR<Prisma.MutasiJaminanUpdateManyMutationInput, Prisma.MutasiJaminanUncheckedUpdateManyWithoutJaminanInput>
+}
+
+export type MutasiJaminanCreateWithoutApprovalInput = {
+  id?: string
+  arah: $Enums.ArahJaminan
+  terjadiPada?: Date | string
+  diserahkanKepada?: string | null
+  diterimaDari?: string | null
+  keperluan?: string | null
+  lokasi?: string | null
+  bukti?: string | null
+  tanggalKembaliRencana?: Date | string | null
+  tanggalKembali?: Date | string | null
+  catatan?: string | null
+  createdAt?: Date | string
+  jaminan: Prisma.JaminanPinjamanCreateNestedOneWithoutMutasiInput
+  dicatatOleh: Prisma.UserCreateNestedOneWithoutMutasiJaminanInput
+}
+
+export type MutasiJaminanUncheckedCreateWithoutApprovalInput = {
+  id?: string
+  jaminanId: string
+  arah: $Enums.ArahJaminan
+  terjadiPada?: Date | string
+  dicatatOlehId: string
+  diserahkanKepada?: string | null
+  diterimaDari?: string | null
+  keperluan?: string | null
+  lokasi?: string | null
+  bukti?: string | null
+  tanggalKembaliRencana?: Date | string | null
+  tanggalKembali?: Date | string | null
+  catatan?: string | null
+  createdAt?: Date | string
+}
+
+export type MutasiJaminanCreateOrConnectWithoutApprovalInput = {
+  where: Prisma.MutasiJaminanWhereUniqueInput
+  create: Prisma.XOR<Prisma.MutasiJaminanCreateWithoutApprovalInput, Prisma.MutasiJaminanUncheckedCreateWithoutApprovalInput>
+}
+
+export type MutasiJaminanUpsertWithoutApprovalInput = {
+  update: Prisma.XOR<Prisma.MutasiJaminanUpdateWithoutApprovalInput, Prisma.MutasiJaminanUncheckedUpdateWithoutApprovalInput>
+  create: Prisma.XOR<Prisma.MutasiJaminanCreateWithoutApprovalInput, Prisma.MutasiJaminanUncheckedCreateWithoutApprovalInput>
+  where?: Prisma.MutasiJaminanWhereInput
+}
+
+export type MutasiJaminanUpdateToOneWithWhereWithoutApprovalInput = {
+  where?: Prisma.MutasiJaminanWhereInput
+  data: Prisma.XOR<Prisma.MutasiJaminanUpdateWithoutApprovalInput, Prisma.MutasiJaminanUncheckedUpdateWithoutApprovalInput>
+}
+
+export type MutasiJaminanUpdateWithoutApprovalInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  arah?: Prisma.EnumArahJaminanFieldUpdateOperationsInput | $Enums.ArahJaminan
+  terjadiPada?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  diserahkanKepada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  diterimaDari?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  keperluan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lokasi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bukti?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tanggalKembaliRencana?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tanggalKembali?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  jaminan?: Prisma.JaminanPinjamanUpdateOneRequiredWithoutMutasiNestedInput
+  dicatatOleh?: Prisma.UserUpdateOneRequiredWithoutMutasiJaminanNestedInput
+}
+
+export type MutasiJaminanUncheckedUpdateWithoutApprovalInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  jaminanId?: Prisma.StringFieldUpdateOperationsInput | string
+  arah?: Prisma.EnumArahJaminanFieldUpdateOperationsInput | $Enums.ArahJaminan
+  terjadiPada?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  dicatatOlehId?: Prisma.StringFieldUpdateOperationsInput | string
+  diserahkanKepada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  diterimaDari?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  keperluan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lokasi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bukti?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tanggalKembaliRencana?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tanggalKembali?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type MutasiJaminanCreateManyDicatatOlehInput = {
@@ -771,6 +885,7 @@ export type MutasiJaminanUpdateWithoutDicatatOlehInput = {
   catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   jaminan?: Prisma.JaminanPinjamanUpdateOneRequiredWithoutMutasiNestedInput
+  approval?: Prisma.JaminanApprovalUpdateOneWithoutMutasiNestedInput
 }
 
 export type MutasiJaminanUncheckedUpdateWithoutDicatatOlehInput = {
@@ -787,6 +902,7 @@ export type MutasiJaminanUncheckedUpdateWithoutDicatatOlehInput = {
   tanggalKembali?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  approval?: Prisma.JaminanApprovalUncheckedUpdateOneWithoutMutasiNestedInput
 }
 
 export type MutasiJaminanUncheckedUpdateManyWithoutDicatatOlehInput = {
@@ -835,6 +951,7 @@ export type MutasiJaminanUpdateWithoutJaminanInput = {
   catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dicatatOleh?: Prisma.UserUpdateOneRequiredWithoutMutasiJaminanNestedInput
+  approval?: Prisma.JaminanApprovalUpdateOneWithoutMutasiNestedInput
 }
 
 export type MutasiJaminanUncheckedUpdateWithoutJaminanInput = {
@@ -851,6 +968,7 @@ export type MutasiJaminanUncheckedUpdateWithoutJaminanInput = {
   tanggalKembali?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  approval?: Prisma.JaminanApprovalUncheckedUpdateOneWithoutMutasiNestedInput
 }
 
 export type MutasiJaminanUncheckedUpdateManyWithoutJaminanInput = {
@@ -888,6 +1006,7 @@ export type MutasiJaminanSelect<ExtArgs extends runtime.Types.Extensions.Interna
   createdAt?: boolean
   jaminan?: boolean | Prisma.JaminanPinjamanDefaultArgs<ExtArgs>
   dicatatOleh?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  approval?: boolean | Prisma.MutasiJaminan$approvalArgs<ExtArgs>
 }, ExtArgs["result"]["mutasiJaminan"]>
 
 export type MutasiJaminanSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -949,6 +1068,7 @@ export type MutasiJaminanOmit<ExtArgs extends runtime.Types.Extensions.InternalA
 export type MutasiJaminanInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   jaminan?: boolean | Prisma.JaminanPinjamanDefaultArgs<ExtArgs>
   dicatatOleh?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  approval?: boolean | Prisma.MutasiJaminan$approvalArgs<ExtArgs>
 }
 export type MutasiJaminanIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   jaminan?: boolean | Prisma.JaminanPinjamanDefaultArgs<ExtArgs>
@@ -964,6 +1084,7 @@ export type $MutasiJaminanPayload<ExtArgs extends runtime.Types.Extensions.Inter
   objects: {
     jaminan: Prisma.$JaminanPinjamanPayload<ExtArgs>
     dicatatOleh: Prisma.$UserPayload<ExtArgs>
+    approval: Prisma.$JaminanApprovalPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1376,6 +1497,7 @@ export interface Prisma__MutasiJaminanClient<T, Null = never, ExtArgs extends ru
   readonly [Symbol.toStringTag]: "PrismaPromise"
   jaminan<T extends Prisma.JaminanPinjamanDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JaminanPinjamanDefaultArgs<ExtArgs>>): Prisma.Prisma__JaminanPinjamanClient<runtime.Types.Result.GetResult<Prisma.$JaminanPinjamanPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   dicatatOleh<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  approval<T extends Prisma.MutasiJaminan$approvalArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MutasiJaminan$approvalArgs<ExtArgs>>): Prisma.Prisma__JaminanApprovalClient<runtime.Types.Result.GetResult<Prisma.$JaminanApprovalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1817,6 +1939,25 @@ export type MutasiJaminanDeleteManyArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many MutasiJaminans to delete.
    */
   limit?: number
+}
+
+/**
+ * MutasiJaminan.approval
+ */
+export type MutasiJaminan$approvalArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the JaminanApproval
+   */
+  select?: Prisma.JaminanApprovalSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the JaminanApproval
+   */
+  omit?: Prisma.JaminanApprovalOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.JaminanApprovalInclude<ExtArgs> | null
+  where?: Prisma.JaminanApprovalWhereInput
 }
 
 /**

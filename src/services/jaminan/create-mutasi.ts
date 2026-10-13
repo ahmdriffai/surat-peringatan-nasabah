@@ -21,6 +21,8 @@ export async function createMutasiJaminan(
     : undefined;
 
   return prisma.$transaction(async (tx) => {
+    const approver = await tx.user.findFirst({ where: { petugasJaminan: true, aktif: true } });
+    if (!approver) throw new Error("Belum ada petugas jaminan yang ditunjuk.");
     const mutasi = await tx.mutasiJaminan.create({
       data: {
         jaminanId,
@@ -37,10 +39,7 @@ export async function createMutasiJaminan(
       },
     });
 
-    await tx.jaminanPinjaman.update({
-      where: { id: jaminanId },
-      data: { status: data.arah === "KELUAR" ? "DIBAWA_KELUAR" : "TERSIMPAN" },
-    });
+    await tx.jaminanApproval.create({ data: { mutasiId: mutasi.id, approverId: approver.id } });
 
     return mutasi;
   });

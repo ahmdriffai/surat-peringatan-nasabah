@@ -17,6 +17,7 @@ export const EditUserInputSchema = z.object({
   email: z.string().email("email tidak valid").optional(),
   role: z.nativeEnum(Role).optional(),
   aktif: z.boolean().optional(),
+  petugasJaminan: z.boolean().optional(),
 });
 
 export type EditUserInput = z.infer<typeof EditUserInputSchema>;

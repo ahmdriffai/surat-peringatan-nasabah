@@ -58,7 +58,9 @@ export const ModelName = {
   SPApproval: 'SPApproval',
   JenisSPApprover: 'JenisSPApprover',
   JaminanPinjaman: 'JaminanPinjaman',
-  MutasiJaminan: 'MutasiJaminan'
+  Pinjaman: 'Pinjaman',
+  MutasiJaminan: 'MutasiJaminan',
+  JaminanApproval: 'JaminanApproval'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -101,6 +103,7 @@ export const UserScalarFieldEnum = {
   password: 'password',
   role: 'role',
   aktif: 'aktif',
+  petugasJaminan: 'petugasJaminan',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -126,6 +129,7 @@ export const SuratPeringatanScalarFieldEnum = {
   id: 'id',
   nomorSurat: 'nomorSurat',
   nasabahId: 'nasabahId',
+  pinjamanId: 'pinjamanId',
   kejaksaanId: 'kejaksaanId',
   petugasId: 'petugasId',
   noPjm: 'noPjm',
@@ -197,6 +201,7 @@ export type JenisSPApproverScalarFieldEnum = (typeof JenisSPApproverScalarFieldE
 export const JaminanPinjamanScalarFieldEnum = {
   id: 'id',
   nasabahId: 'nasabahId',
+  pinjamanId: 'pinjamanId',
   noPjm: 'noPjm',
   jenis: 'jenis',
   nomorDokumen: 'nomorDokumen',
@@ -212,6 +217,26 @@ export const JaminanPinjamanScalarFieldEnum = {
 } as const
 
 export type JaminanPinjamanScalarFieldEnum = (typeof JaminanPinjamanScalarFieldEnum)[keyof typeof JaminanPinjamanScalarFieldEnum]
+
+
+export const PinjamanScalarFieldEnum = {
+  id: 'id',
+  nasabahId: 'nasabahId',
+  noPjm: 'noPjm',
+  jenisFasilitas: 'jenisFasilitas',
+  tanggalAkadKredit: 'tanggalAkadKredit',
+  sukuBunga: 'sukuBunga',
+  plafond: 'plafond',
+  saldo: 'saldo',
+  tgkPokok: 'tgkPokok',
+  tgkBunga: 'tgkBunga',
+  tgkPokokHari: 'tgkPokokHari',
+  tgkBungaHari: 'tgkBungaHari',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PinjamanScalarFieldEnum = (typeof PinjamanScalarFieldEnum)[keyof typeof PinjamanScalarFieldEnum]
 
 
 export const MutasiJaminanScalarFieldEnum = {
@@ -232,6 +257,19 @@ export const MutasiJaminanScalarFieldEnum = {
 } as const
 
 export type MutasiJaminanScalarFieldEnum = (typeof MutasiJaminanScalarFieldEnum)[keyof typeof MutasiJaminanScalarFieldEnum]
+
+
+export const JaminanApprovalScalarFieldEnum = {
+  id: 'id',
+  mutasiId: 'mutasiId',
+  approverId: 'approverId',
+  status: 'status',
+  catatan: 'catatan',
+  approvedAt: 'approvedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type JaminanApprovalScalarFieldEnum = (typeof JaminanApprovalScalarFieldEnum)[keyof typeof JaminanApprovalScalarFieldEnum]
 
 
 export const SortOrder = {

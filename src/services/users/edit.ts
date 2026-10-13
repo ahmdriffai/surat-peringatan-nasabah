@@ -11,6 +11,12 @@ export async function editUser(
 ): Promise<User> {
   await requireRole("ADMIN");
   const data = EditUserInputSchema.parse(input);
+  if (data.petugasJaminan) {
+    await prisma.user.updateMany({
+      where: { petugasJaminan: true, id: { not: id } },
+      data: { petugasJaminan: false },
+    });
+  }
 
   return prisma.user.update({
     where: { id },

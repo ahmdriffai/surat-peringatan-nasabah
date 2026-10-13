@@ -26,21 +26,22 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Nasabah } from "@/generated/prisma/client";
-import { History, Loader2, Pen, Trash2, Trash2Icon } from "lucide-react";
+import { History, Landmark, Loader2, Pen, Trash2, Trash2Icon } from "lucide-react";
 import { useState } from "react";
 import { useDeleteNasabah, useEditNasabah } from "../hook";
 import { NasabahCreateInput } from "../schema";
 import CustomerForm from "./customer-form";
 import RiwayatSPDialog from "./riwayat-sp-dialog";
+import { NasabahWithPinjaman } from "@/services/nasabah/get-all";
 
 interface Props {
-  nasabah: Nasabah[];
+  nasabah: NasabahWithPinjaman[];
 }
 
 export default function CustomerList({ nasabah }: Props) {
-  const [editTarget, setEditTarget] = useState<Nasabah | null>(null);
-  const [riwayatTarget, setRiwayatTarget] = useState<Nasabah | null>(null);
+  const [editTarget, setEditTarget] = useState<NasabahWithPinjaman | null>(null);
+  const [riwayatTarget, setRiwayatTarget] = useState<NasabahWithPinjaman | null>(null);
+  const [pinjamanTarget, setPinjamanTarget] = useState<NasabahWithPinjaman | null>(null);
 
   const { mutate: mutateEdit, isPending: isEditPending } = useEditNasabah();
   const { mutate: mutateDelete, isPending: isDeletePending } =
@@ -61,7 +62,7 @@ export default function CustomerList({ nasabah }: Props) {
 
   return (
     <>
-      <Table<Nasabah>
+      <Table<NasabahWithPinjaman>
         data={nasabah}
         keyExtractor={(row) => row.id}
         emptyMessage="Tidak ada data nasabah"
@@ -114,6 +115,21 @@ export default function CustomerList({ nasabah }: Props) {
                   </TooltipTrigger>
                   <TooltipContent>
                     <p>Riwayat surat peringatan</p>
+                  </TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      onClick={() => setPinjamanTarget(row)}
+                    >
+                      <Landmark />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Detail pinjaman</p>
                   </TooltipContent>
                 </Tooltip>
 
@@ -207,6 +223,44 @@ export default function CustomerList({ nasabah }: Props) {
         nasabah={riwayatTarget}
         onOpenChange={(open) => !open && setRiwayatTarget(null)}
       />
+
+      <Dialog
+        open={!!pinjamanTarget}
+        onOpenChange={(open) => !open && setPinjamanTarget(null)}
+      >
+        <DialogContent className="max-h-[calc(100vh-2rem)] overflow-y-auto sm:max-w-3xl">
+          <DialogHeader>
+            <DialogTitle>Detail Pinjaman</DialogTitle>
+            <DialogDescription>
+              Daftar fasilitas pinjaman milik {pinjamanTarget?.nama}.
+            </DialogDescription>
+          </DialogHeader>
+          {!pinjamanTarget?.pinjaman.length ? (
+            <p className="text-sm text-muted-foreground">Belum ada data pinjaman.</p>
+          ) : (
+            <div className="space-y-3">
+              {pinjamanTarget.pinjaman.map((pinjaman) => (
+                <div key={pinjaman.id} className="rounded-lg border p-4 text-sm">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <p className="font-mono font-semibold">{pinjaman.noPjm}</p>
+                    <p className="text-muted-foreground">{pinjaman.jenisFasilitas || "Jenis fasilitas belum diisi"}</p>
+                  </div>
+                  <dl className="mt-3 grid gap-x-6 gap-y-2 text-muted-foreground sm:grid-cols-2">
+                    <div><dt className="inline font-medium">Plafond: </dt><dd className="inline">{formatAmount(pinjaman.plafond)}</dd></div>
+                    <div><dt className="inline font-medium">Saldo: </dt><dd className="inline">{formatAmount(pinjaman.saldo)}</dd></div>
+                    <div><dt className="inline font-medium">Tunggakan pokok: </dt><dd className="inline">{formatAmount(pinjaman.tgkPokok)}</dd></div>
+                    <div><dt className="inline font-medium">Tunggakan bunga: </dt><dd className="inline">{formatAmount(pinjaman.tgkBunga)}</dd></div>
+                  </dl>
+                </div>
+              ))}
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </>
   );
+}
+
+function formatAmount(value: number | null | undefined) {
+  return value == null ? "-" : new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(value);
 }

@@ -1,6 +1,7 @@
 "use client";
 
-import { LogOut, MoreVerticalIcon, Settings } from "lucide-react";
+import { LogOut, Moon, MoreVerticalIcon, Settings, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 
@@ -22,6 +23,7 @@ import {
 
 export function NavUser({ user }: { user: { nama: string; email: string } }) {
   const { isMobile } = useSidebar();
+  const { theme, setTheme } = useTheme();
 
   const initials = user.nama
     .split(" ")
@@ -73,6 +75,12 @@ export function NavUser({ user }: { user: { nama: string; email: string } }) {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
+            <DropdownMenuItem
+              onSelect={() => setTheme(theme === "dark" ? "light" : "dark")}
+            >
+              {theme === "dark" ? <Sun /> : <Moon />}
+              {theme === "dark" ? "Mode terang" : "Mode gelap"}
+            </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link href="/akun">
                 <Settings />

@@ -77,7 +77,17 @@ export type JenisSPApprover = Prisma.JenisSPApproverModel
  */
 export type JaminanPinjaman = Prisma.JaminanPinjamanModel
 /**
+ * Model Pinjaman
+ * 
+ */
+export type Pinjaman = Prisma.PinjamanModel
+/**
  * Model MutasiJaminan
  * 
  */
 export type MutasiJaminan = Prisma.MutasiJaminanModel
+/**
+ * Model JaminanApproval
+ * 
+ */
+export type JaminanApproval = Prisma.JaminanApprovalModel

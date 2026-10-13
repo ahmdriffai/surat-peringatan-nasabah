@@ -5,6 +5,7 @@ import z from "zod/v3";
 export type SPWithNasabah = Prisma.SuratPeringatanGetPayload<{
   include: {
     nasabah: true;
+    pinjaman: true;
     kejaksaan: true;
     petugas: true;
     approvals: { include: { approver: true }; orderBy: { urutan: "asc" } };

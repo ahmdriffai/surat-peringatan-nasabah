@@ -13,12 +13,15 @@ import Table from "@/components/ui/table-custom";
 import { Nasabah } from "@/generated/prisma/client";
 import { formatDate, formatDateTime } from "@/features/sp/label";
 import { Eye, History, Loader2, Pen, Plus, Trash2 } from "lucide-react";
+import { Check } from "lucide-react";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import {
   useCreateMutasiJaminan,
   useDeleteJaminan,
   useDeleteMutasiJaminan,
   useEditJaminan,
+  useApproveMutasiJaminan,
 } from "../hook";
 import { JaminanCreateInput, JaminanEditInput } from "../schema";
 import { JaminanWithDetails } from "@/services/jaminan/get-all";
@@ -43,6 +46,8 @@ export default function JaminanList({ data, nasabah }: Props) {
   const remove = useDeleteJaminan();
   const createMutasi = useCreateMutasiJaminan();
   const removeMutasi = useDeleteMutasiJaminan();
+  const approveMutasi = useApproveMutasiJaminan();
+  const { data: session } = useSession();
 
   const submitEdit = (input: JaminanCreateInput) => {
     if (!editTarget) return;
@@ -68,7 +73,7 @@ export default function JaminanList({ data, nasabah }: Props) {
         emptyMessage="Belum ada data jaminan pinjaman"
         columns={[
           { header: "Nasabah", accessor: (row) => <div><p className="font-medium">{row.nasabah.nama}</p><p className="text-xs text-muted-foreground">{row.nasabah.cif}</p></div> },
-          { header: "No. Pinjaman", accessor: "noPjm" },
+          { header: "No. Pinjaman", accessor: (row) => row.pinjaman?.noPjm ?? row.noPjm },
           { header: "Jaminan", accessor: (row) => <div><p>{row.jenis}</p><p className="text-xs text-muted-foreground">{row.nomorDokumen || "-"}</p></div> },
           { header: "Status", accessor: (row) => <Badge variant={row.status === "TERSIMPAN" ? "default" : "secondary"}>{row.status === "TERSIMPAN" ? "Tersimpan" : "Dibawa keluar"}</Badge> },
           { header: "Aksi", accessor: (row) => <div className="flex gap-2">
@@ -106,7 +111,7 @@ export default function JaminanList({ data, nasabah }: Props) {
 
       <Dialog open={!!mutasiTarget} onOpenChange={(open) => !open && setMutasiTarget(null)}>
         <DialogContent className="max-h-[calc(100vh-2rem)] overflow-y-auto sm:max-w-2xl">
-          <DialogHeader><DialogTitle>Catat Mutasi Jaminan</DialogTitle><DialogDescription>{mutasiTarget?.jenis} — {mutasiTarget?.noPjm}</DialogDescription></DialogHeader>
+          <DialogHeader><DialogTitle>Catat Mutasi Jaminan</DialogTitle><DialogDescription>{mutasiTarget?.jenis} — {mutasiTarget?.pinjaman?.noPjm ?? mutasiTarget?.noPjm}</DialogDescription></DialogHeader>
           <MutasiForm onSubmit={submitMutasi} isPending={createMutasi.isPending} />
         </DialogContent>
       </Dialog>
@@ -120,6 +125,17 @@ export default function JaminanList({ data, nasabah }: Props) {
                 <div>
                   <Badge variant={item.arah === "MASUK" ? "default" : "secondary"}>{item.arah === "MASUK" ? "Masuk" : "Keluar"}</Badge>
                   <p className="mt-1">{formatDateTime(item.terjadiPada)} · {item.dicatatOleh.nama}</p>
+                  <div className="mt-1 space-y-1">
+                    <Badge
+                      variant={item.approval?.status === "DISETUJUI" ? "default" : "destructive"}
+                      className={item.approval?.status === "DISETUJUI" ? "text-green-600 dark:text-green-400" : undefined}
+                    >
+                      {item.approval?.status === "DISETUJUI" ? "Sudah di-approve" : "Belum di-approve"}
+                    </Badge>
+                    <p className="text-xs text-muted-foreground">
+                      {item.approval?.status === "DISETUJUI" ? `Oleh ${item.approval.approver.nama}${item.approval.approvedAt ? ` · ${formatDateTime(item.approval.approvedAt)}` : ""}` : item.approval ? `Menunggu ${item.approval.approver.nama}` : "Belum ada data approval"}
+                    </p>
+                  </div>
                   <dl className="mt-2 grid gap-x-6 gap-y-1 text-muted-foreground sm:grid-cols-2">
                     <div><dt className="inline font-medium">Diserahkan kepada: </dt><dd className="inline">{item.diserahkanKepada || "-"}</dd></div>
                     <div><dt className="inline font-medium">Diterima dari: </dt><dd className="inline">{item.diterimaDari || "-"}</dd></div>
@@ -131,6 +147,11 @@ export default function JaminanList({ data, nasabah }: Props) {
                   </dl>
                 </div>
                 <div className="flex items-center gap-2">
+                  {item.approval?.status === "PENDING" && item.approval.approverId === session?.user?.id && (
+                    <Button size="sm" disabled={approveMutasi.isPending} onClick={() => approveMutasi.mutate({ id: item.id })}>
+                      {approveMutasi.isPending ? <Loader2 className="animate-spin" /> : <Check />} Setujui
+                    </Button>
+                  )}
                   {item.bukti && <Button asChild size="sm" variant="outline"><a href={item.bukti} target="_blank" rel="noreferrer"><Eye /> Bukti</a></Button>}
                   <Button size="sm" variant="destructive" disabled={removeMutasi.isPending} onClick={() => { if (window.confirm("Hapus riwayat mutasi ini?")) removeMutasi.mutate(item.id); }}>
                     {removeMutasi.isPending ? <Loader2 className="animate-spin" /> : <Trash2 />}

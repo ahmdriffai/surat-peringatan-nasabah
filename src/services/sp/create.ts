@@ -56,10 +56,39 @@ export async function createSP(
     throw new Error("Nasabah belum dipilih atau tidak valid.");
   }
 
+  const pinjaman = await prisma.pinjaman.upsert({
+    where: { nasabahId_noPjm: { nasabahId: finalNasabahId, noPjm: data.noPjm } },
+    create: {
+      nasabahId: finalNasabahId,
+      noPjm: data.noPjm,
+      jenisFasilitas: data.jenisFasilitas,
+      tanggalAkadKredit: data.tanggalAkadKredit,
+      sukuBunga: data.sukuBunga,
+      plafond: data.plafond,
+      saldo: data.saldo,
+      tgkPokok: data.tgkPokok,
+      tgkBunga: data.tgkBunga,
+      tgkPokokHari: data.tgkPokokHari,
+      tgkBungaHari: data.tgkBungaHari,
+    },
+    update: {
+      jenisFasilitas: data.jenisFasilitas,
+      tanggalAkadKredit: data.tanggalAkadKredit,
+      sukuBunga: data.sukuBunga,
+      plafond: data.plafond,
+      saldo: data.saldo,
+      tgkPokok: data.tgkPokok,
+      tgkBunga: data.tgkBunga,
+      tgkPokokHari: data.tgkPokokHari,
+      tgkBungaHari: data.tgkBungaHari,
+    },
+  });
+
   return prisma.suratPeringatan.create({
     data: {
       ...data,
       nasabahId: finalNasabahId,
+      pinjamanId: pinjaman.id,
       petugasId: session.user.id,
     },
   });

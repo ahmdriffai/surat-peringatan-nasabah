@@ -28,9 +28,26 @@ export async function updateSP(
   }
 
   const { nasabahData, ...data } = SPCreateInputSchema.parse(input);
+  const pinjaman = await prisma.pinjaman.upsert({
+    where: { nasabahId_noPjm: { nasabahId: data.nasabahId!, noPjm: data.noPjm } },
+    create: {
+      nasabahId: data.nasabahId!,
+      noPjm: data.noPjm,
+      jenisFasilitas: data.jenisFasilitas,
+      tanggalAkadKredit: data.tanggalAkadKredit,
+      sukuBunga: data.sukuBunga,
+      plafond: data.plafond,
+      saldo: data.saldo,
+      tgkPokok: data.tgkPokok,
+      tgkBunga: data.tgkBunga,
+      tgkPokokHari: data.tgkPokokHari,
+      tgkBungaHari: data.tgkBungaHari,
+    },
+    update: {},
+  });
 
   return prisma.suratPeringatan.update({
     where: { id },
-    data,
+    data: { ...data, pinjamanId: pinjaman.id },
   });
 }

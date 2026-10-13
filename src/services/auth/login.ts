@@ -9,6 +9,7 @@ interface LoginUser {
   nama: string;
   email: string;
   role: Role;
+  petugasJaminan: boolean;
 }
 
 export async function checkLogin(
@@ -36,5 +37,6 @@ export async function checkLogin(
     nama: user.nama,
     email: user.email,
     role: user.role,
+    petugasJaminan: user.petugasJaminan,
   };
 }

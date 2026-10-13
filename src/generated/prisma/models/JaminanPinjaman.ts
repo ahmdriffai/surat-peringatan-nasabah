@@ -37,6 +37,7 @@ export type JaminanPinjamanSumAggregateOutputType = {
 export type JaminanPinjamanMinAggregateOutputType = {
   id: string | null
   nasabahId: string | null
+  pinjamanId: string | null
   noPjm: string | null
   jenis: string | null
   nomorDokumen: string | null
@@ -54,6 +55,7 @@ export type JaminanPinjamanMinAggregateOutputType = {
 export type JaminanPinjamanMaxAggregateOutputType = {
   id: string | null
   nasabahId: string | null
+  pinjamanId: string | null
   noPjm: string | null
   jenis: string | null
   nomorDokumen: string | null
@@ -71,6 +73,7 @@ export type JaminanPinjamanMaxAggregateOutputType = {
 export type JaminanPinjamanCountAggregateOutputType = {
   id: number
   nasabahId: number
+  pinjamanId: number
   noPjm: number
   jenis: number
   nomorDokumen: number
@@ -98,6 +101,7 @@ export type JaminanPinjamanSumAggregateInputType = {
 export type JaminanPinjamanMinAggregateInputType = {
   id?: true
   nasabahId?: true
+  pinjamanId?: true
   noPjm?: true
   jenis?: true
   nomorDokumen?: true
@@ -115,6 +119,7 @@ export type JaminanPinjamanMinAggregateInputType = {
 export type JaminanPinjamanMaxAggregateInputType = {
   id?: true
   nasabahId?: true
+  pinjamanId?: true
   noPjm?: true
   jenis?: true
   nomorDokumen?: true
@@ -132,6 +137,7 @@ export type JaminanPinjamanMaxAggregateInputType = {
 export type JaminanPinjamanCountAggregateInputType = {
   id?: true
   nasabahId?: true
+  pinjamanId?: true
   noPjm?: true
   jenis?: true
   nomorDokumen?: true
@@ -236,6 +242,7 @@ export type JaminanPinjamanGroupByArgs<ExtArgs extends runtime.Types.Extensions.
 export type JaminanPinjamanGroupByOutputType = {
   id: string
   nasabahId: string
+  pinjamanId: string | null
   noPjm: string
   jenis: string
   nomorDokumen: string | null
@@ -276,6 +283,7 @@ export type JaminanPinjamanWhereInput = {
   NOT?: Prisma.JaminanPinjamanWhereInput | Prisma.JaminanPinjamanWhereInput[]
   id?: Prisma.StringFilter<"JaminanPinjaman"> | string
   nasabahId?: Prisma.StringFilter<"JaminanPinjaman"> | string
+  pinjamanId?: Prisma.StringNullableFilter<"JaminanPinjaman"> | string | null
   noPjm?: Prisma.StringFilter<"JaminanPinjaman"> | string
   jenis?: Prisma.StringFilter<"JaminanPinjaman"> | string
   nomorDokumen?: Prisma.StringNullableFilter<"JaminanPinjaman"> | string | null
@@ -289,12 +297,14 @@ export type JaminanPinjamanWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"JaminanPinjaman"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"JaminanPinjaman"> | Date | string
   nasabah?: Prisma.XOR<Prisma.NasabahScalarRelationFilter, Prisma.NasabahWhereInput>
+  pinjaman?: Prisma.XOR<Prisma.PinjamanNullableScalarRelationFilter, Prisma.PinjamanWhereInput> | null
   mutasi?: Prisma.MutasiJaminanListRelationFilter
 }
 
 export type JaminanPinjamanOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   nasabahId?: Prisma.SortOrder
+  pinjamanId?: Prisma.SortOrderInput | Prisma.SortOrder
   noPjm?: Prisma.SortOrder
   jenis?: Prisma.SortOrder
   nomorDokumen?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -308,6 +318,7 @@ export type JaminanPinjamanOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   nasabah?: Prisma.NasabahOrderByWithRelationInput
+  pinjaman?: Prisma.PinjamanOrderByWithRelationInput
   mutasi?: Prisma.MutasiJaminanOrderByRelationAggregateInput
 }
 
@@ -317,6 +328,7 @@ export type JaminanPinjamanWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.JaminanPinjamanWhereInput[]
   NOT?: Prisma.JaminanPinjamanWhereInput | Prisma.JaminanPinjamanWhereInput[]
   nasabahId?: Prisma.StringFilter<"JaminanPinjaman"> | string
+  pinjamanId?: Prisma.StringNullableFilter<"JaminanPinjaman"> | string | null
   noPjm?: Prisma.StringFilter<"JaminanPinjaman"> | string
   jenis?: Prisma.StringFilter<"JaminanPinjaman"> | string
   nomorDokumen?: Prisma.StringNullableFilter<"JaminanPinjaman"> | string | null
@@ -330,12 +342,14 @@ export type JaminanPinjamanWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"JaminanPinjaman"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"JaminanPinjaman"> | Date | string
   nasabah?: Prisma.XOR<Prisma.NasabahScalarRelationFilter, Prisma.NasabahWhereInput>
+  pinjaman?: Prisma.XOR<Prisma.PinjamanNullableScalarRelationFilter, Prisma.PinjamanWhereInput> | null
   mutasi?: Prisma.MutasiJaminanListRelationFilter
 }, "id">
 
 export type JaminanPinjamanOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   nasabahId?: Prisma.SortOrder
+  pinjamanId?: Prisma.SortOrderInput | Prisma.SortOrder
   noPjm?: Prisma.SortOrder
   jenis?: Prisma.SortOrder
   nomorDokumen?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -361,6 +375,7 @@ export type JaminanPinjamanScalarWhereWithAggregatesInput = {
   NOT?: Prisma.JaminanPinjamanScalarWhereWithAggregatesInput | Prisma.JaminanPinjamanScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"JaminanPinjaman"> | string
   nasabahId?: Prisma.StringWithAggregatesFilter<"JaminanPinjaman"> | string
+  pinjamanId?: Prisma.StringNullableWithAggregatesFilter<"JaminanPinjaman"> | string | null
   noPjm?: Prisma.StringWithAggregatesFilter<"JaminanPinjaman"> | string
   jenis?: Prisma.StringWithAggregatesFilter<"JaminanPinjaman"> | string
   nomorDokumen?: Prisma.StringNullableWithAggregatesFilter<"JaminanPinjaman"> | string | null
@@ -390,12 +405,14 @@ export type JaminanPinjamanCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   nasabah: Prisma.NasabahCreateNestedOneWithoutJaminanPinjamanInput
+  pinjaman?: Prisma.PinjamanCreateNestedOneWithoutJaminanInput
   mutasi?: Prisma.MutasiJaminanCreateNestedManyWithoutJaminanInput
 }
 
 export type JaminanPinjamanUncheckedCreateInput = {
   id?: string
   nasabahId: string
+  pinjamanId?: string | null
   noPjm: string
   jenis: string
   nomorDokumen?: string | null
@@ -426,12 +443,14 @@ export type JaminanPinjamanUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   nasabah?: Prisma.NasabahUpdateOneRequiredWithoutJaminanPinjamanNestedInput
+  pinjaman?: Prisma.PinjamanUpdateOneWithoutJaminanNestedInput
   mutasi?: Prisma.MutasiJaminanUpdateManyWithoutJaminanNestedInput
 }
 
 export type JaminanPinjamanUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nasabahId?: Prisma.StringFieldUpdateOperationsInput | string
+  pinjamanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   noPjm?: Prisma.StringFieldUpdateOperationsInput | string
   jenis?: Prisma.StringFieldUpdateOperationsInput | string
   nomorDokumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -450,6 +469,7 @@ export type JaminanPinjamanUncheckedUpdateInput = {
 export type JaminanPinjamanCreateManyInput = {
   id?: string
   nasabahId: string
+  pinjamanId?: string | null
   noPjm: string
   jenis: string
   nomorDokumen?: string | null
@@ -483,6 +503,7 @@ export type JaminanPinjamanUpdateManyMutationInput = {
 export type JaminanPinjamanUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nasabahId?: Prisma.StringFieldUpdateOperationsInput | string
+  pinjamanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   noPjm?: Prisma.StringFieldUpdateOperationsInput | string
   jenis?: Prisma.StringFieldUpdateOperationsInput | string
   nomorDokumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -510,6 +531,7 @@ export type JaminanPinjamanOrderByRelationAggregateInput = {
 export type JaminanPinjamanCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   nasabahId?: Prisma.SortOrder
+  pinjamanId?: Prisma.SortOrder
   noPjm?: Prisma.SortOrder
   jenis?: Prisma.SortOrder
   nomorDokumen?: Prisma.SortOrder
@@ -531,6 +553,7 @@ export type JaminanPinjamanAvgOrderByAggregateInput = {
 export type JaminanPinjamanMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   nasabahId?: Prisma.SortOrder
+  pinjamanId?: Prisma.SortOrder
   noPjm?: Prisma.SortOrder
   jenis?: Prisma.SortOrder
   nomorDokumen?: Prisma.SortOrder
@@ -548,6 +571,7 @@ export type JaminanPinjamanMaxOrderByAggregateInput = {
 export type JaminanPinjamanMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   nasabahId?: Prisma.SortOrder
+  pinjamanId?: Prisma.SortOrder
   noPjm?: Prisma.SortOrder
   jenis?: Prisma.SortOrder
   nomorDokumen?: Prisma.SortOrder
@@ -617,6 +641,48 @@ export type EnumStatusJaminanFieldUpdateOperationsInput = {
   set?: $Enums.StatusJaminan
 }
 
+export type JaminanPinjamanCreateNestedManyWithoutPinjamanInput = {
+  create?: Prisma.XOR<Prisma.JaminanPinjamanCreateWithoutPinjamanInput, Prisma.JaminanPinjamanUncheckedCreateWithoutPinjamanInput> | Prisma.JaminanPinjamanCreateWithoutPinjamanInput[] | Prisma.JaminanPinjamanUncheckedCreateWithoutPinjamanInput[]
+  connectOrCreate?: Prisma.JaminanPinjamanCreateOrConnectWithoutPinjamanInput | Prisma.JaminanPinjamanCreateOrConnectWithoutPinjamanInput[]
+  createMany?: Prisma.JaminanPinjamanCreateManyPinjamanInputEnvelope
+  connect?: Prisma.JaminanPinjamanWhereUniqueInput | Prisma.JaminanPinjamanWhereUniqueInput[]
+}
+
+export type JaminanPinjamanUncheckedCreateNestedManyWithoutPinjamanInput = {
+  create?: Prisma.XOR<Prisma.JaminanPinjamanCreateWithoutPinjamanInput, Prisma.JaminanPinjamanUncheckedCreateWithoutPinjamanInput> | Prisma.JaminanPinjamanCreateWithoutPinjamanInput[] | Prisma.JaminanPinjamanUncheckedCreateWithoutPinjamanInput[]
+  connectOrCreate?: Prisma.JaminanPinjamanCreateOrConnectWithoutPinjamanInput | Prisma.JaminanPinjamanCreateOrConnectWithoutPinjamanInput[]
+  createMany?: Prisma.JaminanPinjamanCreateManyPinjamanInputEnvelope
+  connect?: Prisma.JaminanPinjamanWhereUniqueInput | Prisma.JaminanPinjamanWhereUniqueInput[]
+}
+
+export type JaminanPinjamanUpdateManyWithoutPinjamanNestedInput = {
+  create?: Prisma.XOR<Prisma.JaminanPinjamanCreateWithoutPinjamanInput, Prisma.JaminanPinjamanUncheckedCreateWithoutPinjamanInput> | Prisma.JaminanPinjamanCreateWithoutPinjamanInput[] | Prisma.JaminanPinjamanUncheckedCreateWithoutPinjamanInput[]
+  connectOrCreate?: Prisma.JaminanPinjamanCreateOrConnectWithoutPinjamanInput | Prisma.JaminanPinjamanCreateOrConnectWithoutPinjamanInput[]
+  upsert?: Prisma.JaminanPinjamanUpsertWithWhereUniqueWithoutPinjamanInput | Prisma.JaminanPinjamanUpsertWithWhereUniqueWithoutPinjamanInput[]
+  createMany?: Prisma.JaminanPinjamanCreateManyPinjamanInputEnvelope
+  set?: Prisma.JaminanPinjamanWhereUniqueInput | Prisma.JaminanPinjamanWhereUniqueInput[]
+  disconnect?: Prisma.JaminanPinjamanWhereUniqueInput | Prisma.JaminanPinjamanWhereUniqueInput[]
+  delete?: Prisma.JaminanPinjamanWhereUniqueInput | Prisma.JaminanPinjamanWhereUniqueInput[]
+  connect?: Prisma.JaminanPinjamanWhereUniqueInput | Prisma.JaminanPinjamanWhereUniqueInput[]
+  update?: Prisma.JaminanPinjamanUpdateWithWhereUniqueWithoutPinjamanInput | Prisma.JaminanPinjamanUpdateWithWhereUniqueWithoutPinjamanInput[]
+  updateMany?: Prisma.JaminanPinjamanUpdateManyWithWhereWithoutPinjamanInput | Prisma.JaminanPinjamanUpdateManyWithWhereWithoutPinjamanInput[]
+  deleteMany?: Prisma.JaminanPinjamanScalarWhereInput | Prisma.JaminanPinjamanScalarWhereInput[]
+}
+
+export type JaminanPinjamanUncheckedUpdateManyWithoutPinjamanNestedInput = {
+  create?: Prisma.XOR<Prisma.JaminanPinjamanCreateWithoutPinjamanInput, Prisma.JaminanPinjamanUncheckedCreateWithoutPinjamanInput> | Prisma.JaminanPinjamanCreateWithoutPinjamanInput[] | Prisma.JaminanPinjamanUncheckedCreateWithoutPinjamanInput[]
+  connectOrCreate?: Prisma.JaminanPinjamanCreateOrConnectWithoutPinjamanInput | Prisma.JaminanPinjamanCreateOrConnectWithoutPinjamanInput[]
+  upsert?: Prisma.JaminanPinjamanUpsertWithWhereUniqueWithoutPinjamanInput | Prisma.JaminanPinjamanUpsertWithWhereUniqueWithoutPinjamanInput[]
+  createMany?: Prisma.JaminanPinjamanCreateManyPinjamanInputEnvelope
+  set?: Prisma.JaminanPinjamanWhereUniqueInput | Prisma.JaminanPinjamanWhereUniqueInput[]
+  disconnect?: Prisma.JaminanPinjamanWhereUniqueInput | Prisma.JaminanPinjamanWhereUniqueInput[]
+  delete?: Prisma.JaminanPinjamanWhereUniqueInput | Prisma.JaminanPinjamanWhereUniqueInput[]
+  connect?: Prisma.JaminanPinjamanWhereUniqueInput | Prisma.JaminanPinjamanWhereUniqueInput[]
+  update?: Prisma.JaminanPinjamanUpdateWithWhereUniqueWithoutPinjamanInput | Prisma.JaminanPinjamanUpdateWithWhereUniqueWithoutPinjamanInput[]
+  updateMany?: Prisma.JaminanPinjamanUpdateManyWithWhereWithoutPinjamanInput | Prisma.JaminanPinjamanUpdateManyWithWhereWithoutPinjamanInput[]
+  deleteMany?: Prisma.JaminanPinjamanScalarWhereInput | Prisma.JaminanPinjamanScalarWhereInput[]
+}
+
 export type JaminanPinjamanCreateNestedOneWithoutMutasiInput = {
   create?: Prisma.XOR<Prisma.JaminanPinjamanCreateWithoutMutasiInput, Prisma.JaminanPinjamanUncheckedCreateWithoutMutasiInput>
   connectOrCreate?: Prisma.JaminanPinjamanCreateOrConnectWithoutMutasiInput
@@ -645,11 +711,13 @@ export type JaminanPinjamanCreateWithoutNasabahInput = {
   catatan?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  pinjaman?: Prisma.PinjamanCreateNestedOneWithoutJaminanInput
   mutasi?: Prisma.MutasiJaminanCreateNestedManyWithoutJaminanInput
 }
 
 export type JaminanPinjamanUncheckedCreateWithoutNasabahInput = {
   id?: string
+  pinjamanId?: string | null
   noPjm: string
   jenis: string
   nomorDokumen?: string | null
@@ -697,6 +765,7 @@ export type JaminanPinjamanScalarWhereInput = {
   NOT?: Prisma.JaminanPinjamanScalarWhereInput | Prisma.JaminanPinjamanScalarWhereInput[]
   id?: Prisma.StringFilter<"JaminanPinjaman"> | string
   nasabahId?: Prisma.StringFilter<"JaminanPinjaman"> | string
+  pinjamanId?: Prisma.StringNullableFilter<"JaminanPinjaman"> | string | null
   noPjm?: Prisma.StringFilter<"JaminanPinjaman"> | string
   jenis?: Prisma.StringFilter<"JaminanPinjaman"> | string
   nomorDokumen?: Prisma.StringNullableFilter<"JaminanPinjaman"> | string | null
@@ -709,6 +778,68 @@ export type JaminanPinjamanScalarWhereInput = {
   catatan?: Prisma.StringNullableFilter<"JaminanPinjaman"> | string | null
   createdAt?: Prisma.DateTimeFilter<"JaminanPinjaman"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"JaminanPinjaman"> | Date | string
+}
+
+export type JaminanPinjamanCreateWithoutPinjamanInput = {
+  id?: string
+  noPjm: string
+  jenis: string
+  nomorDokumen?: string | null
+  deskripsi?: string | null
+  atasNama?: string | null
+  nilaiTaksiran?: number | null
+  lokasiPenyimpanan?: string | null
+  status?: $Enums.StatusJaminan
+  tanggalDiterima?: Date | string | null
+  catatan?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  nasabah: Prisma.NasabahCreateNestedOneWithoutJaminanPinjamanInput
+  mutasi?: Prisma.MutasiJaminanCreateNestedManyWithoutJaminanInput
+}
+
+export type JaminanPinjamanUncheckedCreateWithoutPinjamanInput = {
+  id?: string
+  nasabahId: string
+  noPjm: string
+  jenis: string
+  nomorDokumen?: string | null
+  deskripsi?: string | null
+  atasNama?: string | null
+  nilaiTaksiran?: number | null
+  lokasiPenyimpanan?: string | null
+  status?: $Enums.StatusJaminan
+  tanggalDiterima?: Date | string | null
+  catatan?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  mutasi?: Prisma.MutasiJaminanUncheckedCreateNestedManyWithoutJaminanInput
+}
+
+export type JaminanPinjamanCreateOrConnectWithoutPinjamanInput = {
+  where: Prisma.JaminanPinjamanWhereUniqueInput
+  create: Prisma.XOR<Prisma.JaminanPinjamanCreateWithoutPinjamanInput, Prisma.JaminanPinjamanUncheckedCreateWithoutPinjamanInput>
+}
+
+export type JaminanPinjamanCreateManyPinjamanInputEnvelope = {
+  data: Prisma.JaminanPinjamanCreateManyPinjamanInput | Prisma.JaminanPinjamanCreateManyPinjamanInput[]
+  skipDuplicates?: boolean
+}
+
+export type JaminanPinjamanUpsertWithWhereUniqueWithoutPinjamanInput = {
+  where: Prisma.JaminanPinjamanWhereUniqueInput
+  update: Prisma.XOR<Prisma.JaminanPinjamanUpdateWithoutPinjamanInput, Prisma.JaminanPinjamanUncheckedUpdateWithoutPinjamanInput>
+  create: Prisma.XOR<Prisma.JaminanPinjamanCreateWithoutPinjamanInput, Prisma.JaminanPinjamanUncheckedCreateWithoutPinjamanInput>
+}
+
+export type JaminanPinjamanUpdateWithWhereUniqueWithoutPinjamanInput = {
+  where: Prisma.JaminanPinjamanWhereUniqueInput
+  data: Prisma.XOR<Prisma.JaminanPinjamanUpdateWithoutPinjamanInput, Prisma.JaminanPinjamanUncheckedUpdateWithoutPinjamanInput>
+}
+
+export type JaminanPinjamanUpdateManyWithWhereWithoutPinjamanInput = {
+  where: Prisma.JaminanPinjamanScalarWhereInput
+  data: Prisma.XOR<Prisma.JaminanPinjamanUpdateManyMutationInput, Prisma.JaminanPinjamanUncheckedUpdateManyWithoutPinjamanInput>
 }
 
 export type JaminanPinjamanCreateWithoutMutasiInput = {
@@ -726,11 +857,13 @@ export type JaminanPinjamanCreateWithoutMutasiInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   nasabah: Prisma.NasabahCreateNestedOneWithoutJaminanPinjamanInput
+  pinjaman?: Prisma.PinjamanCreateNestedOneWithoutJaminanInput
 }
 
 export type JaminanPinjamanUncheckedCreateWithoutMutasiInput = {
   id?: string
   nasabahId: string
+  pinjamanId?: string | null
   noPjm: string
   jenis: string
   nomorDokumen?: string | null
@@ -776,11 +909,13 @@ export type JaminanPinjamanUpdateWithoutMutasiInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   nasabah?: Prisma.NasabahUpdateOneRequiredWithoutJaminanPinjamanNestedInput
+  pinjaman?: Prisma.PinjamanUpdateOneWithoutJaminanNestedInput
 }
 
 export type JaminanPinjamanUncheckedUpdateWithoutMutasiInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nasabahId?: Prisma.StringFieldUpdateOperationsInput | string
+  pinjamanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   noPjm?: Prisma.StringFieldUpdateOperationsInput | string
   jenis?: Prisma.StringFieldUpdateOperationsInput | string
   nomorDokumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -797,6 +932,7 @@ export type JaminanPinjamanUncheckedUpdateWithoutMutasiInput = {
 
 export type JaminanPinjamanCreateManyNasabahInput = {
   id?: string
+  pinjamanId?: string | null
   noPjm: string
   jenis: string
   nomorDokumen?: string | null
@@ -825,11 +961,13 @@ export type JaminanPinjamanUpdateWithoutNasabahInput = {
   catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  pinjaman?: Prisma.PinjamanUpdateOneWithoutJaminanNestedInput
   mutasi?: Prisma.MutasiJaminanUpdateManyWithoutJaminanNestedInput
 }
 
 export type JaminanPinjamanUncheckedUpdateWithoutNasabahInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  pinjamanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   noPjm?: Prisma.StringFieldUpdateOperationsInput | string
   jenis?: Prisma.StringFieldUpdateOperationsInput | string
   nomorDokumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -847,6 +985,77 @@ export type JaminanPinjamanUncheckedUpdateWithoutNasabahInput = {
 
 export type JaminanPinjamanUncheckedUpdateManyWithoutNasabahInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  pinjamanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  noPjm?: Prisma.StringFieldUpdateOperationsInput | string
+  jenis?: Prisma.StringFieldUpdateOperationsInput | string
+  nomorDokumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deskripsi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  atasNama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nilaiTaksiran?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  lokasiPenyimpanan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStatusJaminanFieldUpdateOperationsInput | $Enums.StatusJaminan
+  tanggalDiterima?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type JaminanPinjamanCreateManyPinjamanInput = {
+  id?: string
+  nasabahId: string
+  noPjm: string
+  jenis: string
+  nomorDokumen?: string | null
+  deskripsi?: string | null
+  atasNama?: string | null
+  nilaiTaksiran?: number | null
+  lokasiPenyimpanan?: string | null
+  status?: $Enums.StatusJaminan
+  tanggalDiterima?: Date | string | null
+  catatan?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type JaminanPinjamanUpdateWithoutPinjamanInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  noPjm?: Prisma.StringFieldUpdateOperationsInput | string
+  jenis?: Prisma.StringFieldUpdateOperationsInput | string
+  nomorDokumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deskripsi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  atasNama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nilaiTaksiran?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  lokasiPenyimpanan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStatusJaminanFieldUpdateOperationsInput | $Enums.StatusJaminan
+  tanggalDiterima?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  nasabah?: Prisma.NasabahUpdateOneRequiredWithoutJaminanPinjamanNestedInput
+  mutasi?: Prisma.MutasiJaminanUpdateManyWithoutJaminanNestedInput
+}
+
+export type JaminanPinjamanUncheckedUpdateWithoutPinjamanInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  nasabahId?: Prisma.StringFieldUpdateOperationsInput | string
+  noPjm?: Prisma.StringFieldUpdateOperationsInput | string
+  jenis?: Prisma.StringFieldUpdateOperationsInput | string
+  nomorDokumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deskripsi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  atasNama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nilaiTaksiran?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  lokasiPenyimpanan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumStatusJaminanFieldUpdateOperationsInput | $Enums.StatusJaminan
+  tanggalDiterima?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  catatan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mutasi?: Prisma.MutasiJaminanUncheckedUpdateManyWithoutJaminanNestedInput
+}
+
+export type JaminanPinjamanUncheckedUpdateManyWithoutPinjamanInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  nasabahId?: Prisma.StringFieldUpdateOperationsInput | string
   noPjm?: Prisma.StringFieldUpdateOperationsInput | string
   jenis?: Prisma.StringFieldUpdateOperationsInput | string
   nomorDokumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -895,6 +1104,7 @@ export type JaminanPinjamanCountOutputTypeCountMutasiArgs<ExtArgs extends runtim
 export type JaminanPinjamanSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   nasabahId?: boolean
+  pinjamanId?: boolean
   noPjm?: boolean
   jenis?: boolean
   nomorDokumen?: boolean
@@ -908,6 +1118,7 @@ export type JaminanPinjamanSelect<ExtArgs extends runtime.Types.Extensions.Inter
   createdAt?: boolean
   updatedAt?: boolean
   nasabah?: boolean | Prisma.NasabahDefaultArgs<ExtArgs>
+  pinjaman?: boolean | Prisma.JaminanPinjaman$pinjamanArgs<ExtArgs>
   mutasi?: boolean | Prisma.JaminanPinjaman$mutasiArgs<ExtArgs>
   _count?: boolean | Prisma.JaminanPinjamanCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["jaminanPinjaman"]>
@@ -915,6 +1126,7 @@ export type JaminanPinjamanSelect<ExtArgs extends runtime.Types.Extensions.Inter
 export type JaminanPinjamanSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   nasabahId?: boolean
+  pinjamanId?: boolean
   noPjm?: boolean
   jenis?: boolean
   nomorDokumen?: boolean
@@ -928,11 +1140,13 @@ export type JaminanPinjamanSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   createdAt?: boolean
   updatedAt?: boolean
   nasabah?: boolean | Prisma.NasabahDefaultArgs<ExtArgs>
+  pinjaman?: boolean | Prisma.JaminanPinjaman$pinjamanArgs<ExtArgs>
 }, ExtArgs["result"]["jaminanPinjaman"]>
 
 export type JaminanPinjamanSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   nasabahId?: boolean
+  pinjamanId?: boolean
   noPjm?: boolean
   jenis?: boolean
   nomorDokumen?: boolean
@@ -946,11 +1160,13 @@ export type JaminanPinjamanSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   createdAt?: boolean
   updatedAt?: boolean
   nasabah?: boolean | Prisma.NasabahDefaultArgs<ExtArgs>
+  pinjaman?: boolean | Prisma.JaminanPinjaman$pinjamanArgs<ExtArgs>
 }, ExtArgs["result"]["jaminanPinjaman"]>
 
 export type JaminanPinjamanSelectScalar = {
   id?: boolean
   nasabahId?: boolean
+  pinjamanId?: boolean
   noPjm?: boolean
   jenis?: boolean
   nomorDokumen?: boolean
@@ -965,28 +1181,33 @@ export type JaminanPinjamanSelectScalar = {
   updatedAt?: boolean
 }
 
-export type JaminanPinjamanOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nasabahId" | "noPjm" | "jenis" | "nomorDokumen" | "deskripsi" | "atasNama" | "nilaiTaksiran" | "lokasiPenyimpanan" | "status" | "tanggalDiterima" | "catatan" | "createdAt" | "updatedAt", ExtArgs["result"]["jaminanPinjaman"]>
+export type JaminanPinjamanOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nasabahId" | "pinjamanId" | "noPjm" | "jenis" | "nomorDokumen" | "deskripsi" | "atasNama" | "nilaiTaksiran" | "lokasiPenyimpanan" | "status" | "tanggalDiterima" | "catatan" | "createdAt" | "updatedAt", ExtArgs["result"]["jaminanPinjaman"]>
 export type JaminanPinjamanInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   nasabah?: boolean | Prisma.NasabahDefaultArgs<ExtArgs>
+  pinjaman?: boolean | Prisma.JaminanPinjaman$pinjamanArgs<ExtArgs>
   mutasi?: boolean | Prisma.JaminanPinjaman$mutasiArgs<ExtArgs>
   _count?: boolean | Prisma.JaminanPinjamanCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type JaminanPinjamanIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   nasabah?: boolean | Prisma.NasabahDefaultArgs<ExtArgs>
+  pinjaman?: boolean | Prisma.JaminanPinjaman$pinjamanArgs<ExtArgs>
 }
 export type JaminanPinjamanIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   nasabah?: boolean | Prisma.NasabahDefaultArgs<ExtArgs>
+  pinjaman?: boolean | Prisma.JaminanPinjaman$pinjamanArgs<ExtArgs>
 }
 
 export type $JaminanPinjamanPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "JaminanPinjaman"
   objects: {
     nasabah: Prisma.$NasabahPayload<ExtArgs>
+    pinjaman: Prisma.$PinjamanPayload<ExtArgs> | null
     mutasi: Prisma.$MutasiJaminanPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     nasabahId: string
+    pinjamanId: string | null
     noPjm: string
     jenis: string
     nomorDokumen: string | null
@@ -1394,6 +1615,7 @@ readonly fields: JaminanPinjamanFieldRefs;
 export interface Prisma__JaminanPinjamanClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   nasabah<T extends Prisma.NasabahDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.NasabahDefaultArgs<ExtArgs>>): Prisma.Prisma__NasabahClient<runtime.Types.Result.GetResult<Prisma.$NasabahPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  pinjaman<T extends Prisma.JaminanPinjaman$pinjamanArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JaminanPinjaman$pinjamanArgs<ExtArgs>>): Prisma.Prisma__PinjamanClient<runtime.Types.Result.GetResult<Prisma.$PinjamanPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   mutasi<T extends Prisma.JaminanPinjaman$mutasiArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JaminanPinjaman$mutasiArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MutasiJaminanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1426,6 +1648,7 @@ export interface Prisma__JaminanPinjamanClient<T, Null = never, ExtArgs extends 
 export interface JaminanPinjamanFieldRefs {
   readonly id: Prisma.FieldRef<"JaminanPinjaman", 'String'>
   readonly nasabahId: Prisma.FieldRef<"JaminanPinjaman", 'String'>
+  readonly pinjamanId: Prisma.FieldRef<"JaminanPinjaman", 'String'>
   readonly noPjm: Prisma.FieldRef<"JaminanPinjaman", 'String'>
   readonly jenis: Prisma.FieldRef<"JaminanPinjaman", 'String'>
   readonly nomorDokumen: Prisma.FieldRef<"JaminanPinjaman", 'String'>
@@ -1836,6 +2059,25 @@ export type JaminanPinjamanDeleteManyArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many JaminanPinjamen to delete.
    */
   limit?: number
+}
+
+/**
+ * JaminanPinjaman.pinjaman
+ */
+export type JaminanPinjaman$pinjamanArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Pinjaman
+   */
+  select?: Prisma.PinjamanSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Pinjaman
+   */
+  omit?: Prisma.PinjamanOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PinjamanInclude<ExtArgs> | null
+  where?: Prisma.PinjamanWhereInput
 }
 
 /**

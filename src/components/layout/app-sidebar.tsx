@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/sidebar";
 import { useGetAllSP } from "@/features/sp/hook";
 import { countMyPendingApprovals } from "@/features/sp/utils";
+import { useCountPendingJaminanApprovals } from "@/features/jaminan/hook";
 
 export const menuItems = [
   { id: "dashboard", url: "/dashboard", title: "Dashboard", icon: Home },
@@ -51,6 +52,13 @@ export const menuItems = [
     title: "Menunggu Persetujuan",
     icon: ClipboardCheck,
     approverOnly: true,
+  },
+  {
+    id: "approve-jaminan",
+    url: "/approve-jaminan",
+    title: "Approve Jaminan",
+    icon: ClipboardCheck,
+    petugasJaminanOnly: true,
   },
   {
     id: "mail",
@@ -93,19 +101,24 @@ export function AppSidebar({
   const { data: session } = useSession();
   const isAdmin = session?.user.role === "ADMIN";
   const isApprover = session?.user.role === "APPROVER";
+  const isPetugasJaminan = session?.user.petugasJaminan === true;
 
   const { data: sp } = useGetAllSP();
   const pendingApprovalCount = countMyPendingApprovals(
     sp ?? [],
     session?.user.id,
   );
+  const { data: pendingJaminanCount = 0 } = useCountPendingJaminanApprovals(isPetugasJaminan);
 
   const visibleMenuItems = menuItems
     .filter((item) => !item.adminOnly || isAdmin)
     .filter((item) => !item.approverOnly || isApprover)
+    .filter((item) => !item.petugasJaminanOnly || isPetugasJaminan)
     .map((item) =>
       item.id === "persetujuan"
         ? { ...item, badge: pendingApprovalCount }
+        : item.id === "approve-jaminan"
+          ? { ...item, badge: pendingJaminanCount }
         : item,
     );
 

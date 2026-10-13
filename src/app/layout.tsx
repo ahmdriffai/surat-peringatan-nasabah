@@ -1,6 +1,7 @@
 "use client";
 
 import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -31,6 +32,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={cn(
         "h-full",
         "antialiased",
@@ -41,14 +43,16 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
-        <SessionProvider>
-          <TooltipProvider>
-            <QueryClientProvider client={queryClient}>
-              {children}
-              <Toaster />
-            </QueryClientProvider>
-          </TooltipProvider>
-        </SessionProvider>
+        <ThemeProvider>
+          <SessionProvider>
+            <TooltipProvider>
+              <QueryClientProvider client={queryClient}>
+                {children}
+                <Toaster />
+              </QueryClientProvider>
+            </TooltipProvider>
+          </SessionProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

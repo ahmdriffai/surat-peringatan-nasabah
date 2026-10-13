@@ -188,7 +188,7 @@ export default function SPDetail({ sp }: Props) {
   const showBukti = sp.buktiKirim || sp.buktiTandaTerima;
 
   const riwayatLain = (allSP ?? [])
-    .filter((s) => s.nasabahId === sp.nasabahId && s.id !== sp.id)
+    .filter((s) => s.pinjamanId === sp.pinjamanId && s.id !== sp.id)
     .sort(
       (a, b) =>
         new Date(b.tanggalSurat).getTime() - new Date(a.tanggalSurat).getTime(),
@@ -263,7 +263,7 @@ export default function SPDetail({ sp }: Props) {
           </SectionCard>
 
           <SectionCard icon={Landmark} title="Data Pinjaman & Kewajiban">
-            <InfoRow label="No. Pinjaman" value={sp.noPjm} mono />
+            <InfoRow label="No. Pinjaman" value={sp.pinjaman?.noPjm ?? sp.noPjm} mono />
             <InfoRow label="Jenis Fasilitas" value={sp.jenisFasilitas ?? "-"} />
             {sp.tanggalAkadKredit && (
               <InfoRow

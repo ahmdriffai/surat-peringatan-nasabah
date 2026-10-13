@@ -7,6 +7,7 @@ export async function getAllSP(): Promise<SPWithNasabah[]> {
   return prisma.suratPeringatan.findMany({
     include: {
       nasabah: true,
+      pinjaman: true,
       kejaksaan: true,
       petugas: true,
       approvals: { include: { approver: true }, orderBy: { urutan: "asc" } },

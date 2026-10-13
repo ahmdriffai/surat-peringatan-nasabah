@@ -1,14 +1,13 @@
-import { Nasabah } from "@/generated/prisma/client";
 import { createNasabah } from "@/services/nasabah/create";
 import { deleteNasabah } from "@/services/nasabah/delete";
 import { editNasabah } from "@/services/nasabah/edit";
-import { getAllNasabah } from "@/services/nasabah/get-all";
+import { getAllNasabah, NasabahWithPinjaman } from "@/services/nasabah/get-all";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { NasabahCreateInput, NasabahEditInput } from "./schema";
 
 export const useGetAllNasabah = () => {
-  return useQuery<Nasabah[]>({
+  return useQuery<NasabahWithPinjaman[]>({
     queryKey: ["nasabah"],
     queryFn: async () => await getAllNasabah(),
   });

@@ -7,7 +7,8 @@ import { requireSession } from "@/lib/session";
 export type JaminanWithDetails = Prisma.JaminanPinjamanGetPayload<{
   include: {
     nasabah: true;
-    mutasi: { include: { dicatatOleh: true }; orderBy: { terjadiPada: "desc" } };
+    pinjaman: true;
+    mutasi: { include: { dicatatOleh: true, approval: { include: { approver: true } } }; orderBy: { terjadiPada: "desc" } };
   };
 }>;
 
@@ -17,8 +18,9 @@ export async function getAllJaminan(): Promise<JaminanWithDetails[]> {
   return prisma.jaminanPinjaman.findMany({
     include: {
       nasabah: true,
+      pinjaman: true,
       mutasi: {
-        include: { dicatatOleh: true },
+        include: { dicatatOleh: true, approval: { include: { approver: true } } },
         orderBy: { terjadiPada: "desc" },
       },
     },

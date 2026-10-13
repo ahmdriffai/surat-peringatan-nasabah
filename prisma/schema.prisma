@@ -25,6 +25,7 @@ model Nasabah {
   updatedAt       DateTime          @updatedAt
   suratPeringatan SuratPeringatan[]
   jaminanPinjaman JaminanPinjaman[]
+  pinjaman        Pinjaman[]
 
   @@map("nasabah")
 }
@@ -76,12 +77,14 @@ model User {
   password         String
   role             Role              @default(PETUGAS)
   aktif            Boolean           @default(true)
+  petugasJaminan   Boolean           @default(false)
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
   spApprovals      SPApproval[]
   jenisSPApprovers JenisSPApprover[]
   suratPeringatan  SuratPeringatan[]
   mutasiJaminan    MutasiJaminan[]
+  jaminanApprovals JaminanApproval[]
 
   @@map("users")
 }
@@ -105,6 +108,8 @@ model SuratPeringatan {
   nomorSurat  String?          @unique
   nasabahId   String
   nasabah     Nasabah          @relation(fields: [nasabahId], references: [id], onDelete: Cascade)
+  pinjamanId  String?
+  pinjaman    Pinjaman?        @relation(fields: [pinjamanId], references: [id])
   kejaksaanId String?
   kejaksaan   KepalaKejaksaan? @relation(fields: [kejaksaanId], references: [id])
   petugasId   String?
@@ -210,6 +215,8 @@ model JaminanPinjaman {
   id                String          @id @default(cuid())
   nasabahId         String
   nasabah           Nasabah         @relation(fields: [nasabahId], references: [id], onDelete: Cascade)
+  pinjamanId        String?
+  pinjaman          Pinjaman?       @relation(fields: [pinjamanId], references: [id])
   noPjm             String
   jenis             String
   nomorDokumen      String?
@@ -229,15 +236,41 @@ model JaminanPinjaman {
   @@map("jaminan_pinjaman")
 }
 
+// Fasilitas pinjaman milik nasabah. Satu nasabah dapat memiliki banyak pinjaman.
+model Pinjaman {
+  id                String            @id @default(cuid())
+  nasabahId         String
+  nasabah           Nasabah           @relation(fields: [nasabahId], references: [id], onDelete: Cascade)
+  noPjm             String
+  jenisFasilitas    String?
+  tanggalAkadKredit DateTime?
+  sukuBunga         Float?
+  plafond           Float?
+  saldo             Float?
+  tgkPokok          Float?
+  tgkBunga          Float?
+  tgkPokokHari      Int?
+  tgkBungaHari      Int?
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  suratPeringatan   SuratPeringatan[]
+  jaminan           JaminanPinjaman[]
+
+  @@unique([nasabahId, noPjm])
+  @@index([noPjm])
+  @@map("pinjaman")
+}
+
 // Buku mutasi keluar-masuk jaminan; setiap penyerahan atau penerimaan dicatat sebagai satu baris.
 model MutasiJaminan {
-  id                    String          @id @default(cuid())
+  id                    String           @id @default(cuid())
   jaminanId             String
-  jaminan               JaminanPinjaman @relation(fields: [jaminanId], references: [id], onDelete: Cascade)
+  jaminan               JaminanPinjaman  @relation(fields: [jaminanId], references: [id], onDelete: Cascade)
   arah                  ArahJaminan
-  terjadiPada           DateTime        @default(now())
+  terjadiPada           DateTime         @default(now())
   dicatatOlehId         String
-  dicatatOleh           User            @relation(fields: [dicatatOlehId], references: [id])
+  dicatatOleh           User             @relation(fields: [dicatatOlehId], references: [id])
+  approval              JaminanApproval?
   diserahkanKepada      String?
   diterimaDari          String?
   keperluan             String?
@@ -246,9 +279,24 @@ model MutasiJaminan {
   tanggalKembaliRencana DateTime?
   tanggalKembali        DateTime?
   catatan               String?
-  createdAt             DateTime        @default(now())
+  createdAt             DateTime         @default(now())
 
   @@index([jaminanId, terjadiPada])
   @@index([dicatatOlehId])
   @@map("mutasi_jaminan")
+}
+
+model JaminanApproval {
+  id         String         @id @default(cuid())
+  mutasiId   String         @unique
+  mutasi     MutasiJaminan  @relation(fields: [mutasiId], references: [id], onDelete: Cascade)
+  approverId String
+  approver   User           @relation(fields: [approverId], references: [id])
+  status     ApprovalStatus @default(PENDING)
+  catatan    String?
+  approvedAt DateTime?
+  createdAt  DateTime       @default(now())
+
+  @@index([approverId, status])
+  @@map("jaminan_approval")
 }

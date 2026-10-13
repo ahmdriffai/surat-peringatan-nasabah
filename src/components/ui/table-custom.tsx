@@ -20,15 +20,15 @@ export default function Table<T>({
   emptyMessage = "No data available",
 }: TableProps<T>) {
   return (
-    <div className="w-full overflow-scroll rounded-2xl border border-gray-200 bg-white">
+    <div className="w-full overflow-scroll rounded-2xl border border-border bg-card text-card-foreground">
       <table className="w-full border-collapse text-sm">
-        <thead className="bg-gray-50">
+        <thead className="bg-muted/50">
           <tr>
             {columns.map((column) => (
               <th
                 key={column.header}
                 className={clsx(
-                  "px-6 py-4 text-left font-semibold text-gray-500",
+                  "px-6 py-4 text-left font-semibold text-muted-foreground",
                   "text-xs uppercase tracking-wide",
                   column.className,
                 )}
@@ -43,7 +43,7 @@ export default function Table<T>({
             <tr>
               <td
                 colSpan={columns.length}
-                className="px-6 py-10 text-center text-gray-400"
+                className="px-6 py-10 text-center text-muted-foreground"
               >
                 {emptyMessage}
               </td>
@@ -53,7 +53,7 @@ export default function Table<T>({
           {data.map((row, rowIndex) => (
             <tr
               key={keyExtractor?.(row, rowIndex) ?? rowIndex}
-              className="border-t border-gray-100 transition hover:bg-gray-50"
+              className="border-t border-border transition hover:bg-muted/50"
             >
               {columns.map((column) => {
                 const value =
@@ -64,7 +64,7 @@ export default function Table<T>({
                 return (
                   <td
                     key={column.header}
-                    className={clsx("px-6 py-4 text-gray-700", column.className)}
+                    className={clsx("px-6 py-4 text-foreground", column.className)}
                   >
                     {value as React.ReactNode}
                   </td>
