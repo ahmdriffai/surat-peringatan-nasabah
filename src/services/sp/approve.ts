@@ -44,7 +44,7 @@ async function generateNomorSurat(
   const now = new Date();
   const tahun = now.getFullYear();
 
-  const count = await tx.suratPeringatan.count({
+  const existing = await tx.suratPeringatan.findMany({
     where: {
       jenis,
       createdAt: {
@@ -52,9 +52,13 @@ async function generateNomorSurat(
         lt: new Date(tahun, now.getMonth() + 1, 1),
       },
     },
+    select: { nomorSurat: true },
   });
 
-  const urutan = count + 1;
+  const urutan = existing.reduce((max, item) => {
+    const value = Number.parseInt(item.nomorSurat?.split("/")[0] ?? "0", 10);
+    return Number.isNaN(value) ? max : Math.max(max, value);
+  }, 0) + 1;
   const bulanRomawi = ROMAN_MONTHS[now.getMonth()];
   return `${urutan}/${KODE_CABANG}/${JENIS_PREFIX[jenis]}/${bulanRomawi}/${tahun}`;
 }
@@ -66,7 +70,7 @@ export async function approveSP(
   const session = await requireRole("APPROVER");
   const data = ApproveSPInputSchema.parse(input);
 
-  return prisma.$transaction(async (tx) => {
+  const approveTransaction = () => prisma.$transaction(async (tx) => {
     const pending = await tx.sPApproval.findMany({
       where: { spId: id, status: "PENDING" },
       orderBy: { urutan: "asc" },
@@ -100,5 +104,24 @@ export async function approveSP(
       where: { id },
       data: { status: "DISETUJUI", nomorSurat },
     });
-  });
+  }, { isolationLevel: Prisma.TransactionIsolationLevel.Serializable });
+
+  // Nomor surat harus tetap berurutan, tetapi dua approval terakhir dapat
+  // berjalan hampir bersamaan. Ulangi transaksi jika database menolak nomor
+  // yang sama akibat race condition.
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    try {
+      return await approveTransaction();
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      const isRetryable =
+        message.includes("nomorSurat") ||
+        (error instanceof Prisma.PrismaClientKnownRequestError &&
+          (error.code === "P2002" || error.code === "P2034"));
+
+      if (!isRetryable || attempt === 2) throw error;
+    }
+  }
+
+  throw new Error("Approval surat gagal diproses. Silakan coba lagi.");
 }
