@@ -125,6 +125,7 @@ export default function SPForm({
   const [selectedLoan, setSelectedLoan] = useState<EnrichedLoanData | null>(null);
   const [source, setSource] = useState<"core" | "manual">(isEditMode ? "manual" : "core");
   const [manualLoanMode, setManualLoanMode] = useState<"new" | "existing">("new");
+  const [manualNasabahId, setManualNasabahId] = useState("");
 
   const form = useZodForm(SPCreateInputSchema, {
     defaultValues: {
@@ -212,6 +213,7 @@ export default function SPForm({
 
   const handleClearSelection = () => {
     setSelectedLoan(null);
+    setManualNasabahId("");
     form.setValue("nasabahId", "");
     form.setValue("nasabahData", undefined);
   };
@@ -268,6 +270,7 @@ export default function SPForm({
                   setManualLoanMode("new");
                   form.setValue("nasabahId", "");
                   form.setValue("nasabahData", undefined);
+                  setManualNasabahId("");
                 }}
                 className={`flex items-start gap-3 rounded-xl border p-3 text-left transition-all ${source === value ? "border-primary bg-primary/10 text-primary shadow-sm" : "border-border bg-background hover:border-primary/40 hover:bg-primary/5"}`}
               >
@@ -302,6 +305,7 @@ export default function SPForm({
                   field.onChange(val);
                   form.setValue("nasabahData", undefined);
                   setManualLoanMode("new");
+                  setManualNasabahId(val);
                   setSelectedLoan(null);
                 }}
               >
@@ -326,7 +330,7 @@ export default function SPForm({
         />
       )}
 
-      {!isEditMode && source === "manual" && form.watch("nasabahId") && (
+      {!isEditMode && source === "manual" && manualNasabahId && (
         <Field className="sm:col-span-2 rounded-xl border bg-muted/20 p-3">
           <FieldLabel>Data pinjaman manual</FieldLabel>
           <Select
@@ -347,11 +351,14 @@ export default function SPForm({
                 <SelectValue placeholder="Pilih pinjaman nasabah" />
               </SelectTrigger>
               <SelectContent>
-                {nasabah.find((item) => item.id === form.watch("nasabahId"))?.pinjaman.map((loan) => (
+                {nasabah.find((item) => item.id === manualNasabahId)?.pinjaman.map((loan) => (
                   <SelectItem key={loan.id} value={loan.id}>{loan.noPjm} — {loan.jenisFasilitas || "Pinjaman"}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
+          )}
+          {manualLoanMode === "existing" && !nasabah.find((item) => item.id === manualNasabahId)?.pinjaman.length && (
+            <p className="mt-2 text-xs text-amber-600 dark:text-amber-400">Nasabah ini belum memiliki pinjaman. Pilih “Pinjaman baru” untuk melanjutkan.</p>
           )}
           <p className="mt-2 text-xs text-muted-foreground">Nomor pinjaman yang sama akan memperbarui data pinjaman tersebut.</p>
         </Field>
