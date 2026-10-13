@@ -40,7 +40,7 @@ const JaminanBaseInputSchema = z.object({
 export const JaminanCreateInputSchema = JaminanBaseInputSchema.refine(
   (data) => Boolean(data.nasabahId || data.nasabahData?.cif),
   {
-  message: "Pilih data pinjaman dari Core Banking",
+  message: "Pilih nasabah secara manual atau gunakan data dari Core Banking",
   path: ["nasabahId"],
   },
 );

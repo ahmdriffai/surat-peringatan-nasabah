@@ -15,14 +15,12 @@ import { EnrichedLoanData } from "@/services/external/loans";
 import {
   AlertCircle,
   Building2,
-  Calendar,
   Check,
   CreditCard,
   Database,
   Loader2,
   RefreshCw,
   Search,
-  User,
   UserCheck,
   UserPlus,
 } from "lucide-react";
@@ -131,7 +129,7 @@ export default function LoanSearch({
 
   if (selectedLoan) {
     return (
-      <div className="sm:col-span-2 rounded-xl border border-primary/20 bg-primary/5 p-4 transition-all">
+      <div className="sm:col-span-2 overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/10 via-background to-background p-4 shadow-sm transition-all">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div className="space-y-1">
             <div className="flex flex-wrap items-center gap-2">
@@ -250,24 +248,27 @@ export default function LoanSearch({
   }
 
   return (
-    <div className="sm:col-span-2 space-y-3 rounded-xl border bg-muted/20 p-4">
-      <div className="flex items-center justify-between">
+    <div className="sm:col-span-2 space-y-4 rounded-2xl border border-sky-500/20 bg-gradient-to-br from-sky-500/10 via-background to-background p-4 shadow-sm">
+      <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="flex items-center gap-2">
-          <Database className="size-4 text-primary" />
-          <h3 className="font-semibold text-sm text-foreground">
-            Cari Data Nasabah & Pinjaman (Core Banking)
-          </h3>
+          <div className="flex size-9 items-center justify-center rounded-xl bg-primary/15 text-primary">
+            <Database className="size-4" />
+          </div>
+          <div>
+            <h3 className="font-semibold text-sm text-foreground">Cari dari Core Banking</h3>
+            <p className="text-xs text-muted-foreground">Pilih data nasabah dan pinjaman untuk mengisi form otomatis.</p>
+          </div>
         </div>
-        <Badge variant="outline" className="text-[10px] uppercase font-mono">
+        <Badge variant="outline" className="border-sky-500/30 bg-sky-500/10 text-[10px] uppercase font-mono text-sky-700 dark:text-sky-300">
           API Core Banking
         </Badge>
       </div>
 
-      <form onSubmit={handleSearch} className="space-y-2">
+      <form onSubmit={handleSearch} className="space-y-3 rounded-xl border bg-background/70 p-3">
         <div className="grid gap-2 sm:grid-cols-12">
           <div className="sm:col-span-3">
             <Select value={kodecabang} onValueChange={setKodecabang}>
-              <SelectTrigger className="w-full text-xs">
+              <SelectTrigger className="h-10 w-full text-xs">
                 <SelectValue placeholder="Pilih Cabang" />
               </SelectTrigger>
               <SelectContent>
@@ -286,7 +287,7 @@ export default function LoanSearch({
               placeholder="Ketik Nama / CIF / NIK / No. Pinjaman..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="text-xs"
+              className="h-10 text-sm"
             />
           </div>
 
@@ -294,7 +295,7 @@ export default function LoanSearch({
             <Button
               type="submit"
               disabled={isPending || !query.trim()}
-              className="w-full text-xs"
+              className="h-10 w-full text-xs shadow-sm"
             >
               {isPending ? (
                 <Loader2 className="mr-1.5 size-3.5 animate-spin" />
@@ -306,8 +307,8 @@ export default function LoanSearch({
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
-          <span>Mode pencarian:</span>
+        <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-muted-foreground">
+          <span className="mr-1 font-medium">Cari berdasarkan:</span>
           {(
             [
               { key: "auto", label: "Otomatis" },
@@ -321,10 +322,10 @@ export default function LoanSearch({
               key={m.key}
               type="button"
               onClick={() => setSearchField(m.key)}
-              className={`rounded px-1.5 py-0.5 transition-colors ${
+              className={`rounded-lg border px-2 py-1 transition-colors ${
                 searchField === m.key
-                  ? "bg-primary/20 text-primary font-medium"
-                  : "hover:bg-muted text-muted-foreground"
+                  ? "border-primary/30 bg-primary/10 text-primary font-medium"
+                  : "border-transparent hover:border-border hover:bg-muted text-muted-foreground"
               }`}
             >
               {m.label}
@@ -335,7 +336,7 @@ export default function LoanSearch({
 
       {/* Hasil Pencarian */}
       {hasSearched && (
-        <div className="space-y-2 pt-2 border-t">
+        <div className="space-y-2 border-t pt-3">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span>
               Hasil pencarian:{" "}
@@ -366,7 +367,7 @@ export default function LoanSearch({
                 return (
                   <Card
                     key={`${item.NoPjm}-${idx}`}
-                    className="overflow-hidden border transition-all hover:border-primary/50 hover:shadow-xs"
+                    className="overflow-hidden rounded-xl border transition-all hover:border-primary/50 hover:shadow-md"
                   >
                     <CardContent className="p-3">
                       <div className="flex flex-wrap items-start justify-between gap-2">

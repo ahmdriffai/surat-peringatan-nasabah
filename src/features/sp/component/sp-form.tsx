@@ -18,21 +18,18 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Nasabah } from "@/generated/prisma/client";
+import { NasabahWithPinjaman } from "@/services/nasabah/get-all";
 import { JenisSP } from "@/generated/prisma/enums";
 import { useZodForm } from "@/hook/use-form";
 import { EnrichedLoanData } from "@/services/external/loans";
 import {
-  Building2,
-  ChevronDown,
-  ChevronUp,
   Gavel,
   Info,
   Loader2,
+  Database,
+  PencilLine,
   Scale,
   ShieldAlert,
-  Sparkles,
-  Users,
 } from "lucide-react";
 import { useState } from "react";
 import { Controller } from "react-hook-form";
@@ -112,7 +109,7 @@ function NumberField({ name, label, placeholder, control }: NumberFieldProps) {
 interface Props {
   onSubmit: (data: SPCreateInput) => void;
   isPending: boolean;
-  nasabah: Nasabah[];
+  nasabah: NasabahWithPinjaman[];
   defaultValues?: SPCreateInput;
   submitLabel?: string;
 }
@@ -126,7 +123,8 @@ export default function SPForm({
 }: Props) {
   const isEditMode = Boolean(defaultValues);
   const [selectedLoan, setSelectedLoan] = useState<EnrichedLoanData | null>(null);
-  const [showManualSelect, setShowManualSelect] = useState(isEditMode);
+  const [source, setSource] = useState<"core" | "manual">(isEditMode ? "manual" : "core");
+  const [manualLoanMode, setManualLoanMode] = useState<"new" | "existing">("new");
 
   const form = useZodForm(SPCreateInputSchema, {
     defaultValues: {
@@ -218,6 +216,24 @@ export default function SPForm({
     form.setValue("nasabahData", undefined);
   };
 
+  const handleSelectExistingLoan = (loanId: string) => {
+    const loan = nasabah
+      .find((item) => item.id === form.getValues("nasabahId"))
+      ?.pinjaman.find((item) => item.id === loanId);
+    if (!loan) return;
+
+    form.setValue("noPjm", loan.noPjm);
+    form.setValue("jenisFasilitas", loan.jenisFasilitas || "");
+    form.setValue("tanggalAkadKredit", loan.tanggalAkadKredit || undefined);
+    form.setValue("sukuBunga", loan.sukuBunga || 0);
+    form.setValue("plafond", loan.plafond || 0);
+    form.setValue("saldo", loan.saldo || 0);
+    form.setValue("tgkPokok", loan.tgkPokok || 0);
+    form.setValue("tgkBunga", loan.tgkBunga || 0);
+    form.setValue("tgkPokokHari", loan.tgkPokokHari || 0);
+    form.setValue("tgkBungaHari", loan.tgkBungaHari || 0);
+  };
+
   const selectedJenis = form.watch("jenis");
   const tgkPokok = form.watch("tgkPokok") || 0;
   const tgkBunga = form.watch("tgkBunga") || 0;
@@ -234,40 +250,46 @@ export default function SPForm({
 
   return (
     <FieldGroup className="gap-4 sm:grid sm:grid-cols-2">
-      {/* Bagian Pencarian Pinjaman Core Banking (jika bukan mode edit) */}
       {!isEditMode && (
-        <LoanSearch
-          onSelectLoan={handleSelectLoan}
-          selectedLoan={selectedLoan}
-          onClearSelection={handleClearSelection}
-        />
+        <Field className="sm:col-span-2 rounded-2xl border bg-muted/20 p-4">
+          <FieldLabel>Sumber data nasabah & pinjaman</FieldLabel>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {([
+              ["core", "Core Banking", "Cari data pinjaman secara otomatis dari sistem pusat.", Database],
+              ["manual", "Manual", "Gunakan nasabah dan pinjaman dari database lokal.", PencilLine],
+            ] as const).map(([value, label, description, Icon]) => (
+              <button
+                key={value}
+                type="button"
+                aria-pressed={source === value}
+                onClick={() => {
+                  setSource(value);
+                  setSelectedLoan(null);
+                  setManualLoanMode("new");
+                  form.setValue("nasabahId", "");
+                  form.setValue("nasabahData", undefined);
+                }}
+                className={`flex items-start gap-3 rounded-xl border p-3 text-left transition-all ${source === value ? "border-primary bg-primary/10 text-primary shadow-sm" : "border-border bg-background hover:border-primary/40 hover:bg-primary/5"}`}
+              >
+                <Icon className="mt-0.5 size-4 shrink-0" />
+                <span><span className="block text-sm font-semibold">{label}</span><span className="mt-0.5 block text-xs text-muted-foreground">{description}</span></span>
+              </button>
+            ))}
+          </div>
+        </Field>
       )}
 
-      {/* Tombol toggle / fallback pemilihan manual */}
-      {!isEditMode && !selectedLoan && (
-        <div className="sm:col-span-2">
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            onClick={() => setShowManualSelect(!showManualSelect)}
-            className="text-xs text-muted-foreground hover:text-foreground"
-          >
-            <Users className="mr-1.5 size-3.5" />
-            {showManualSelect
-              ? "Sembunyikan pemilihan manual nasabah terdaftar"
-              : "Atau pilih manual dari daftar nasabah terdaftar di database"}
-            {showManualSelect ? (
-              <ChevronUp className="ml-1 size-3.5" />
-            ) : (
-              <ChevronDown className="ml-1 size-3.5" />
-            )}
-          </Button>
-        </div>
+      {!isEditMode && (
+        source === "core" && (
+          <LoanSearch
+            onSelectLoan={handleSelectLoan}
+            selectedLoan={selectedLoan}
+            onClearSelection={handleClearSelection}
+          />
+        )
       )}
 
-      {/* Select nasabah manual (jika edit mode atau dibuka manual) */}
-      {(isEditMode || (showManualSelect && !selectedLoan)) && (
+      {(isEditMode || (source === "manual" && !selectedLoan)) && (
         <Controller
           control={form.control}
           name="nasabahId"
@@ -279,6 +301,7 @@ export default function SPForm({
                 onValueChange={(val) => {
                   field.onChange(val);
                   form.setValue("nasabahData", undefined);
+                  setManualLoanMode("new");
                   setSelectedLoan(null);
                 }}
               >
@@ -302,6 +325,42 @@ export default function SPForm({
           )}
         />
       )}
+
+      {!isEditMode && source === "manual" && form.watch("nasabahId") && (
+        <Field className="sm:col-span-2 rounded-xl border bg-muted/20 p-3">
+          <FieldLabel>Data pinjaman manual</FieldLabel>
+          <Select
+            value={manualLoanMode}
+            onValueChange={(value: "new" | "existing") => setManualLoanMode(value)}
+          >
+            <SelectTrigger className="w-full bg-background">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="new">Pinjaman baru</SelectItem>
+              <SelectItem value="existing">Gunakan pinjaman yang sudah ada</SelectItem>
+            </SelectContent>
+          </Select>
+          {manualLoanMode === "existing" && (
+            <Select onValueChange={handleSelectExistingLoan}>
+              <SelectTrigger className="mt-2 w-full bg-background">
+                <SelectValue placeholder="Pilih pinjaman nasabah" />
+              </SelectTrigger>
+              <SelectContent>
+                {nasabah.find((item) => item.id === form.watch("nasabahId"))?.pinjaman.map((loan) => (
+                  <SelectItem key={loan.id} value={loan.id}>{loan.noPjm} — {loan.jenisFasilitas || "Pinjaman"}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
+          <p className="mt-2 text-xs text-muted-foreground">Nomor pinjaman yang sama akan memperbarui data pinjaman tersebut.</p>
+        </Field>
+      )}
+
+      <div className="sm:col-span-2 border-b pb-2 pt-2">
+        <p className="text-sm font-semibold">Detail Surat dan Pinjaman</p>
+        <p className="text-xs text-muted-foreground">Lengkapi informasi surat, fasilitas kredit, dan kewajiban nasabah.</p>
+      </div>
 
       <Controller
         control={form.control}

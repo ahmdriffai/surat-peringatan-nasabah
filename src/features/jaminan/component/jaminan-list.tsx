@@ -10,7 +10,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import Table from "@/components/ui/table-custom";
-import { Nasabah } from "@/generated/prisma/client";
+import { NasabahWithPinjaman } from "@/services/nasabah/get-all";
 import { formatDate, formatDateTime } from "@/features/sp/label";
 import { Eye, History, Loader2, Pen, Plus, Trash2 } from "lucide-react";
 import { Check } from "lucide-react";
@@ -30,7 +30,7 @@ import MutasiForm from "./mutasi-form";
 
 interface Props {
   data: JaminanWithDetails[];
-  nasabah: Nasabah[];
+  nasabah: NasabahWithPinjaman[];
 }
 
 function dateInput(value: Date | null | undefined) {

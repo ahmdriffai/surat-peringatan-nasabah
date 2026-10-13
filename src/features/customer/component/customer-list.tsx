@@ -13,6 +13,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Dialog,
   DialogContent,
@@ -26,26 +27,32 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { History, Landmark, Loader2, Pen, Trash2, Trash2Icon } from "lucide-react";
+import { History, Landmark, Loader2, Pen, Plus, Search, Trash2, Trash2Icon } from "lucide-react";
 import { useState } from "react";
 import { useDeleteNasabah, useEditNasabah } from "../hook";
 import { NasabahCreateInput } from "../schema";
 import CustomerForm from "./customer-form";
 import RiwayatSPDialog from "./riwayat-sp-dialog";
 import { NasabahWithPinjaman } from "@/services/nasabah/get-all";
+import PinjamanForm from "@/features/pinjaman/component/pinjaman-form";
+import { useCreatePinjaman } from "@/features/pinjaman/hook";
+import { PinjamanCreateInput } from "@/features/pinjaman/schema";
 
 interface Props {
   nasabah: NasabahWithPinjaman[];
 }
 
 export default function CustomerList({ nasabah }: Props) {
+  const [search, setSearch] = useState("");
   const [editTarget, setEditTarget] = useState<NasabahWithPinjaman | null>(null);
   const [riwayatTarget, setRiwayatTarget] = useState<NasabahWithPinjaman | null>(null);
   const [pinjamanTarget, setPinjamanTarget] = useState<NasabahWithPinjaman | null>(null);
+  const [createPinjamanTarget, setCreatePinjamanTarget] = useState<NasabahWithPinjaman | null>(null);
 
   const { mutate: mutateEdit, isPending: isEditPending } = useEditNasabah();
   const { mutate: mutateDelete, isPending: isDeletePending } =
     useDeleteNasabah();
+  const createPinjaman = useCreatePinjaman();
 
   const handleEditSubmit = (data: NasabahCreateInput) => {
     if (!editTarget) return;
@@ -60,10 +67,36 @@ export default function CustomerList({ nasabah }: Props) {
     mutateDelete(id);
   };
 
+  const handleCreatePinjaman = (data: PinjamanCreateInput) => {
+    if (!createPinjamanTarget) return;
+    createPinjaman.mutate(
+      { nasabahId: createPinjamanTarget.id, data },
+      { onSuccess: () => setCreatePinjamanTarget(null) },
+    );
+  };
+
+  const query = search.trim().toLowerCase();
+  const filteredNasabah = query
+    ? nasabah.filter((row) =>
+        [row.cif, row.nama, row.nik, row.nomorRekening, row.email, row.telepon]
+          .some((value) => value?.toLowerCase().includes(query)),
+      )
+    : nasabah;
+
   return (
     <>
+      <div className="relative max-w-sm">
+        <Search className="text-muted-foreground absolute top-1/2 left-3 size-4 -translate-y-1/2" />
+        <Input
+          value={search}
+          onChange={(event) => setSearch(event.target.value)}
+          placeholder="Cari nasabah..."
+          aria-label="Cari nasabah"
+          className="pl-9"
+        />
+      </div>
       <Table<NasabahWithPinjaman>
-        data={nasabah}
+        data={filteredNasabah}
         keyExtractor={(row) => row.id}
         emptyMessage="Tidak ada data nasabah"
         columns={[
@@ -115,6 +148,21 @@ export default function CustomerList({ nasabah }: Props) {
                   </TooltipTrigger>
                   <TooltipContent>
                     <p>Riwayat surat peringatan</p>
+                  </TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      onClick={() => setCreatePinjamanTarget(row)}
+                    >
+                      <Plus />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Tambah pinjaman</p>
                   </TooltipContent>
                 </Tooltip>
 
@@ -255,6 +303,24 @@ export default function CustomerList({ nasabah }: Props) {
               ))}
             </div>
           )}
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={!!createPinjamanTarget}
+        onOpenChange={(open) => !open && setCreatePinjamanTarget(null)}
+      >
+        <DialogContent className="max-h-[calc(100vh-2rem)] overflow-y-auto sm:max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Tambah Pinjaman</DialogTitle>
+            <DialogDescription>
+              Tambahkan fasilitas pinjaman untuk {createPinjamanTarget?.nama}.
+            </DialogDescription>
+          </DialogHeader>
+          <PinjamanForm
+            onSubmit={handleCreatePinjaman}
+            isPending={createPinjaman.isPending}
+          />
         </DialogContent>
       </Dialog>
     </>

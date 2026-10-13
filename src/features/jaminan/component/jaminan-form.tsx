@@ -4,10 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Nasabah } from "@/generated/prisma/client";
+import { NasabahWithPinjaman } from "@/services/nasabah/get-all";
 import LoanSearch from "@/features/sp/component/loan-search";
 import { EnrichedLoanData } from "@/services/external/loans";
-import { Loader2 } from "lucide-react";
+import { Database, Loader2, PencilLine } from "lucide-react";
 import { useState } from "react";
 import { ZodError } from "zod";
 import {
@@ -38,7 +38,7 @@ type FormValues = {
 };
 
 interface Props {
-  nasabah: Nasabah[];
+  nasabah: NasabahWithPinjaman[];
   onSubmit: (data: JaminanCreateInput, bukti?: File) => void;
   isPending: boolean;
   defaultValues?: Partial<FormValues>;
@@ -70,6 +70,8 @@ export default function JaminanForm({
   const [bukti, setBukti] = useState<File>();
   const [error, setError] = useState("");
   const [selectedLoan, setSelectedLoan] = useState<EnrichedLoanData | null>(null);
+  const [source, setSource] = useState<"core" | "manual">("manual");
+  const [manualLoanMode, setManualLoanMode] = useState<"new" | "existing">("new");
 
   const update = (key: keyof FormValues, value: string) =>
     setValues((current) => ({ ...current, [key]: value }));
@@ -110,21 +112,51 @@ export default function JaminanForm({
 
   return (
     <FieldGroup className="gap-4 sm:grid sm:grid-cols-2">
-      {!defaultValues && <LoanSearch
-        selectedLoan={selectedLoan}
-        onSelectLoan={handleSelectLoan}
-        onClearSelection={() => {
-          setSelectedLoan(null);
-          setValues((current) => ({ ...current, nasabahId: "", nasabahData: undefined, noPjm: "" }));
-        }}
-      />}
-      {defaultValues && <Field>
+      {!defaultValues && (
+        <Field className="sm:col-span-2 rounded-2xl border bg-muted/20 p-4">
+          <FieldLabel>Sumber data nasabah & pinjaman</FieldLabel>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {([
+              ["core", "Core Banking", "Cari data pinjaman dari sistem pusat.", Database],
+              ["manual", "Manual", "Gunakan data dari database lokal.", PencilLine],
+            ] as const).map(([value, label, description, Icon]) => (
+              <button
+                key={value}
+                type="button"
+                aria-pressed={source === value}
+                onClick={() => {
+                  setSource(value);
+                  setSelectedLoan(null);
+                  setValues((current) => ({ ...current, nasabahId: "", nasabahData: undefined, noPjm: "" }));
+                }}
+                className={`flex items-start gap-3 rounded-xl border p-3 text-left transition-all ${source === value ? "border-primary bg-primary/10 text-primary shadow-sm" : "border-border bg-background hover:border-primary/40 hover:bg-primary/5"}`}
+              >
+                <Icon className="mt-0.5 size-4 shrink-0" />
+                <span><span className="block text-sm font-semibold">{label}</span><span className="mt-0.5 block text-xs text-muted-foreground">{description}</span></span>
+              </button>
+            ))}
+          </div>
+        </Field>
+      )}
+      {!defaultValues && source === "core" && <LoanSearch
+          selectedLoan={selectedLoan}
+          onSelectLoan={handleSelectLoan}
+          onClearSelection={() => {
+            setSelectedLoan(null);
+            setValues((current) => ({ ...current, nasabahId: "", nasabahData: undefined, noPjm: "" }));
+          }}
+        />}
+      {(defaultValues || source === "manual") && <Field>
         <FieldLabel htmlFor="nasabahId">Nasabah</FieldLabel>
         <select
           id="nasabahId"
           className="h-10 border-b border-input bg-transparent px-0 text-sm outline-none focus:border-ring"
           value={values.nasabahId}
-          onChange={(event) => update("nasabahId", event.target.value)}
+          onChange={(event) => {
+            update("nasabahId", event.target.value);
+            setValues((current) => ({ ...current, nasabahData: undefined }));
+              setManualLoanMode("new");
+          }}
         >
           <option value="">Pilih nasabah</option>
           {nasabah.map((item) => (
@@ -134,6 +166,39 @@ export default function JaminanForm({
           ))}
         </select>
       </Field>}
+      {!defaultValues && source === "manual" && values.nasabahId && (
+        <Field className="sm:col-span-2 rounded-xl border bg-muted/20 p-3">
+          <FieldLabel>Data pinjaman manual</FieldLabel>
+          <select
+            className="h-10 rounded-3xl border border-transparent bg-background px-3 text-sm outline-none focus:border-ring"
+            value={manualLoanMode}
+            onChange={(event) => setManualLoanMode(event.target.value as "new" | "existing")}
+          >
+            <option value="new">Pinjaman baru</option>
+            <option value="existing">Gunakan pinjaman yang sudah ada</option>
+          </select>
+          {manualLoanMode === "existing" && (
+            <select
+              className="mt-2 h-10 rounded-3xl border border-transparent bg-background px-3 text-sm outline-none focus:border-ring"
+              defaultValue=""
+              onChange={(event) => {
+                const loan = nasabah.find((item) => item.id === values.nasabahId)?.pinjaman.find((item) => item.id === event.target.value);
+                if (loan) update("noPjm", loan.noPjm);
+              }}
+            >
+              <option value="">Pilih pinjaman nasabah</option>
+              {nasabah.find((item) => item.id === values.nasabahId)?.pinjaman.map((loan) => (
+                <option key={loan.id} value={loan.id}>{loan.noPjm} — {loan.jenisFasilitas || "Pinjaman"}</option>
+              ))}
+            </select>
+          )}
+          <p className="mt-2 text-xs text-muted-foreground">Nomor pinjaman yang sama akan menggunakan data pinjaman yang sudah ada.</p>
+        </Field>
+      )}
+      <div className="sm:col-span-2 border-b pb-2 pt-2">
+        <p className="text-sm font-semibold">Detail Jaminan</p>
+        <p className="text-xs text-muted-foreground">Isi identitas pinjaman dan informasi dokumen jaminan.</p>
+      </div>
       <Field>
         <FieldLabel htmlFor="noPjm">Nomor Pinjaman</FieldLabel>
         <Input id="noPjm" value={values.noPjm} onChange={(e) => update("noPjm", e.target.value)} />
