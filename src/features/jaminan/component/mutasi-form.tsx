@@ -11,6 +11,7 @@ import { MutasiJaminanInput, MutasiJaminanInputSchema } from "../schema";
 
 type FormValues = {
   arah: "MASUK" | "KELUAR";
+  status: "TERSIMPAN" | "DIBAWA_KELUAR" | "SELESAI_PENGIKATAN";
   terjadiPada: string;
   diserahkanKepada: string;
   diterimaDari: string;
@@ -28,6 +29,7 @@ interface Props {
 
 const initialValues: FormValues = {
   arah: "KELUAR",
+  status: "DIBAWA_KELUAR",
   terjadiPada: new Date().toISOString().slice(0, 16),
   diserahkanKepada: "",
   diterimaDari: "",
@@ -80,6 +82,19 @@ export default function MutasiForm({ onSubmit, isPending }: Props) {
       <Field>
         <FieldLabel htmlFor="terjadiPada">Tanggal dan Waktu</FieldLabel>
         <Input id="terjadiPada" type="datetime-local" value={values.terjadiPada} onChange={(e) => update("terjadiPada", e.target.value)} />
+      </Field>
+      <Field>
+        <FieldLabel htmlFor="statusMutasi">Status Jaminan</FieldLabel>
+        <select
+          id="statusMutasi"
+          className="h-10 border-b border-input bg-transparent px-0 text-sm outline-none focus:border-ring"
+          value={values.status}
+          onChange={(event) => update("status", event.target.value)}
+        >
+          <option value="TERSIMPAN">Tersimpan</option>
+          <option value="DIBAWA_KELUAR">Dibawa keluar</option>
+          <option value="SELESAI_PENGIKATAN">Selesai pengikatan</option>
+        </select>
       </Field>
       <Field>
         <FieldLabel htmlFor="diserahkanKepada">Diserahkan Kepada</FieldLabel>

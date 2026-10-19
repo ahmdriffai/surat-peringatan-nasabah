@@ -208,6 +208,7 @@ enum ArahJaminan {
 enum StatusJaminan {
   TERSIMPAN
   DIBAWA_KELUAR
+  SELESAI_PENGIKATAN
 }
 
 // Data jaminan yang diterima dan disimpan untuk suatu fasilitas pinjaman.
@@ -267,6 +268,7 @@ model MutasiJaminan {
   jaminanId             String
   jaminan               JaminanPinjaman  @relation(fields: [jaminanId], references: [id], onDelete: Cascade)
   arah                  ArahJaminan
+  status                StatusJaminan?
   terjadiPada           DateTime         @default(now())
   dicatatOlehId         String
   dicatatOleh           User             @relation(fields: [dicatatOlehId], references: [id])

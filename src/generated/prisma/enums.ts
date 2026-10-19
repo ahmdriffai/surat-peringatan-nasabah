@@ -73,7 +73,8 @@ export type ArahJaminan = (typeof ArahJaminan)[keyof typeof ArahJaminan]
 
 export const StatusJaminan = {
   TERSIMPAN: 'TERSIMPAN',
-  DIBAWA_KELUAR: 'DIBAWA_KELUAR'
+  DIBAWA_KELUAR: 'DIBAWA_KELUAR',
+  SELESAI_PENGIKATAN: 'SELESAI_PENGIKATAN'
 } as const
 
 export type StatusJaminan = (typeof StatusJaminan)[keyof typeof StatusJaminan]

@@ -1369,6 +1369,7 @@ export const MutasiJaminanScalarFieldEnum = {
   id: 'id',
   jaminanId: 'jaminanId',
   arah: 'arah',
+  status: 'status',
   terjadiPada: 'terjadiPada',
   dicatatOlehId: 'dicatatOlehId',
   diserahkanKepada: 'diserahkanKepada',

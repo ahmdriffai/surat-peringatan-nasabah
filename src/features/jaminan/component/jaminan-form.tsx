@@ -1,19 +1,21 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { NasabahWithPinjaman } from "@/services/nasabah/get-all";
 import LoanSearch from "@/features/sp/component/loan-search";
 import { EnrichedLoanData } from "@/services/external/loans";
+import { NasabahWithPinjaman } from "@/services/nasabah/get-all";
 import { Database, Loader2, PencilLine } from "lucide-react";
 import { useState } from "react";
 import { ZodError } from "zod";
-import {
-  JaminanCreateInput,
-  JaminanCreateInputSchema,
-} from "../schema";
+import { JaminanCreateInput, JaminanCreateInputSchema } from "../schema";
 
 type FormValues = {
   nasabahId: string;
@@ -24,6 +26,7 @@ type FormValues = {
   atasNama: string;
   nilaiTaksiran: string;
   lokasiPenyimpanan: string;
+  status: "TERSIMPAN" | "DIBAWA_KELUAR" | "SELESAI_PENGIKATAN";
   tanggalDiterima: string;
   catatan: string;
   nasabahData?: {
@@ -54,6 +57,7 @@ const emptyValues: FormValues = {
   atasNama: "",
   nilaiTaksiran: "",
   lokasiPenyimpanan: "",
+  status: "TERSIMPAN",
   tanggalDiterima: new Date().toISOString().slice(0, 10),
   catatan: "",
   nasabahData: undefined,
@@ -69,9 +73,13 @@ export default function JaminanForm({
   const [values, setValues] = useState({ ...emptyValues, ...defaultValues });
   const [bukti, setBukti] = useState<File>();
   const [error, setError] = useState("");
-  const [selectedLoan, setSelectedLoan] = useState<EnrichedLoanData | null>(null);
+  const [selectedLoan, setSelectedLoan] = useState<EnrichedLoanData | null>(
+    null,
+  );
   const [source, setSource] = useState<"core" | "manual">("manual");
-  const [manualLoanMode, setManualLoanMode] = useState<"new" | "existing">("new");
+  const [manualLoanMode, setManualLoanMode] = useState<"new" | "existing">(
+    "new",
+  );
 
   const update = (key: keyof FormValues, value: string) =>
     setValues((current) => ({ ...current, [key]: value }));
@@ -102,10 +110,11 @@ export default function JaminanForm({
     } catch (submissionError) {
       setError(
         submissionError instanceof ZodError
-          ? submissionError.issues[0]?.message ?? "Periksa kembali data jaminan."
+          ? (submissionError.issues[0]?.message ??
+              "Periksa kembali data jaminan.")
           : submissionError instanceof Error
-          ? submissionError.message
-          : "Periksa kembali data jaminan.",
+            ? submissionError.message
+            : "Periksa kembali data jaminan.",
       );
     }
   };
@@ -116,10 +125,22 @@ export default function JaminanForm({
         <Field className="sm:col-span-2 rounded-2xl border bg-muted/20 p-4">
           <FieldLabel>Sumber data nasabah & pinjaman</FieldLabel>
           <div className="grid gap-2 sm:grid-cols-2">
-            {([
-              ["core", "Core Banking", "Cari data pinjaman dari sistem pusat.", Database],
-              ["manual", "Manual", "Gunakan data dari database lokal.", PencilLine],
-            ] as const).map(([value, label, description, Icon]) => (
+            {(
+              [
+                [
+                  "core",
+                  "Core Banking",
+                  "Cari data pinjaman dari sistem pusat.",
+                  Database,
+                ],
+                [
+                  "manual",
+                  "Manual",
+                  "Gunakan data dari database lokal.",
+                  PencilLine,
+                ],
+              ] as const
+            ).map(([value, label, description, Icon]) => (
               <button
                 key={value}
                 type="button"
@@ -127,52 +148,73 @@ export default function JaminanForm({
                 onClick={() => {
                   setSource(value);
                   setSelectedLoan(null);
-                  setValues((current) => ({ ...current, nasabahId: "", nasabahData: undefined, noPjm: "" }));
+                  setValues((current) => ({
+                    ...current,
+                    nasabahId: "",
+                    nasabahData: undefined,
+                    noPjm: "",
+                  }));
                 }}
                 className={`flex items-start gap-3 rounded-xl border p-3 text-left transition-all ${source === value ? "border-primary bg-primary/10 text-primary shadow-sm" : "border-border bg-background hover:border-primary/40 hover:bg-primary/5"}`}
               >
                 <Icon className="mt-0.5 size-4 shrink-0" />
-                <span><span className="block text-sm font-semibold">{label}</span><span className="mt-0.5 block text-xs text-muted-foreground">{description}</span></span>
+                <span>
+                  <span className="block text-sm font-semibold">{label}</span>
+                  <span className="mt-0.5 block text-xs text-muted-foreground">
+                    {description}
+                  </span>
+                </span>
               </button>
             ))}
           </div>
         </Field>
       )}
-      {!defaultValues && source === "core" && <LoanSearch
+      {!defaultValues && source === "core" && (
+        <LoanSearch
           selectedLoan={selectedLoan}
           onSelectLoan={handleSelectLoan}
           onClearSelection={() => {
             setSelectedLoan(null);
-            setValues((current) => ({ ...current, nasabahId: "", nasabahData: undefined, noPjm: "" }));
+            setValues((current) => ({
+              ...current,
+              nasabahId: "",
+              nasabahData: undefined,
+              noPjm: "",
+            }));
           }}
-        />}
-      {(defaultValues || source === "manual") && <Field>
-        <FieldLabel htmlFor="nasabahId">Nasabah</FieldLabel>
-        <select
-          id="nasabahId"
-          className="h-10 border-b border-input bg-transparent px-0 text-sm outline-none focus:border-ring"
-          value={values.nasabahId}
-          onChange={(event) => {
-            update("nasabahId", event.target.value);
-            setValues((current) => ({ ...current, nasabahData: undefined }));
+        />
+      )}
+      {(defaultValues || source === "manual") && (
+        <Field>
+          <FieldLabel htmlFor="nasabahId">Nasabah</FieldLabel>
+          <select
+            id="nasabahId"
+            className="h-10 border-b border-input bg-transparent px-0 text-sm outline-none focus:border-ring"
+            value={values.nasabahId}
+            onChange={(event) => {
+              update("nasabahId", event.target.value);
+              setValues((current) => ({ ...current, nasabahData: undefined }));
               setManualLoanMode("new");
-          }}
-        >
-          <option value="">Pilih nasabah</option>
-          {nasabah.map((item) => (
-            <option key={item.id} value={item.id}>
-              {item.nama} — {item.cif}
-            </option>
-          ))}
-        </select>
-      </Field>}
+            }}
+          >
+            <option value="">Pilih nasabah</option>
+            {nasabah.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.nama} — {item.cif}
+              </option>
+            ))}
+          </select>
+        </Field>
+      )}
       {!defaultValues && source === "manual" && values.nasabahId && (
         <Field className="sm:col-span-2 rounded-xl border bg-muted/20 p-3">
           <FieldLabel>Data pinjaman manual</FieldLabel>
           <select
             className="h-10 rounded-3xl border border-transparent bg-background px-3 text-sm outline-none focus:border-ring"
             value={manualLoanMode}
-            onChange={(event) => setManualLoanMode(event.target.value as "new" | "existing")}
+            onChange={(event) =>
+              setManualLoanMode(event.target.value as "new" | "existing")
+            }
           >
             <option value="new">Pinjaman baru</option>
             <option value="existing">Gunakan pinjaman yang sudah ada</option>
@@ -182,66 +224,146 @@ export default function JaminanForm({
               className="mt-2 h-10 rounded-3xl border border-transparent bg-background px-3 text-sm outline-none focus:border-ring"
               defaultValue=""
               onChange={(event) => {
-                const loan = nasabah.find((item) => item.id === values.nasabahId)?.pinjaman.find((item) => item.id === event.target.value);
+                const loan = nasabah
+                  .find((item) => item.id === values.nasabahId)
+                  ?.pinjaman.find((item) => item.id === event.target.value);
                 if (loan) update("noPjm", loan.noPjm);
               }}
             >
               <option value="">Pilih pinjaman nasabah</option>
-              {nasabah.find((item) => item.id === values.nasabahId)?.pinjaman.map((loan) => (
-                <option key={loan.id} value={loan.id}>{loan.noPjm} — {loan.jenisFasilitas || "Pinjaman"}</option>
-              ))}
+              {nasabah
+                .find((item) => item.id === values.nasabahId)
+                ?.pinjaman.map((loan) => (
+                  <option key={loan.id} value={loan.id}>
+                    {loan.noPjm} — {loan.jenisFasilitas || "Pinjaman"}
+                  </option>
+                ))}
             </select>
           )}
-          <p className="mt-2 text-xs text-muted-foreground">Nomor pinjaman yang sama akan menggunakan data pinjaman yang sudah ada.</p>
+          <p className="mt-2 text-xs text-muted-foreground">
+            Nomor pinjaman yang sama akan menggunakan data pinjaman yang sudah
+            ada.
+          </p>
         </Field>
       )}
       <div className="sm:col-span-2 border-b pb-2 pt-2">
         <p className="text-sm font-semibold">Detail Jaminan</p>
-        <p className="text-xs text-muted-foreground">Isi identitas pinjaman dan informasi dokumen jaminan.</p>
+        <p className="text-xs text-muted-foreground">
+          Isi identitas pinjaman dan informasi dokumen jaminan.
+        </p>
       </div>
       <Field>
         <FieldLabel htmlFor="noPjm">Nomor Pinjaman</FieldLabel>
-        <Input id="noPjm" value={values.noPjm} onChange={(e) => update("noPjm", e.target.value)} />
+        <Input
+          id="noPjm"
+          value={values.noPjm}
+          onChange={(e) => update("noPjm", e.target.value)}
+        />
       </Field>
       <Field>
         <FieldLabel htmlFor="jenis">Jenis Jaminan *</FieldLabel>
-        <Input id="jenis" placeholder="BPKB / SHM / lainnya" value={values.jenis} onChange={(e) => update("jenis", e.target.value)} />
+        <Input
+          id="jenis"
+          placeholder="BPKB / SHM / lainnya"
+          value={values.jenis}
+          onChange={(e) => update("jenis", e.target.value)}
+        />
       </Field>
       <Field>
-        <FieldLabel htmlFor="nomorDokumen">Nomor Dokumen</FieldLabel>
-        <Input id="nomorDokumen" value={values.nomorDokumen} onChange={(e) => update("nomorDokumen", e.target.value)} />
+        <FieldLabel htmlFor="nomorDokumen">Nomor Dokumen Jaminan</FieldLabel>
+        <Input
+          id="nomorDokumen"
+          value={values.nomorDokumen}
+          onChange={(e) => update("nomorDokumen", e.target.value)}
+        />
       </Field>
       <Field>
         <FieldLabel htmlFor="atasNama">Atas Nama</FieldLabel>
-        <Input id="atasNama" value={values.atasNama} onChange={(e) => update("atasNama", e.target.value)} />
+        <Input
+          id="atasNama"
+          value={values.atasNama}
+          onChange={(e) => update("atasNama", e.target.value)}
+        />
       </Field>
       <Field>
         <FieldLabel htmlFor="nilaiTaksiran">Nilai Taksiran</FieldLabel>
-        <Input id="nilaiTaksiran" type="number" min="0" value={values.nilaiTaksiran} onChange={(e) => update("nilaiTaksiran", e.target.value)} />
+        <Input
+          id="nilaiTaksiran"
+          type="number"
+          min="0"
+          value={values.nilaiTaksiran}
+          onChange={(e) => update("nilaiTaksiran", e.target.value)}
+        />
       </Field>
       <Field>
-        <FieldLabel htmlFor="lokasiPenyimpanan">Lokasi Penyimpanan</FieldLabel>
-        <Input id="lokasiPenyimpanan" value={values.lokasiPenyimpanan} onChange={(e) => update("lokasiPenyimpanan", e.target.value)} />
+        <FieldLabel htmlFor="lokasiPenyimpanan">
+          Nomer/ Lokasi Penyimpanan
+        </FieldLabel>
+        <Input
+          id="lokasiPenyimpanan"
+          value={values.lokasiPenyimpanan}
+          onChange={(e) => update("lokasiPenyimpanan", e.target.value)}
+        />
+      </Field>
+      <Field>
+        <FieldLabel htmlFor="status">Status Jaminan</FieldLabel>
+        <select
+          id="status"
+          className="h-10 border-b border-input bg-transparent px-0 text-sm outline-none focus:border-ring"
+          value={values.status}
+          onChange={(e) =>
+            update("status", e.target.value as FormValues["status"])
+          }
+        >
+          <option value="TERSIMPAN">Tersimpan</option>
+          <option value="DIBAWA_KELUAR">Dibawa keluar</option>
+          <option value="SELESAI_PENGIKATAN">Selesai pengikatan</option>
+        </select>
       </Field>
       <Field>
         <FieldLabel htmlFor="tanggalDiterima">Tanggal Diterima</FieldLabel>
-        <Input id="tanggalDiterima" type="date" value={values.tanggalDiterima} onChange={(e) => update("tanggalDiterima", e.target.value)} />
+        <Input
+          id="tanggalDiterima"
+          type="date"
+          value={values.tanggalDiterima}
+          onChange={(e) => update("tanggalDiterima", e.target.value)}
+        />
       </Field>
       <Field className="sm:col-span-2">
         <FieldLabel htmlFor="deskripsi">Deskripsi</FieldLabel>
-        <Textarea id="deskripsi" value={values.deskripsi} onChange={(e) => update("deskripsi", e.target.value)} />
+        <Textarea
+          id="deskripsi"
+          value={values.deskripsi}
+          onChange={(e) => update("deskripsi", e.target.value)}
+        />
       </Field>
       <Field className="sm:col-span-2">
         <FieldLabel htmlFor="catatan">Catatan</FieldLabel>
-        <Textarea id="catatan" value={values.catatan} onChange={(e) => update("catatan", e.target.value)} />
+        <Textarea
+          id="catatan"
+          value={values.catatan}
+          onChange={(e) => update("catatan", e.target.value)}
+        />
       </Field>
       <Field className="sm:col-span-2">
-        <FieldLabel htmlFor="bukti">Bukti Penerimaan (JPG, PNG, WebP, PDF)</FieldLabel>
-        <Input id="bukti" type="file" accept="image/jpeg,image/png,image/webp,application/pdf" onChange={(e) => setBukti(e.target.files?.[0])} />
+        <FieldLabel htmlFor="bukti">
+          Bukti Penerimaan (JPG, PNG, WebP, PDF)
+        </FieldLabel>
+        <Input
+          id="bukti"
+          type="file"
+          accept="image/jpeg,image/png,image/webp,application/pdf"
+          onChange={(e) => setBukti(e.target.files?.[0])}
+        />
       </Field>
       {error && <FieldError className="sm:col-span-2">{error}</FieldError>}
       <Field className="sm:col-span-2">
-        <Button type="button" disabled={isPending} className="w-full" onClick={submit}>
+        <Button
+          type="button"
+          disabled={isPending}
+          className="w-full"
+          onClick={submit}
+        >
           {isPending && <Loader2 className="size-4 animate-spin" />}
           {isPending ? "Menyimpan..." : submitLabel}
         </Button>

@@ -27,32 +27,24 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { History, Landmark, Loader2, Pen, Plus, Search, Trash2, Trash2Icon } from "lucide-react";
+import { Landmark, Loader2, Pen, Search, Trash2, Trash2Icon } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 import { useDeleteNasabah, useEditNasabah } from "../hook";
 import { NasabahCreateInput } from "../schema";
 import CustomerForm from "./customer-form";
-import RiwayatSPDialog from "./riwayat-sp-dialog";
 import { NasabahWithPinjaman } from "@/services/nasabah/get-all";
-import PinjamanForm from "@/features/pinjaman/component/pinjaman-form";
-import { useCreatePinjaman } from "@/features/pinjaman/hook";
-import { PinjamanCreateInput } from "@/features/pinjaman/schema";
 
 interface Props {
   nasabah: NasabahWithPinjaman[];
 }
-
 export default function CustomerList({ nasabah }: Props) {
   const [search, setSearch] = useState("");
   const [editTarget, setEditTarget] = useState<NasabahWithPinjaman | null>(null);
-  const [riwayatTarget, setRiwayatTarget] = useState<NasabahWithPinjaman | null>(null);
-  const [pinjamanTarget, setPinjamanTarget] = useState<NasabahWithPinjaman | null>(null);
-  const [createPinjamanTarget, setCreatePinjamanTarget] = useState<NasabahWithPinjaman | null>(null);
 
   const { mutate: mutateEdit, isPending: isEditPending } = useEditNasabah();
   const { mutate: mutateDelete, isPending: isDeletePending } =
     useDeleteNasabah();
-  const createPinjaman = useCreatePinjaman();
 
   const handleEditSubmit = (data: NasabahCreateInput) => {
     if (!editTarget) return;
@@ -65,14 +57,6 @@ export default function CustomerList({ nasabah }: Props) {
 
   const handleDelete = (id: string) => {
     mutateDelete(id);
-  };
-
-  const handleCreatePinjaman = (data: PinjamanCreateInput) => {
-    if (!createPinjamanTarget) return;
-    createPinjaman.mutate(
-      { nasabahId: createPinjamanTarget.id, data },
-      { onSuccess: () => setCreatePinjamanTarget(null) },
-    );
   };
 
   const query = search.trim().toLowerCase();
@@ -141,39 +125,11 @@ export default function CustomerList({ nasabah }: Props) {
                     <Button
                       variant="secondary"
                       size="sm"
-                      onClick={() => setRiwayatTarget(row)}
+                      asChild
                     >
-                      <History />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Riwayat surat peringatan</p>
-                  </TooltipContent>
-                </Tooltip>
-
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button
-                      variant="secondary"
-                      size="sm"
-                      onClick={() => setCreatePinjamanTarget(row)}
-                    >
-                      <Plus />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Tambah pinjaman</p>
-                  </TooltipContent>
-                </Tooltip>
-
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button
-                      variant="secondary"
-                      size="sm"
-                      onClick={() => setPinjamanTarget(row)}
-                    >
-                      <Landmark />
+                      <Link href={`/customers/${row.id}/pinjaman`}>
+                        <Landmark />
+                      </Link>
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
@@ -267,66 +223,7 @@ export default function CustomerList({ nasabah }: Props) {
         </DialogContent>
       </Dialog>
 
-      <RiwayatSPDialog
-        nasabah={riwayatTarget}
-        onOpenChange={(open) => !open && setRiwayatTarget(null)}
-      />
-
-      <Dialog
-        open={!!pinjamanTarget}
-        onOpenChange={(open) => !open && setPinjamanTarget(null)}
-      >
-        <DialogContent className="max-h-[calc(100vh-2rem)] overflow-y-auto sm:max-w-3xl">
-          <DialogHeader>
-            <DialogTitle>Detail Pinjaman</DialogTitle>
-            <DialogDescription>
-              Daftar fasilitas pinjaman milik {pinjamanTarget?.nama}.
-            </DialogDescription>
-          </DialogHeader>
-          {!pinjamanTarget?.pinjaman.length ? (
-            <p className="text-sm text-muted-foreground">Belum ada data pinjaman.</p>
-          ) : (
-            <div className="space-y-3">
-              {pinjamanTarget.pinjaman.map((pinjaman) => (
-                <div key={pinjaman.id} className="rounded-lg border p-4 text-sm">
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <p className="font-mono font-semibold">{pinjaman.noPjm}</p>
-                    <p className="text-muted-foreground">{pinjaman.jenisFasilitas || "Jenis fasilitas belum diisi"}</p>
-                  </div>
-                  <dl className="mt-3 grid gap-x-6 gap-y-2 text-muted-foreground sm:grid-cols-2">
-                    <div><dt className="inline font-medium">Plafond: </dt><dd className="inline">{formatAmount(pinjaman.plafond)}</dd></div>
-                    <div><dt className="inline font-medium">Saldo: </dt><dd className="inline">{formatAmount(pinjaman.saldo)}</dd></div>
-                    <div><dt className="inline font-medium">Tunggakan pokok: </dt><dd className="inline">{formatAmount(pinjaman.tgkPokok)}</dd></div>
-                    <div><dt className="inline font-medium">Tunggakan bunga: </dt><dd className="inline">{formatAmount(pinjaman.tgkBunga)}</dd></div>
-                  </dl>
-                </div>
-              ))}
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
-
-      <Dialog
-        open={!!createPinjamanTarget}
-        onOpenChange={(open) => !open && setCreatePinjamanTarget(null)}
-      >
-        <DialogContent className="max-h-[calc(100vh-2rem)] overflow-y-auto sm:max-w-2xl">
-          <DialogHeader>
-            <DialogTitle>Tambah Pinjaman</DialogTitle>
-            <DialogDescription>
-              Tambahkan fasilitas pinjaman untuk {createPinjamanTarget?.nama}.
-            </DialogDescription>
-          </DialogHeader>
-          <PinjamanForm
-            onSubmit={handleCreatePinjaman}
-            isPending={createPinjaman.isPending}
-          />
-        </DialogContent>
-      </Dialog>
     </>
   );
 }
 
-function formatAmount(value: number | null | undefined) {
-  return value == null ? "-" : new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(value);
-}

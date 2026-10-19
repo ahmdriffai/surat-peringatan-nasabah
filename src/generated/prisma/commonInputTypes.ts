@@ -365,6 +365,13 @@ export type EnumArahJaminanFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumArahJaminanFilter<$PrismaModel> | $Enums.ArahJaminan
 }
 
+export type EnumStatusJaminanNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.StatusJaminan | Prisma.EnumStatusJaminanFieldRefInput<$PrismaModel> | null
+  in?: $Enums.StatusJaminan[] | Prisma.ListEnumStatusJaminanFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.StatusJaminan[] | Prisma.ListEnumStatusJaminanFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumStatusJaminanNullableFilter<$PrismaModel> | $Enums.StatusJaminan | null
+}
+
 export type EnumArahJaminanWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.ArahJaminan | Prisma.EnumArahJaminanFieldRefInput<$PrismaModel>
   in?: $Enums.ArahJaminan[] | Prisma.ListEnumArahJaminanFieldRefInput<$PrismaModel>
@@ -373,6 +380,16 @@ export type EnumArahJaminanWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumArahJaminanFilter<$PrismaModel>
   _max?: Prisma.NestedEnumArahJaminanFilter<$PrismaModel>
+}
+
+export type EnumStatusJaminanNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StatusJaminan | Prisma.EnumStatusJaminanFieldRefInput<$PrismaModel> | null
+  in?: $Enums.StatusJaminan[] | Prisma.ListEnumStatusJaminanFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.StatusJaminan[] | Prisma.ListEnumStatusJaminanFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumStatusJaminanNullableWithAggregatesFilter<$PrismaModel> | $Enums.StatusJaminan | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumStatusJaminanNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumStatusJaminanNullableFilter<$PrismaModel>
 }
 
 export type NestedStringFilter<$PrismaModel = never> = {
@@ -717,6 +734,13 @@ export type NestedEnumArahJaminanFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumArahJaminanFilter<$PrismaModel> | $Enums.ArahJaminan
 }
 
+export type NestedEnumStatusJaminanNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.StatusJaminan | Prisma.EnumStatusJaminanFieldRefInput<$PrismaModel> | null
+  in?: $Enums.StatusJaminan[] | Prisma.ListEnumStatusJaminanFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.StatusJaminan[] | Prisma.ListEnumStatusJaminanFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumStatusJaminanNullableFilter<$PrismaModel> | $Enums.StatusJaminan | null
+}
+
 export type NestedEnumArahJaminanWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.ArahJaminan | Prisma.EnumArahJaminanFieldRefInput<$PrismaModel>
   in?: $Enums.ArahJaminan[] | Prisma.ListEnumArahJaminanFieldRefInput<$PrismaModel>
@@ -725,6 +749,16 @@ export type NestedEnumArahJaminanWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumArahJaminanFilter<$PrismaModel>
   _max?: Prisma.NestedEnumArahJaminanFilter<$PrismaModel>
+}
+
+export type NestedEnumStatusJaminanNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StatusJaminan | Prisma.EnumStatusJaminanFieldRefInput<$PrismaModel> | null
+  in?: $Enums.StatusJaminan[] | Prisma.ListEnumStatusJaminanFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.StatusJaminan[] | Prisma.ListEnumStatusJaminanFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumStatusJaminanNullableWithAggregatesFilter<$PrismaModel> | $Enums.StatusJaminan | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumStatusJaminanNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumStatusJaminanNullableFilter<$PrismaModel>
 }
 
 

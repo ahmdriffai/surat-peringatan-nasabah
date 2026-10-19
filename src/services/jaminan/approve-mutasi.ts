@@ -11,7 +11,7 @@ export async function approveMutasiJaminan(id: string, catatan?: string) {
     if (approval.approverId !== session.user.id) throw new Error("Hanya petugas jaminan yang ditunjuk dapat menyetujui mutasi ini.");
     const mutasi = await tx.mutasiJaminan.findUniqueOrThrow({ where: { id } });
     await tx.jaminanApproval.update({ where: { mutasiId: id }, data: { status: "DISETUJUI", catatan: catatan || null, approvedAt: new Date() } });
-    await tx.jaminanPinjaman.update({ where: { id: mutasi.jaminanId }, data: { status: mutasi.arah === "KELUAR" ? "DIBAWA_KELUAR" : "TERSIMPAN" } });
+    await tx.jaminanPinjaman.update({ where: { id: mutasi.jaminanId }, data: { status: mutasi.status ?? (mutasi.arah === "KELUAR" ? "DIBAWA_KELUAR" : "TERSIMPAN") } });
     return mutasi;
   });
 }

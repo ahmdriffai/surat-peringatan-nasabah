@@ -39,6 +39,13 @@ export async function createMutasiJaminan(
       },
     });
 
+    await tx.jaminanPinjaman.update({
+      where: { id: jaminanId },
+      data: {
+        status: data.status ?? (data.arah === "KELUAR" ? "DIBAWA_KELUAR" : "TERSIMPAN"),
+      },
+    });
+
     await tx.jaminanApproval.create({ data: { mutasiId: mutasi.id, approverId: approver.id } });
 
     return mutasi;

@@ -23,6 +23,8 @@ const optionalDate = z.preprocess(
   z.coerce.date().optional(),
 );
 
+const statusJaminan = z.enum(["TERSIMPAN", "DIBAWA_KELUAR", "SELESAI_PENGIKATAN"]);
+
 const JaminanBaseInputSchema = z.object({
   nasabahId: z.string().optional(),
   nasabahData: ExternalNasabahDataSchema.optional(),
@@ -33,6 +35,7 @@ const JaminanBaseInputSchema = z.object({
   atasNama: z.string().trim().optional(),
   nilaiTaksiran: optionalNumber,
   lokasiPenyimpanan: z.string().trim().optional(),
+  status: statusJaminan.default("TERSIMPAN"),
   tanggalDiterima: optionalDate,
   catatan: z.string().trim().optional(),
 });
@@ -51,6 +54,7 @@ export const JaminanEditInputSchema = JaminanBaseInputSchema
 
 export const MutasiJaminanInputSchema = z.object({
   arah: z.enum(["MASUK", "KELUAR"]),
+  status: statusJaminan.optional(),
   terjadiPada: z.coerce.date(),
   diserahkanKepada: z.string().trim().optional(),
   diterimaDari: z.string().trim().optional(),

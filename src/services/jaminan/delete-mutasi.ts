@@ -16,7 +16,7 @@ export async function deleteMutasiJaminan(id: string): Promise<MutasiJaminan> {
 
     await tx.jaminanPinjaman.update({
       where: { id: mutasi.jaminanId },
-      data: { status: lastMutasi?.arah === "KELUAR" ? "DIBAWA_KELUAR" : "TERSIMPAN" },
+    data: { status: lastMutasi?.status ?? (lastMutasi?.arah === "KELUAR" ? "DIBAWA_KELUAR" : "TERSIMPAN") },
     });
 
     return mutasi;

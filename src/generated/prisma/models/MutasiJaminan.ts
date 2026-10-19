@@ -28,6 +28,7 @@ export type MutasiJaminanMinAggregateOutputType = {
   id: string | null
   jaminanId: string | null
   arah: $Enums.ArahJaminan | null
+  status: $Enums.StatusJaminan | null
   terjadiPada: Date | null
   dicatatOlehId: string | null
   diserahkanKepada: string | null
@@ -45,6 +46,7 @@ export type MutasiJaminanMaxAggregateOutputType = {
   id: string | null
   jaminanId: string | null
   arah: $Enums.ArahJaminan | null
+  status: $Enums.StatusJaminan | null
   terjadiPada: Date | null
   dicatatOlehId: string | null
   diserahkanKepada: string | null
@@ -62,6 +64,7 @@ export type MutasiJaminanCountAggregateOutputType = {
   id: number
   jaminanId: number
   arah: number
+  status: number
   terjadiPada: number
   dicatatOlehId: number
   diserahkanKepada: number
@@ -81,6 +84,7 @@ export type MutasiJaminanMinAggregateInputType = {
   id?: true
   jaminanId?: true
   arah?: true
+  status?: true
   terjadiPada?: true
   dicatatOlehId?: true
   diserahkanKepada?: true
@@ -98,6 +102,7 @@ export type MutasiJaminanMaxAggregateInputType = {
   id?: true
   jaminanId?: true
   arah?: true
+  status?: true
   terjadiPada?: true
   dicatatOlehId?: true
   diserahkanKepada?: true
@@ -115,6 +120,7 @@ export type MutasiJaminanCountAggregateInputType = {
   id?: true
   jaminanId?: true
   arah?: true
+  status?: true
   terjadiPada?: true
   dicatatOlehId?: true
   diserahkanKepada?: true
@@ -205,6 +211,7 @@ export type MutasiJaminanGroupByOutputType = {
   id: string
   jaminanId: string
   arah: $Enums.ArahJaminan
+  status: $Enums.StatusJaminan | null
   terjadiPada: Date
   dicatatOlehId: string
   diserahkanKepada: string | null
@@ -243,6 +250,7 @@ export type MutasiJaminanWhereInput = {
   id?: Prisma.StringFilter<"MutasiJaminan"> | string
   jaminanId?: Prisma.StringFilter<"MutasiJaminan"> | string
   arah?: Prisma.EnumArahJaminanFilter<"MutasiJaminan"> | $Enums.ArahJaminan
+  status?: Prisma.EnumStatusJaminanNullableFilter<"MutasiJaminan"> | $Enums.StatusJaminan | null
   terjadiPada?: Prisma.DateTimeFilter<"MutasiJaminan"> | Date | string
   dicatatOlehId?: Prisma.StringFilter<"MutasiJaminan"> | string
   diserahkanKepada?: Prisma.StringNullableFilter<"MutasiJaminan"> | string | null
@@ -263,6 +271,7 @@ export type MutasiJaminanOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   jaminanId?: Prisma.SortOrder
   arah?: Prisma.SortOrder
+  status?: Prisma.SortOrderInput | Prisma.SortOrder
   terjadiPada?: Prisma.SortOrder
   dicatatOlehId?: Prisma.SortOrder
   diserahkanKepada?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -286,6 +295,7 @@ export type MutasiJaminanWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.MutasiJaminanWhereInput | Prisma.MutasiJaminanWhereInput[]
   jaminanId?: Prisma.StringFilter<"MutasiJaminan"> | string
   arah?: Prisma.EnumArahJaminanFilter<"MutasiJaminan"> | $Enums.ArahJaminan
+  status?: Prisma.EnumStatusJaminanNullableFilter<"MutasiJaminan"> | $Enums.StatusJaminan | null
   terjadiPada?: Prisma.DateTimeFilter<"MutasiJaminan"> | Date | string
   dicatatOlehId?: Prisma.StringFilter<"MutasiJaminan"> | string
   diserahkanKepada?: Prisma.StringNullableFilter<"MutasiJaminan"> | string | null
@@ -306,6 +316,7 @@ export type MutasiJaminanOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   jaminanId?: Prisma.SortOrder
   arah?: Prisma.SortOrder
+  status?: Prisma.SortOrderInput | Prisma.SortOrder
   terjadiPada?: Prisma.SortOrder
   dicatatOlehId?: Prisma.SortOrder
   diserahkanKepada?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -329,6 +340,7 @@ export type MutasiJaminanScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"MutasiJaminan"> | string
   jaminanId?: Prisma.StringWithAggregatesFilter<"MutasiJaminan"> | string
   arah?: Prisma.EnumArahJaminanWithAggregatesFilter<"MutasiJaminan"> | $Enums.ArahJaminan
+  status?: Prisma.EnumStatusJaminanNullableWithAggregatesFilter<"MutasiJaminan"> | $Enums.StatusJaminan | null
   terjadiPada?: Prisma.DateTimeWithAggregatesFilter<"MutasiJaminan"> | Date | string
   dicatatOlehId?: Prisma.StringWithAggregatesFilter<"MutasiJaminan"> | string
   diserahkanKepada?: Prisma.StringNullableWithAggregatesFilter<"MutasiJaminan"> | string | null
@@ -345,6 +357,7 @@ export type MutasiJaminanScalarWhereWithAggregatesInput = {
 export type MutasiJaminanCreateInput = {
   id?: string
   arah: $Enums.ArahJaminan
+  status?: $Enums.StatusJaminan | null
   terjadiPada?: Date | string
   diserahkanKepada?: string | null
   diterimaDari?: string | null
@@ -364,6 +377,7 @@ export type MutasiJaminanUncheckedCreateInput = {
   id?: string
   jaminanId: string
   arah: $Enums.ArahJaminan
+  status?: $Enums.StatusJaminan | null
   terjadiPada?: Date | string
   dicatatOlehId: string
   diserahkanKepada?: string | null
@@ -381,6 +395,7 @@ export type MutasiJaminanUncheckedCreateInput = {
 export type MutasiJaminanUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   arah?: Prisma.EnumArahJaminanFieldUpdateOperationsInput | $Enums.ArahJaminan
+  status?: Prisma.NullableEnumStatusJaminanFieldUpdateOperationsInput | $Enums.StatusJaminan | null
   terjadiPada?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   diserahkanKepada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   diterimaDari?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -400,6 +415,7 @@ export type MutasiJaminanUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   jaminanId?: Prisma.StringFieldUpdateOperationsInput | string
   arah?: Prisma.EnumArahJaminanFieldUpdateOperationsInput | $Enums.ArahJaminan
+  status?: Prisma.NullableEnumStatusJaminanFieldUpdateOperationsInput | $Enums.StatusJaminan | null
   terjadiPada?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dicatatOlehId?: Prisma.StringFieldUpdateOperationsInput | string
   diserahkanKepada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -418,6 +434,7 @@ export type MutasiJaminanCreateManyInput = {
   id?: string
   jaminanId: string
   arah: $Enums.ArahJaminan
+  status?: $Enums.StatusJaminan | null
   terjadiPada?: Date | string
   dicatatOlehId: string
   diserahkanKepada?: string | null
@@ -434,6 +451,7 @@ export type MutasiJaminanCreateManyInput = {
 export type MutasiJaminanUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   arah?: Prisma.EnumArahJaminanFieldUpdateOperationsInput | $Enums.ArahJaminan
+  status?: Prisma.NullableEnumStatusJaminanFieldUpdateOperationsInput | $Enums.StatusJaminan | null
   terjadiPada?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   diserahkanKepada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   diterimaDari?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -450,6 +468,7 @@ export type MutasiJaminanUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   jaminanId?: Prisma.StringFieldUpdateOperationsInput | string
   arah?: Prisma.EnumArahJaminanFieldUpdateOperationsInput | $Enums.ArahJaminan
+  status?: Prisma.NullableEnumStatusJaminanFieldUpdateOperationsInput | $Enums.StatusJaminan | null
   terjadiPada?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dicatatOlehId?: Prisma.StringFieldUpdateOperationsInput | string
   diserahkanKepada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -477,6 +496,7 @@ export type MutasiJaminanCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   jaminanId?: Prisma.SortOrder
   arah?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   terjadiPada?: Prisma.SortOrder
   dicatatOlehId?: Prisma.SortOrder
   diserahkanKepada?: Prisma.SortOrder
@@ -494,6 +514,7 @@ export type MutasiJaminanMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   jaminanId?: Prisma.SortOrder
   arah?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   terjadiPada?: Prisma.SortOrder
   dicatatOlehId?: Prisma.SortOrder
   diserahkanKepada?: Prisma.SortOrder
@@ -511,6 +532,7 @@ export type MutasiJaminanMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   jaminanId?: Prisma.SortOrder
   arah?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   terjadiPada?: Prisma.SortOrder
   dicatatOlehId?: Prisma.SortOrder
   diserahkanKepada?: Prisma.SortOrder
@@ -617,6 +639,10 @@ export type EnumArahJaminanFieldUpdateOperationsInput = {
   set?: $Enums.ArahJaminan
 }
 
+export type NullableEnumStatusJaminanFieldUpdateOperationsInput = {
+  set?: $Enums.StatusJaminan | null
+}
+
 export type MutasiJaminanCreateNestedOneWithoutApprovalInput = {
   create?: Prisma.XOR<Prisma.MutasiJaminanCreateWithoutApprovalInput, Prisma.MutasiJaminanUncheckedCreateWithoutApprovalInput>
   connectOrCreate?: Prisma.MutasiJaminanCreateOrConnectWithoutApprovalInput
@@ -634,6 +660,7 @@ export type MutasiJaminanUpdateOneRequiredWithoutApprovalNestedInput = {
 export type MutasiJaminanCreateWithoutDicatatOlehInput = {
   id?: string
   arah: $Enums.ArahJaminan
+  status?: $Enums.StatusJaminan | null
   terjadiPada?: Date | string
   diserahkanKepada?: string | null
   diterimaDari?: string | null
@@ -652,6 +679,7 @@ export type MutasiJaminanUncheckedCreateWithoutDicatatOlehInput = {
   id?: string
   jaminanId: string
   arah: $Enums.ArahJaminan
+  status?: $Enums.StatusJaminan | null
   terjadiPada?: Date | string
   diserahkanKepada?: string | null
   diterimaDari?: string | null
@@ -698,6 +726,7 @@ export type MutasiJaminanScalarWhereInput = {
   id?: Prisma.StringFilter<"MutasiJaminan"> | string
   jaminanId?: Prisma.StringFilter<"MutasiJaminan"> | string
   arah?: Prisma.EnumArahJaminanFilter<"MutasiJaminan"> | $Enums.ArahJaminan
+  status?: Prisma.EnumStatusJaminanNullableFilter<"MutasiJaminan"> | $Enums.StatusJaminan | null
   terjadiPada?: Prisma.DateTimeFilter<"MutasiJaminan"> | Date | string
   dicatatOlehId?: Prisma.StringFilter<"MutasiJaminan"> | string
   diserahkanKepada?: Prisma.StringNullableFilter<"MutasiJaminan"> | string | null
@@ -714,6 +743,7 @@ export type MutasiJaminanScalarWhereInput = {
 export type MutasiJaminanCreateWithoutJaminanInput = {
   id?: string
   arah: $Enums.ArahJaminan
+  status?: $Enums.StatusJaminan | null
   terjadiPada?: Date | string
   diserahkanKepada?: string | null
   diterimaDari?: string | null
@@ -731,6 +761,7 @@ export type MutasiJaminanCreateWithoutJaminanInput = {
 export type MutasiJaminanUncheckedCreateWithoutJaminanInput = {
   id?: string
   arah: $Enums.ArahJaminan
+  status?: $Enums.StatusJaminan | null
   terjadiPada?: Date | string
   dicatatOlehId: string
   diserahkanKepada?: string | null
@@ -774,6 +805,7 @@ export type MutasiJaminanUpdateManyWithWhereWithoutJaminanInput = {
 export type MutasiJaminanCreateWithoutApprovalInput = {
   id?: string
   arah: $Enums.ArahJaminan
+  status?: $Enums.StatusJaminan | null
   terjadiPada?: Date | string
   diserahkanKepada?: string | null
   diterimaDari?: string | null
@@ -792,6 +824,7 @@ export type MutasiJaminanUncheckedCreateWithoutApprovalInput = {
   id?: string
   jaminanId: string
   arah: $Enums.ArahJaminan
+  status?: $Enums.StatusJaminan | null
   terjadiPada?: Date | string
   dicatatOlehId: string
   diserahkanKepada?: string | null
@@ -824,6 +857,7 @@ export type MutasiJaminanUpdateToOneWithWhereWithoutApprovalInput = {
 export type MutasiJaminanUpdateWithoutApprovalInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   arah?: Prisma.EnumArahJaminanFieldUpdateOperationsInput | $Enums.ArahJaminan
+  status?: Prisma.NullableEnumStatusJaminanFieldUpdateOperationsInput | $Enums.StatusJaminan | null
   terjadiPada?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   diserahkanKepada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   diterimaDari?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -842,6 +876,7 @@ export type MutasiJaminanUncheckedUpdateWithoutApprovalInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   jaminanId?: Prisma.StringFieldUpdateOperationsInput | string
   arah?: Prisma.EnumArahJaminanFieldUpdateOperationsInput | $Enums.ArahJaminan
+  status?: Prisma.NullableEnumStatusJaminanFieldUpdateOperationsInput | $Enums.StatusJaminan | null
   terjadiPada?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dicatatOlehId?: Prisma.StringFieldUpdateOperationsInput | string
   diserahkanKepada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -859,6 +894,7 @@ export type MutasiJaminanCreateManyDicatatOlehInput = {
   id?: string
   jaminanId: string
   arah: $Enums.ArahJaminan
+  status?: $Enums.StatusJaminan | null
   terjadiPada?: Date | string
   diserahkanKepada?: string | null
   diterimaDari?: string | null
@@ -874,6 +910,7 @@ export type MutasiJaminanCreateManyDicatatOlehInput = {
 export type MutasiJaminanUpdateWithoutDicatatOlehInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   arah?: Prisma.EnumArahJaminanFieldUpdateOperationsInput | $Enums.ArahJaminan
+  status?: Prisma.NullableEnumStatusJaminanFieldUpdateOperationsInput | $Enums.StatusJaminan | null
   terjadiPada?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   diserahkanKepada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   diterimaDari?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -892,6 +929,7 @@ export type MutasiJaminanUncheckedUpdateWithoutDicatatOlehInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   jaminanId?: Prisma.StringFieldUpdateOperationsInput | string
   arah?: Prisma.EnumArahJaminanFieldUpdateOperationsInput | $Enums.ArahJaminan
+  status?: Prisma.NullableEnumStatusJaminanFieldUpdateOperationsInput | $Enums.StatusJaminan | null
   terjadiPada?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   diserahkanKepada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   diterimaDari?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -909,6 +947,7 @@ export type MutasiJaminanUncheckedUpdateManyWithoutDicatatOlehInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   jaminanId?: Prisma.StringFieldUpdateOperationsInput | string
   arah?: Prisma.EnumArahJaminanFieldUpdateOperationsInput | $Enums.ArahJaminan
+  status?: Prisma.NullableEnumStatusJaminanFieldUpdateOperationsInput | $Enums.StatusJaminan | null
   terjadiPada?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   diserahkanKepada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   diterimaDari?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -924,6 +963,7 @@ export type MutasiJaminanUncheckedUpdateManyWithoutDicatatOlehInput = {
 export type MutasiJaminanCreateManyJaminanInput = {
   id?: string
   arah: $Enums.ArahJaminan
+  status?: $Enums.StatusJaminan | null
   terjadiPada?: Date | string
   dicatatOlehId: string
   diserahkanKepada?: string | null
@@ -940,6 +980,7 @@ export type MutasiJaminanCreateManyJaminanInput = {
 export type MutasiJaminanUpdateWithoutJaminanInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   arah?: Prisma.EnumArahJaminanFieldUpdateOperationsInput | $Enums.ArahJaminan
+  status?: Prisma.NullableEnumStatusJaminanFieldUpdateOperationsInput | $Enums.StatusJaminan | null
   terjadiPada?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   diserahkanKepada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   diterimaDari?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -957,6 +998,7 @@ export type MutasiJaminanUpdateWithoutJaminanInput = {
 export type MutasiJaminanUncheckedUpdateWithoutJaminanInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   arah?: Prisma.EnumArahJaminanFieldUpdateOperationsInput | $Enums.ArahJaminan
+  status?: Prisma.NullableEnumStatusJaminanFieldUpdateOperationsInput | $Enums.StatusJaminan | null
   terjadiPada?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dicatatOlehId?: Prisma.StringFieldUpdateOperationsInput | string
   diserahkanKepada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -974,6 +1016,7 @@ export type MutasiJaminanUncheckedUpdateWithoutJaminanInput = {
 export type MutasiJaminanUncheckedUpdateManyWithoutJaminanInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   arah?: Prisma.EnumArahJaminanFieldUpdateOperationsInput | $Enums.ArahJaminan
+  status?: Prisma.NullableEnumStatusJaminanFieldUpdateOperationsInput | $Enums.StatusJaminan | null
   terjadiPada?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dicatatOlehId?: Prisma.StringFieldUpdateOperationsInput | string
   diserahkanKepada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -993,6 +1036,7 @@ export type MutasiJaminanSelect<ExtArgs extends runtime.Types.Extensions.Interna
   id?: boolean
   jaminanId?: boolean
   arah?: boolean
+  status?: boolean
   terjadiPada?: boolean
   dicatatOlehId?: boolean
   diserahkanKepada?: boolean
@@ -1013,6 +1057,7 @@ export type MutasiJaminanSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   id?: boolean
   jaminanId?: boolean
   arah?: boolean
+  status?: boolean
   terjadiPada?: boolean
   dicatatOlehId?: boolean
   diserahkanKepada?: boolean
@@ -1032,6 +1077,7 @@ export type MutasiJaminanSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   id?: boolean
   jaminanId?: boolean
   arah?: boolean
+  status?: boolean
   terjadiPada?: boolean
   dicatatOlehId?: boolean
   diserahkanKepada?: boolean
@@ -1051,6 +1097,7 @@ export type MutasiJaminanSelectScalar = {
   id?: boolean
   jaminanId?: boolean
   arah?: boolean
+  status?: boolean
   terjadiPada?: boolean
   dicatatOlehId?: boolean
   diserahkanKepada?: boolean
@@ -1064,7 +1111,7 @@ export type MutasiJaminanSelectScalar = {
   createdAt?: boolean
 }
 
-export type MutasiJaminanOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "jaminanId" | "arah" | "terjadiPada" | "dicatatOlehId" | "diserahkanKepada" | "diterimaDari" | "keperluan" | "lokasi" | "bukti" | "tanggalKembaliRencana" | "tanggalKembali" | "catatan" | "createdAt", ExtArgs["result"]["mutasiJaminan"]>
+export type MutasiJaminanOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "jaminanId" | "arah" | "status" | "terjadiPada" | "dicatatOlehId" | "diserahkanKepada" | "diterimaDari" | "keperluan" | "lokasi" | "bukti" | "tanggalKembaliRencana" | "tanggalKembali" | "catatan" | "createdAt", ExtArgs["result"]["mutasiJaminan"]>
 export type MutasiJaminanInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   jaminan?: boolean | Prisma.JaminanPinjamanDefaultArgs<ExtArgs>
   dicatatOleh?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1090,6 +1137,7 @@ export type $MutasiJaminanPayload<ExtArgs extends runtime.Types.Extensions.Inter
     id: string
     jaminanId: string
     arah: $Enums.ArahJaminan
+    status: $Enums.StatusJaminan | null
     terjadiPada: Date
     dicatatOlehId: string
     diserahkanKepada: string | null
@@ -1530,6 +1578,7 @@ export interface MutasiJaminanFieldRefs {
   readonly id: Prisma.FieldRef<"MutasiJaminan", 'String'>
   readonly jaminanId: Prisma.FieldRef<"MutasiJaminan", 'String'>
   readonly arah: Prisma.FieldRef<"MutasiJaminan", 'ArahJaminan'>
+  readonly status: Prisma.FieldRef<"MutasiJaminan", 'StatusJaminan'>
   readonly terjadiPada: Prisma.FieldRef<"MutasiJaminan", 'DateTime'>
   readonly dicatatOlehId: Prisma.FieldRef<"MutasiJaminan", 'String'>
   readonly diserahkanKepada: Prisma.FieldRef<"MutasiJaminan", 'String'>
