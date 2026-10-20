@@ -64,7 +64,7 @@ export default function SPList({ sp }: Props) {
       return (
         row.nomorSurat?.toLowerCase().includes(keyword) ||
         row.nasabah.nama.toLowerCase().includes(keyword) ||
-        row.nasabah.nomorRekening.toLowerCase().includes(keyword)
+        (row.pinjaman?.noPjm ?? row.noPjm).toLowerCase().includes(keyword)
       );
     });
   }, [
@@ -157,7 +157,7 @@ export default function SPList({ sp }: Props) {
               <div className="flex flex-col">
                 <span>{row.nasabah.nama}</span>
                 <span className="text-xs text-muted-foreground">
-                  {row.nasabah.nomorRekening}
+                  {row.pinjaman?.noPjm ?? row.noPjm}
                 </span>
               </div>
             ),

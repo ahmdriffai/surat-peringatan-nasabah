@@ -236,7 +236,7 @@ export default function SPDetail({ sp }: Props) {
             <InfoRow label="Nasabah" value={sp.nasabah.nama} />
             <InfoRow
               label="No. Rekening"
-              value={sp.nasabah.nomorRekening}
+              value={sp.pinjaman?.noPjm ?? sp.noPjm}
               mono
             />
             <InfoRow
