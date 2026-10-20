@@ -23,6 +23,8 @@ import { JenisSP } from "@/generated/prisma/enums";
 import { useZodForm } from "@/hook/use-form";
 import { EnrichedLoanData } from "@/services/external/loans";
 import {
+  Check,
+  ChevronDown,
   Gavel,
   Info,
   Loader2,
@@ -126,6 +128,18 @@ export default function SPForm({
   const [source, setSource] = useState<"core" | "manual">(isEditMode ? "manual" : "core");
   const [manualLoanMode, setManualLoanMode] = useState<"new" | "existing">("new");
   const [manualNasabahId, setManualNasabahId] = useState("");
+  const [nasabahSearch, setNasabahSearch] = useState("");
+  const [nasabahOpen, setNasabahOpen] = useState(false);
+
+  const filteredNasabah = nasabah.filter((item) => {
+    const query = nasabahSearch.trim().toLowerCase();
+    return (
+      !query ||
+      [item.nama, item.cif, item.nik, item.nomorRekening].some((value) =>
+        value?.toLowerCase().includes(query),
+      )
+    );
+  });
 
   const form = useZodForm(SPCreateInputSchema, {
     defaultValues: {
@@ -299,27 +313,59 @@ export default function SPForm({
           render={({ field, fieldState }) => (
             <Field className="sm:col-span-2">
               <FieldLabel htmlFor="nasabahId">Nasabah (Database)</FieldLabel>
-              <Select
-                value={field.value}
-                onValueChange={(val) => {
-                  field.onChange(val);
-                  form.setValue("nasabahData", undefined);
-                  setManualLoanMode("new");
-                  setManualNasabahId(val);
-                  setSelectedLoan(null);
-                }}
-              >
-                <SelectTrigger id="nasabahId" className="w-full">
-                  <SelectValue placeholder="Pilih nasabah terdaftar" />
-                </SelectTrigger>
-                <SelectContent>
-                  {nasabah.map((n) => (
-                    <SelectItem key={n.id} value={n.id}>
-                      {n.nama} — {n.nomorRekening} (CIF: {n.cif})
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <div className="relative">
+                <button
+                  type="button"
+                  id="nasabahId"
+                  aria-expanded={nasabahOpen}
+                  onClick={() => setNasabahOpen((open) => !open)}
+                  className="flex h-10 w-full items-center justify-between rounded-3xl border border-transparent bg-input/50 px-3 text-left text-sm outline-none focus:border-ring"
+                >
+                  <span className={field.value ? "" : "text-muted-foreground"}>
+                    {nasabah.find((item) => item.id === field.value)
+                      ? `${nasabah.find((item) => item.id === field.value)?.nama} — ${nasabah.find((item) => item.id === field.value)?.nomorRekening} (CIF: ${nasabah.find((item) => item.id === field.value)?.cif})`
+                      : "Pilih nasabah terdaftar"}
+                  </span>
+                  <ChevronDown className="size-4 text-muted-foreground" />
+                </button>
+                {nasabahOpen && (
+                  <div className="absolute z-50 mt-2 w-full rounded-2xl border bg-popover p-2 shadow-lg">
+                    <Input
+                      autoFocus
+                      placeholder="Cari nama, CIF, NIK, atau nomor rekening"
+                      value={nasabahSearch}
+                      onChange={(event) => setNasabahSearch(event.target.value)}
+                    />
+                    <div className="mt-2 max-h-56 overflow-y-auto">
+                      {filteredNasabah.length ? (
+                        filteredNasabah.map((item) => (
+                          <button
+                            key={item.id}
+                            type="button"
+                            className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-sm hover:bg-accent"
+                            onClick={() => {
+                              field.onChange(item.id);
+                              form.setValue("nasabahData", undefined);
+                              setManualLoanMode("new");
+                              setManualNasabahId(item.id);
+                              setSelectedLoan(null);
+                              setNasabahSearch("");
+                              setNasabahOpen(false);
+                            }}
+                          >
+                            <span>{item.nama} — {item.nomorRekening} (CIF: {item.cif})</span>
+                            {item.id === field.value && <Check className="size-4" />}
+                          </button>
+                        ))
+                      ) : (
+                        <p className="px-3 py-2 text-sm text-muted-foreground">
+                          Nasabah tidak ditemukan.
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
               {fieldState.error?.message && (
                 <FieldError errors={[fieldState.error]}>
                   {fieldState.error.message}

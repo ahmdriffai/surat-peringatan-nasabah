@@ -12,7 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import LoanSearch from "@/features/sp/component/loan-search";
 import { EnrichedLoanData } from "@/services/external/loans";
 import { NasabahWithPinjaman } from "@/services/nasabah/get-all";
-import { Database, Loader2, PencilLine } from "lucide-react";
+import { Check, ChevronDown, Database, Loader2, PencilLine } from "lucide-react";
 import { useState } from "react";
 import { ZodError } from "zod";
 import { JaminanCreateInput, JaminanCreateInputSchema } from "../schema";
@@ -28,6 +28,8 @@ type FormValues = {
   lokasiPenyimpanan: string;
   status: "TERSIMPAN" | "DIBAWA_KELUAR" | "SELESAI_PENGIKATAN";
   tanggalDiterima: string;
+  diserahkanKepada: string;
+  diterimaDari: string;
   catatan: string;
   nasabahData?: {
     cif: string;
@@ -59,6 +61,8 @@ const emptyValues: FormValues = {
   lokasiPenyimpanan: "",
   status: "TERSIMPAN",
   tanggalDiterima: new Date().toISOString().slice(0, 10),
+  diserahkanKepada: "",
+  diterimaDari: "",
   catatan: "",
   nasabahData: undefined,
 };
@@ -77,9 +81,21 @@ export default function JaminanForm({
     null,
   );
   const [source, setSource] = useState<"core" | "manual">("manual");
+  const [nasabahSearch, setNasabahSearch] = useState("");
+  const [nasabahOpen, setNasabahOpen] = useState(false);
   const [manualLoanMode, setManualLoanMode] = useState<"new" | "existing">(
     "new",
   );
+
+  const filteredNasabah = nasabah.filter((item) => {
+    const query = nasabahSearch.trim().toLowerCase();
+    return (
+      !query ||
+      [item.nama, item.cif, item.nik, item.nomorRekening].some((value) =>
+        value?.toLowerCase().includes(query),
+      )
+    );
+  });
 
   const update = (key: keyof FormValues, value: string) =>
     setValues((current) => ({ ...current, [key]: value }));
@@ -187,15 +203,64 @@ export default function JaminanForm({
       {(defaultValues || source === "manual") && (
         <Field>
           <FieldLabel htmlFor="nasabahId">Nasabah</FieldLabel>
+          <div className="relative">
+            <button
+              type="button"
+              id="nasabahId"
+              aria-expanded={nasabahOpen}
+              onClick={() => setNasabahOpen((open) => !open)}
+              className="flex h-10 w-full items-center justify-between rounded-3xl border border-transparent bg-input/50 px-3 text-left text-sm outline-none focus:border-ring"
+            >
+              <span className={values.nasabahId ? "" : "text-muted-foreground"}>
+                {nasabah.find((item) => item.id === values.nasabahId)
+                  ? `${nasabah.find((item) => item.id === values.nasabahId)?.nama} — ${nasabah.find((item) => item.id === values.nasabahId)?.cif}`
+                  : "Pilih nasabah"}
+              </span>
+              <ChevronDown className="size-4 text-muted-foreground" />
+            </button>
+            {nasabahOpen && (
+              <div className="absolute z-50 mt-2 w-full rounded-2xl border bg-popover p-2 shadow-lg">
+                <Input
+                  autoFocus
+                  placeholder="Cari nama, CIF, NIK, atau nomor rekening"
+                  value={nasabahSearch}
+                  onChange={(event) => setNasabahSearch(event.target.value)}
+                />
+                <div className="mt-2 max-h-56 overflow-y-auto">
+                  {filteredNasabah.length ? (
+                    filteredNasabah.map((item) => (
+                      <button
+                        key={item.id}
+                        type="button"
+                        className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-sm hover:bg-accent"
+                        onClick={() => {
+                          update("nasabahId", item.id);
+                          setValues((current) => ({ ...current, nasabahData: undefined }));
+                          setManualLoanMode("new");
+                          setNasabahSearch("");
+                          setNasabahOpen(false);
+                        }}
+                      >
+                        <span>{item.nama} — {item.cif}</span>
+                        {item.id === values.nasabahId && <Check className="size-4" />}
+                      </button>
+                    ))
+                  ) : (
+                    <p className="px-3 py-2 text-sm text-muted-foreground">
+                      Nasabah tidak ditemukan.
+                    </p>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+          {/* Keep the selected value available to form semantics. */}
           <select
-            id="nasabahId"
-            className="h-10 border-b border-input bg-transparent px-0 text-sm outline-none focus:border-ring"
+            tabIndex={-1}
+            aria-hidden="true"
+            className="sr-only"
             value={values.nasabahId}
-            onChange={(event) => {
-              update("nasabahId", event.target.value);
-              setValues((current) => ({ ...current, nasabahData: undefined }));
-              setManualLoanMode("new");
-            }}
+            onChange={() => undefined}
           >
             <option value="">Pilih nasabah</option>
             {nasabah.map((item) => (
@@ -262,12 +327,22 @@ export default function JaminanForm({
       </Field>
       <Field>
         <FieldLabel htmlFor="jenis">Jenis Jaminan *</FieldLabel>
-        <Input
+        <select
           id="jenis"
-          placeholder="BPKB / SHM / lainnya"
+          className="h-10 w-full rounded-3xl border border-transparent bg-input/50 px-3 text-sm outline-none focus:border-ring"
           value={values.jenis}
           onChange={(e) => update("jenis", e.target.value)}
-        />
+        >
+          <option value="">Pilih jenis jaminan</option>
+          <option value="BPKB">BPKB</option>
+          <option value="SHM">SHM</option>
+          <option value="SHGB">SHGB</option>
+          <option value="AJB">AJB</option>
+          <option value="Deposito">Deposito</option>
+          <option value="Emas">Emas</option>
+          <option value="Kendaraan">Kendaraan</option>
+          <option value="Lainnya">Lainnya</option>
+        </select>
       </Field>
       <Field>
         <FieldLabel htmlFor="nomorDokumen">Nomor Dokumen Jaminan</FieldLabel>
@@ -329,6 +404,26 @@ export default function JaminanForm({
           onChange={(e) => update("tanggalDiterima", e.target.value)}
         />
       </Field>
+      {!defaultValues && (
+        <>
+          <Field>
+            <FieldLabel htmlFor="diserahkanKepada">Diserahkan Oleh</FieldLabel>
+            <Input
+              id="diserahkanKepada"
+              value={values.diserahkanKepada}
+              onChange={(e) => update("diserahkanKepada", e.target.value)}
+            />
+          </Field>
+          <Field>
+            <FieldLabel htmlFor="diterimaDari">Diterima Oleh</FieldLabel>
+            <Input
+              id="diterimaDari"
+              value={values.diterimaDari}
+              onChange={(e) => update("diterimaDari", e.target.value)}
+            />
+          </Field>
+        </>
+      )}
       <Field className="sm:col-span-2">
         <FieldLabel htmlFor="deskripsi">Deskripsi</FieldLabel>
         <Textarea

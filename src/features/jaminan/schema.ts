@@ -40,13 +40,15 @@ const JaminanBaseInputSchema = z.object({
   catatan: z.string().trim().optional(),
 });
 
-export const JaminanCreateInputSchema = JaminanBaseInputSchema.refine(
-  (data) => Boolean(data.nasabahId || data.nasabahData?.cif),
-  {
-  message: "Pilih nasabah secara manual atau gunakan data dari Core Banking",
-  path: ["nasabahId"],
-  },
-);
+export const JaminanCreateInputSchema = JaminanBaseInputSchema
+  .extend({
+    diserahkanKepada: z.string().trim().optional(),
+    diterimaDari: z.string().trim().optional(),
+  })
+  .refine((data) => Boolean(data.nasabahId || data.nasabahData?.cif), {
+    message: "Pilih nasabah secara manual atau gunakan data dari Core Banking",
+    path: ["nasabahId"],
+  });
 
 export const JaminanEditInputSchema = JaminanBaseInputSchema
   .omit({ nasabahData: true })

@@ -14,7 +14,13 @@ export async function createJaminan(
   bukti?: File,
 ): Promise<JaminanPinjaman> {
   const session = await requireSession();
-  const { nasabahData, nasabahId: providedNasabahId, ...data } =
+  const {
+    nasabahData,
+    nasabahId: providedNasabahId,
+    diserahkanKepada,
+    diterimaDari,
+    ...data
+  } =
     JaminanCreateInputSchema.parse(input);
   const buktiUrl = bukti?.size
     ? await saveUploadedEvidence(bukti, "bukti-jaminan")
@@ -81,7 +87,8 @@ export async function createJaminan(
         jaminanId: jaminan.id,
         arah: "MASUK",
         terjadiPada: data.tanggalDiterima ?? new Date(),
-        diterimaDari: data.atasNama || null,
+        diserahkanKepada: diserahkanKepada || null,
+        diterimaDari: diterimaDari || null,
         lokasi: data.lokasiPenyimpanan || null,
         catatan: "Penerimaan awal jaminan",
         bukti: buktiUrl,
