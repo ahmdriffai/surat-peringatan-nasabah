@@ -693,6 +693,7 @@ function SuratPeringatanBody({
 
   verifikasiUrl: string;
 }) {
+  const nomorPinjaman = sp.pinjaman?.noPjm ?? sp.noPjm;
   const totalKewajiban =
     sp.tgkPokok + sp.tgkBunga + (sp.denda ?? 0) + (sp.biayaAdministrasi ?? 0);
 
@@ -746,7 +747,7 @@ function SuratPeringatanBody({
       <div className="mt-5 space-y-0.5 text-xs">
         {/* PERJANJIAN KREDIT */}
         <p className="font-bold">
-          Surat Perjanjian Kredit No. {sp.noPjm}
+          Surat Perjanjian Kredit No. {nomorPinjaman}
           {sp.tanggalAkadKredit &&
             ` Tanggal ${formatDateNumeric(sp.tanggalAkadKredit)}`}
         </p>
@@ -784,7 +785,7 @@ function SuratPeringatanBody({
 
         <StatBlock
           label="Nomor Rekening"
-          value={sp.nasabah.nomorRekening ?? sp.noPjm ?? "-"}
+          value={nomorPinjaman || "-"}
         />
 
         <StatBlock
@@ -914,6 +915,7 @@ function SuratSomasiBody({
 
   verifikasiUrl: string;
 }) {
+  const nomorPinjaman = sp.pinjaman?.noPjm ?? sp.noPjm;
   const totalKewajiban =
     sp.tgkPokok + sp.tgkBunga + (sp.denda ?? 0) + (sp.biayaAdministrasi ?? 0);
 
@@ -954,7 +956,7 @@ function SuratSomasiBody({
       </div>
 
       <p className="mt-5 text-xs font-bold underline">
-        Perihal: Surat Perjanjian Kredit No. {sp.noPjm}
+        Perihal: Surat Perjanjian Kredit No. {nomorPinjaman}
         {sp.tanggalAkadKredit && ` Tanggal ${formatDate(sp.tanggalAkadKredit)}`}
       </p>
 
@@ -977,7 +979,7 @@ function SuratSomasiBody({
       <div className="mt-4 grid grid-cols-2 gap-3 text-xs">
         <StatBlock
           label="No. Rekening / CIF"
-          value={`${sp.nasabah.nomorRekening} / ${sp.nasabah.cif ?? "-"}`}
+          value={`${nomorPinjaman || "-"} / ${sp.nasabah.cif ?? "-"}`}
         />
 
         <StatBlock
@@ -1115,6 +1117,7 @@ function SuratPemberitahuanLelangBody({
 
   verifikasiUrl: string;
 }) {
+  const nomorPinjaman = sp.pinjaman?.noPjm ?? sp.noPjm;
   const totalKewajiban =
     sp.tgkPokok + sp.tgkBunga + (sp.denda ?? 0) + (sp.biayaAdministrasi ?? 0);
 
@@ -1157,7 +1160,7 @@ function SuratPemberitahuanLelangBody({
 
         <ol className="list-decimal pl-5">
           <li>
-            Surat Perjanjian Kredit No. {sp.noPjm}
+            Surat Perjanjian Kredit No. {nomorPinjaman}
             {sp.tanggalAkadKredit &&
               ` Tanggal ${formatDate(sp.tanggalAkadKredit)}`}
           </li>
@@ -1327,6 +1330,7 @@ function SuratKuasaKhususBody({
 
   verifikasiUrl: string;
 }) {
+  const nomorPinjaman = sp.pinjaman?.noPjm ?? sp.noPjm;
   return (
     <>
       <div className="text-center">
@@ -1401,7 +1405,7 @@ function SuratKuasaKhususBody({
 
         <span>No Pinjaman</span>
         <span>:</span>
-        <span>{sp.noPjm}</span>
+        <span>{nomorPinjaman}</span>
 
         <span>Kolektibilitas</span>
         <span>:</span>
