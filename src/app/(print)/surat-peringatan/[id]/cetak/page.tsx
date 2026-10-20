@@ -447,7 +447,7 @@ export default function CetakSPPage() {
 
 /**
  * Mengambil history SP sebelumnya
- * untuk nasabah yang sama.
+ * untuk nasabah dan pinjaman yang sama.
  *
  * Contoh SP II:
  *
@@ -477,6 +477,7 @@ function getRiwayatPeringatan(
       return (
         riwayat.id !== sp.id &&
         riwayat.nasabahId === sp.nasabahId &&
+        riwayat.pinjamanId === sp.pinjamanId &&
         levelRiwayat != null &&
         levelRiwayat < levelSaatIni &&
         riwayat.nomorSurat != null
@@ -521,6 +522,7 @@ function getRiwayatSomasi(
       return (
         riwayat.id !== sp.id &&
         riwayat.nasabahId === sp.nasabahId &&
+        riwayat.pinjamanId === sp.pinjamanId &&
         levelRiwayat != null &&
         levelRiwayat < levelSaatIni &&
         riwayat.nomorSurat != null
@@ -540,6 +542,7 @@ function getRiwayatLelang(
       (riwayat) =>
         riwayat.id !== sp.id &&
         riwayat.nasabahId === sp.nasabahId &&
+        riwayat.pinjamanId === sp.pinjamanId &&
         (LEVEL_PERINGATAN[riwayat.jenis] != null ||
           riwayat.jenis === "SOMASI_1" ||
           riwayat.jenis === "SOMASI_2" ||
