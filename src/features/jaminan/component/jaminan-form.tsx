@@ -44,7 +44,7 @@ type FormValues = {
 
 interface Props {
   nasabah: NasabahWithPinjaman[];
-  onSubmit: (data: JaminanCreateInput, bukti?: File) => void;
+  onSubmit: (data: JaminanCreateInput, bukti?: File) => void | Promise<void>;
   isPending: boolean;
   defaultValues?: Partial<FormValues>;
   submitLabel?: string;
@@ -118,19 +118,24 @@ export default function JaminanForm({
     }));
   };
 
-  const submit = () => {
+  const submit = async () => {
     try {
       setError("");
       const data = JaminanCreateInputSchema.parse(values);
-      onSubmit(data, bukti);
+      await onSubmit(data, bukti);
     } catch (submissionError) {
-      setError(
+      const message =
         submissionError instanceof ZodError
           ? (submissionError.issues[0]?.message ??
-              "Periksa kembali data jaminan.")
+            "Periksa kembali data jaminan.")
           : submissionError instanceof Error
             ? submissionError.message
-            : "Periksa kembali data jaminan.",
+            : "Periksa kembali data jaminan.";
+
+      setError(
+        message.toLowerCase().includes("petugas")
+          ? "Petugas jaminan tidak ditemukan. Silakan hubungi administrator."
+          : message,
       );
     }
   };

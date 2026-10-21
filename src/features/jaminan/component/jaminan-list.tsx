@@ -52,12 +52,13 @@ export default function JaminanList({ data, nasabah }: Props) {
   const approveMutasi = useApproveMutasiJaminan();
   const { data: session } = useSession();
 
-  const submitEdit = (input: JaminanCreateInput) => {
+  const submitEdit = async (input: JaminanCreateInput) => {
     if (!editTarget) return;
-    edit.mutate(
-      { id: editTarget.id, data: input as JaminanEditInput },
-      { onSuccess: () => setEditTarget(null) },
-    );
+    await edit.mutateAsync({
+      id: editTarget.id,
+      data: input as JaminanEditInput,
+    });
+    setEditTarget(null);
   };
 
   const submitMutasi = (

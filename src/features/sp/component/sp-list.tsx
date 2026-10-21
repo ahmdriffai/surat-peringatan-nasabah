@@ -158,7 +158,7 @@ export default function SPList({ sp }: Props) {
                 <span>{row.nasabah.nama}</span>
                 <span className="text-xs text-muted-foreground">
                   {row.pinjaman?.noPjm ?? row.noPjm}
-                </span>
+                  </span>
               </div>
             ),
           },

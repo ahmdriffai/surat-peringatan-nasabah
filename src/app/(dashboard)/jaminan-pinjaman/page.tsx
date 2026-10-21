@@ -22,8 +22,9 @@ export default function JaminanPinjamanPage() {
   const { data: jaminan = [] } = useGetAllJaminan();
   const create = useCreateJaminan();
 
-  const submit = (data: JaminanCreateInput, bukti?: File) => {
-    create.mutate({ data, bukti }, { onSuccess: () => setOpen(false) });
+  const submit = async (data: JaminanCreateInput, bukti?: File) => {
+    await create.mutateAsync({ data, bukti });
+    setOpen(false);
   };
 
   return (
