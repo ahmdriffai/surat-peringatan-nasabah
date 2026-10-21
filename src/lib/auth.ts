@@ -10,6 +10,7 @@ declare module "next-auth" {
       nama: string;
       role: Role;
       petugasJaminan: boolean;
+      approverJaminan: boolean;
     } & DefaultSession["user"];
   }
 
@@ -18,6 +19,7 @@ declare module "next-auth" {
     nama: string;
     role: Role;
     petugasJaminan: boolean;
+    approverJaminan: boolean;
   }
 }
 
@@ -27,6 +29,7 @@ declare module "next-auth/jwt" {
     nama: string;
     role: Role;
     petugasJaminan: boolean;
+    approverJaminan: boolean;
   }
 }
 
@@ -58,6 +61,7 @@ export const authOptions: NextAuthOptions = {
         token.nama = user.nama;
         token.role = user.role;
         token.petugasJaminan = user.petugasJaminan;
+        token.approverJaminan = user.approverJaminan;
       }
       if (trigger === "update" && session?.nama) {
         token.nama = session.nama;
@@ -69,6 +73,7 @@ export const authOptions: NextAuthOptions = {
       session.user.nama = token.nama;
       session.user.role = token.role;
       session.user.petugasJaminan = token.petugasJaminan;
+      session.user.approverJaminan = token.approverJaminan;
       return session;
     },
   },

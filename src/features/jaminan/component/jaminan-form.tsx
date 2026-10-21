@@ -12,7 +12,13 @@ import { Textarea } from "@/components/ui/textarea";
 import LoanSearch from "@/features/sp/component/loan-search";
 import { EnrichedLoanData } from "@/services/external/loans";
 import { NasabahWithPinjaman } from "@/services/nasabah/get-all";
-import { Check, ChevronDown, Database, Loader2, PencilLine } from "lucide-react";
+import {
+  Check,
+  ChevronDown,
+  Database,
+  Loader2,
+  PencilLine,
+} from "lucide-react";
 import { useState } from "react";
 import { ZodError } from "zod";
 import { JaminanCreateInput, JaminanCreateInputSchema } from "../schema";
@@ -30,6 +36,7 @@ type FormValues = {
   tanggalDiterima: string;
   diserahkanKepada: string;
   diterimaDari: string;
+  keperluan: string;
   catatan: string;
   nasabahData?: {
     cif: string;
@@ -63,6 +70,7 @@ const emptyValues: FormValues = {
   tanggalDiterima: new Date().toISOString().slice(0, 10),
   diserahkanKepada: "",
   diterimaDari: "",
+  keperluan: "",
   catatan: "",
   nasabahData: undefined,
 };
@@ -133,8 +141,8 @@ export default function JaminanForm({
             : "Periksa kembali data jaminan.";
 
       setError(
-        message.toLowerCase().includes("petugas")
-          ? "Petugas jaminan tidak ditemukan. Silakan hubungi administrator."
+        message.toLowerCase().includes("approver")
+          ? "Approver jaminan tidak ditemukan. Silakan hubungi administrator."
           : message,
       );
     }
@@ -240,14 +248,21 @@ export default function JaminanForm({
                         className="flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-sm hover:bg-accent"
                         onClick={() => {
                           update("nasabahId", item.id);
-                          setValues((current) => ({ ...current, nasabahData: undefined }));
+                          setValues((current) => ({
+                            ...current,
+                            nasabahData: undefined,
+                          }));
                           setManualLoanMode("new");
                           setNasabahSearch("");
                           setNasabahOpen(false);
                         }}
                       >
-                        <span>{item.nama} — {item.cif}</span>
-                        {item.id === values.nasabahId && <Check className="size-4" />}
+                        <span>
+                          {item.nama} — {item.cif}
+                        </span>
+                        {item.id === values.nasabahId && (
+                          <Check className="size-4" />
+                        )}
                       </button>
                     ))
                   ) : (
@@ -430,11 +445,19 @@ export default function JaminanForm({
         </>
       )}
       <Field className="sm:col-span-2">
-        <FieldLabel htmlFor="deskripsi">Deskripsi</FieldLabel>
+        <FieldLabel htmlFor="deskripsi">Deskripsi Jaminan</FieldLabel>
         <Textarea
           id="deskripsi"
           value={values.deskripsi}
           onChange={(e) => update("deskripsi", e.target.value)}
+        />
+      </Field>
+      <Field className="sm:col-span-2">
+        <FieldLabel htmlFor="keperluan">Keperluan</FieldLabel>
+        <Textarea
+          id="keperluan"
+          value={values.keperluan}
+          onChange={(e) => update("keperluan", e.target.value)}
         />
       </Field>
       <Field className="sm:col-span-2">

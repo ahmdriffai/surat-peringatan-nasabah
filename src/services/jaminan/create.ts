@@ -6,19 +6,20 @@ import {
 } from "@/features/jaminan/schema";
 import { JaminanPinjaman } from "@/generated/prisma/client";
 import { prisma } from "@/lib/prisma";
-import { requireSession } from "@/lib/session";
+import { requireJaminanAccess } from "@/lib/session";
 import { saveUploadedEvidence } from "@/lib/upload";
 
 export async function createJaminan(
   input: JaminanCreateInput,
   bukti?: File,
 ): Promise<JaminanPinjaman> {
-  const session = await requireSession();
+  const session = await requireJaminanAccess();
   const {
     nasabahData,
     nasabahId: providedNasabahId,
     diserahkanKepada,
     diterimaDari,
+    keperluan,
     ...data
   } =
     JaminanCreateInputSchema.parse(input);
@@ -27,8 +28,8 @@ export async function createJaminan(
     : undefined;
 
   return prisma.$transaction(async (tx) => {
-    const approver = await tx.user.findFirst({ where: { petugasJaminan: true, aktif: true } });
-    if (!approver) throw new Error("Belum ada petugas jaminan yang ditunjuk.");
+    const approver = await tx.user.findFirst({ where: { approverJaminan: true, aktif: true } });
+    if (!approver) throw new Error("Belum ada approver jaminan yang ditunjuk.");
     let nasabahId = providedNasabahId;
 
     if (nasabahData) {
@@ -89,6 +90,7 @@ export async function createJaminan(
         terjadiPada: data.tanggalDiterima ?? new Date(),
         diserahkanKepada: diserahkanKepada || null,
         diterimaDari: diterimaDari || null,
+        keperluan: keperluan || null,
         lokasi: data.lokasiPenyimpanan || null,
         catatan: "Penerimaan awal jaminan",
         bukti: buktiUrl,

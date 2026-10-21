@@ -7,6 +7,8 @@ export const CreateUserInputSchema = z.object({
   email: z.string().email("Email tidak valid"),
   password: z.string().min(6, "Password minimal 6 karakter"),
   role: z.nativeEnum(Role),
+  petugasJaminan: z.boolean().optional(),
+  approverJaminan: z.boolean().optional(),
 });
 
 export type CreateUserInput = z.infer<typeof CreateUserInputSchema>;
@@ -18,6 +20,7 @@ export const EditUserInputSchema = z.object({
   role: z.nativeEnum(Role).optional(),
   aktif: z.boolean().optional(),
   petugasJaminan: z.boolean().optional(),
+  approverJaminan: z.boolean().optional(),
 });
 
 export type EditUserInput = z.infer<typeof EditUserInputSchema>;

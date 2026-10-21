@@ -39,6 +39,7 @@ export const menuItems = [
     url: "/jaminan-pinjaman",
     title: "Jaminan Pinjaman",
     icon: PackageOpen,
+    petugasJaminanOnly: true,
   },
   {
     id: "surat-peringatan",
@@ -58,7 +59,7 @@ export const menuItems = [
     url: "/approve-jaminan",
     title: "Approve Jaminan",
     icon: ClipboardCheck,
-    petugasJaminanOnly: true,
+    approverJaminanOnly: true,
   },
   {
     id: "mail",
@@ -102,18 +103,20 @@ export function AppSidebar({
   const isAdmin = session?.user.role === "ADMIN";
   const isApprover = session?.user.role === "APPROVER";
   const isPetugasJaminan = session?.user.petugasJaminan === true;
+  const isApproverJaminan = session?.user.approverJaminan === true;
 
   const { data: sp } = useGetAllSP();
   const pendingApprovalCount = countMyPendingApprovals(
     sp ?? [],
     session?.user.id,
   );
-  const { data: pendingJaminanCount = 0 } = useCountPendingJaminanApprovals(isPetugasJaminan);
+  const { data: pendingJaminanCount = 0 } = useCountPendingJaminanApprovals(isApproverJaminan);
 
   const visibleMenuItems = menuItems
     .filter((item) => !item.adminOnly || isAdmin)
     .filter((item) => !item.approverOnly || isApprover)
     .filter((item) => !item.petugasJaminanOnly || isPetugasJaminan)
+    .filter((item) => !item.approverJaminanOnly || isApproverJaminan)
     .map((item) =>
       item.id === "persetujuan"
         ? { ...item, badge: pendingApprovalCount }

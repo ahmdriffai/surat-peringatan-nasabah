@@ -6,13 +6,13 @@ import {
 } from "@/features/jaminan/schema";
 import { JaminanPinjaman } from "@/generated/prisma/client";
 import { prisma } from "@/lib/prisma";
-import { requireSession } from "@/lib/session";
+import { requireJaminanAccess } from "@/lib/session";
 
 export async function editJaminan(
   id: string,
   input: JaminanEditInput,
 ): Promise<JaminanPinjaman> {
-  await requireSession();
+  await requireJaminanAccess();
   const data = JaminanEditInputSchema.parse(input);
 
   const pinjaman = await prisma.pinjaman.upsert({

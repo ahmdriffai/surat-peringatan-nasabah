@@ -10,6 +10,7 @@ interface LoginUser {
   email: string;
   role: Role;
   petugasJaminan: boolean;
+  approverJaminan: boolean;
 }
 
 export async function checkLogin(
@@ -38,5 +39,6 @@ export async function checkLogin(
     email: user.email,
     role: user.role,
     petugasJaminan: user.petugasJaminan,
+    approverJaminan: user.approverJaminan,
   };
 }

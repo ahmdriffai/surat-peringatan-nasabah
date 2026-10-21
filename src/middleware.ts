@@ -28,6 +28,17 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
+  const isJaminanAccessOnly = request.nextUrl.pathname.startsWith("/jaminan-pinjaman");
+  const isJaminanApprovalOnly = request.nextUrl.pathname.startsWith("/approve-jaminan");
+
+  if (isJaminanAccessOnly && token.petugasJaminan !== true) {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
+  }
+
+  if (isJaminanApprovalOnly && token.approverJaminan !== true) {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
+  }
+
   return NextResponse.next();
 }
 
@@ -36,6 +47,7 @@ export const config = {
     "/dashboard/:path*",
     "/customers/:path*",
     "/jaminan-pinjaman/:path*",
+    "/approve-jaminan/:path*",
     "/surat-peringatan/:path*",
     "/persetujuan/:path*",
     "/users/:path*",

@@ -6,10 +6,10 @@ import { useGetAllJaminan } from "@/features/jaminan/hook";
 
 export default function ApproveJaminanPage() {
   const { data: session } = useSession();
-  const { data: jaminan = [] } = useGetAllJaminan(session?.user.petugasJaminan === true);
+  const { data: jaminan = [] } = useGetAllJaminan(session?.user.approverJaminan === true);
 
-  if (!session?.user.petugasJaminan) {
-    return <p className="text-sm text-muted-foreground">Halaman ini hanya untuk petugas jaminan.</p>;
+  if (!session?.user.approverJaminan) {
+    return <p className="text-sm text-muted-foreground">Halaman ini hanya untuk approver jaminan.</p>;
   }
 
   return (

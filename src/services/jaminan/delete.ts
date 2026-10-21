@@ -2,9 +2,9 @@
 
 import { JaminanPinjaman } from "@/generated/prisma/client";
 import { prisma } from "@/lib/prisma";
-import { requireSession } from "@/lib/session";
+import { requireJaminanAccess } from "@/lib/session";
 
 export async function deleteJaminan(id: string): Promise<JaminanPinjaman> {
-  await requireSession();
+  await requireJaminanAccess();
   return prisma.jaminanPinjaman.delete({ where: { id } });
 }

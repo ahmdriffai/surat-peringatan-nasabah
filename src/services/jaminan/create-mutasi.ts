@@ -6,7 +6,7 @@ import {
 } from "@/features/jaminan/schema";
 import { MutasiJaminan } from "@/generated/prisma/client";
 import { prisma } from "@/lib/prisma";
-import { requireSession } from "@/lib/session";
+import { requireJaminanAccess } from "@/lib/session";
 import { saveUploadedEvidence } from "@/lib/upload";
 
 export async function createMutasiJaminan(
@@ -14,15 +14,15 @@ export async function createMutasiJaminan(
   input: MutasiJaminanInput,
   bukti?: File,
 ): Promise<MutasiJaminan> {
-  const session = await requireSession();
+  const session = await requireJaminanAccess();
   const data = MutasiJaminanInputSchema.parse(input);
   const buktiUrl = bukti?.size
     ? await saveUploadedEvidence(bukti, "bukti-jaminan")
     : undefined;
 
   return prisma.$transaction(async (tx) => {
-    const approver = await tx.user.findFirst({ where: { petugasJaminan: true, aktif: true } });
-    if (!approver) throw new Error("Belum ada petugas jaminan yang ditunjuk.");
+    const approver = await tx.user.findFirst({ where: { approverJaminan: true, aktif: true } });
+    if (!approver) throw new Error("Belum ada approver jaminan yang ditunjuk.");
     const mutasi = await tx.mutasiJaminan.create({
       data: {
         jaminanId,

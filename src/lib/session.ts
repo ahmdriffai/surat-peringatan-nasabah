@@ -21,3 +21,33 @@ export async function requireRole(role: Role): Promise<Session> {
 
   return session;
 }
+
+export async function requireJaminanAccess(): Promise<Session> {
+  const session = await requireSession();
+
+  if (!session.user.petugasJaminan) {
+    throw new Error("Anda tidak memiliki akses ke menu jaminan.");
+  }
+
+  return session;
+}
+
+export async function requireJaminanApproval(): Promise<Session> {
+  const session = await requireSession();
+
+  if (!session.user.approverJaminan) {
+    throw new Error("Anda tidak memiliki izin approval jaminan.");
+  }
+
+  return session;
+}
+
+export async function requireJaminanView(): Promise<Session> {
+  const session = await requireSession();
+
+  if (!session.user.petugasJaminan && !session.user.approverJaminan) {
+    throw new Error("Anda tidak memiliki akses ke data jaminan.");
+  }
+
+  return session;
+}

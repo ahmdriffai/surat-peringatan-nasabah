@@ -15,6 +15,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import PinjamanForm from "@/features/pinjaman/component/pinjaman-form";
 import { useCreatePinjaman } from "@/features/pinjaman/hook";
 import { PinjamanCreateInput } from "@/features/pinjaman/schema";
+import { useSession } from "next-auth/react";
 
 function formatAmount(value: number | null | undefined) {
   return value == null
@@ -24,15 +25,17 @@ function formatAmount(value: number | null | undefined) {
 
 export default function PinjamanDetailPage() {
   const params = useParams<{ id: string }>();
+  const { data: session } = useSession();
   const { data: nasabahList = [], isLoading: loadingNasabah } = useGetAllNasabah();
   const { data: allSP = [], isLoading: loadingSP } = useGetAllSP();
-  const { data: allJaminan = [], isLoading: loadingJaminan } = useGetAllJaminan();
+  const hasJaminanAccess = session?.user.petugasJaminan === true;
+  const { data: allJaminan = [], isLoading: loadingJaminan } = useGetAllJaminan(hasJaminanAccess);
   const [createOpen, setCreateOpen] = useState(false);
   const [detailJaminan, setDetailJaminan] = useState<JaminanWithDetails | null>(null);
   const createPinjaman = useCreatePinjaman();
   const nasabah = nasabahList.find((item) => item.id === params.id);
 
-  if (loadingNasabah || loadingSP || loadingJaminan) {
+  if (loadingNasabah || loadingSP || (hasJaminanAccess && loadingJaminan)) {
     return <p className="text-sm text-muted-foreground">Memuat detail pinjaman...</p>;
   }
 

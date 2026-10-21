@@ -2,7 +2,7 @@
 
 import { Prisma } from "@/generated/prisma/client";
 import { prisma } from "@/lib/prisma";
-import { requireSession } from "@/lib/session";
+import { requireJaminanView } from "@/lib/session";
 
 export type JaminanWithDetails = Prisma.JaminanPinjamanGetPayload<{
   include: {
@@ -13,7 +13,7 @@ export type JaminanWithDetails = Prisma.JaminanPinjamanGetPayload<{
 }>;
 
 export async function getAllJaminan(): Promise<JaminanWithDetails[]> {
-  await requireSession();
+  await requireJaminanView();
 
   return prisma.jaminanPinjaman.findMany({
     include: {

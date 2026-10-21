@@ -2,10 +2,10 @@
 
 import { MutasiJaminan } from "@/generated/prisma/client";
 import { prisma } from "@/lib/prisma";
-import { requireSession } from "@/lib/session";
+import { requireJaminanAccess } from "@/lib/session";
 
 export async function deleteMutasiJaminan(id: string): Promise<MutasiJaminan> {
-  await requireSession();
+  await requireJaminanAccess();
 
   return prisma.$transaction(async (tx) => {
     const mutasi = await tx.mutasiJaminan.delete({ where: { id } });

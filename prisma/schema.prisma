@@ -78,6 +78,7 @@ model User {
   role             Role              @default(PETUGAS)
   aktif            Boolean           @default(true)
   petugasJaminan   Boolean           @default(false)
+  approverJaminan  Boolean           @default(false)
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
   spApprovals      SPApproval[]

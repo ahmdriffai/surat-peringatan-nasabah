@@ -1,10 +1,10 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { requireSession } from "@/lib/session";
+import { requireJaminanApproval } from "@/lib/session";
 
 export async function approveMutasiJaminan(id: string, catatan?: string) {
-  const session = await requireSession();
+  const session = await requireJaminanApproval();
   return prisma.$transaction(async (tx) => {
     const approval = await tx.jaminanApproval.findUnique({ where: { mutasiId: id } });
     if (!approval || approval.status !== "PENDING") throw new Error("Mutasi ini sudah diproses.");

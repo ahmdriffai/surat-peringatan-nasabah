@@ -119,8 +119,12 @@ export default function UserList({
             ),
           },
           {
-            header: "Petugas Jaminan",
+            header: "Akses Jaminan",
             accessor: (row) => row.petugasJaminan ? <Badge>Ya</Badge> : "-",
+          },
+          {
+            header: "Approval Jaminan",
+            accessor: (row) => row.approverJaminan ? <Badge>Ya</Badge> : "-",
           },
           {
             header: "Action",
@@ -246,6 +250,7 @@ function EditUserForm({
       role: user.role,
       aktif: user.aktif,
       petugasJaminan: user.petugasJaminan,
+      approverJaminan: user.approverJaminan,
     },
   });
 
@@ -351,7 +356,21 @@ function EditUserForm({
               checked={field.value === true}
               onCheckedChange={field.onChange}
             />
-            <FieldLabel htmlFor="petugasJaminan">Petugas Jaminan</FieldLabel>
+            <FieldLabel htmlFor="petugasJaminan">Akses Jaminan</FieldLabel>
+          </Field>
+        )}
+      />
+      <Controller
+        control={form.control}
+        name="approverJaminan"
+        render={({ field }) => (
+          <Field orientation="horizontal">
+            <Checkbox
+              id="approverJaminan"
+              checked={field.value === true}
+              onCheckedChange={field.onChange}
+            />
+            <FieldLabel htmlFor="approverJaminan">Approval Jaminan</FieldLabel>
           </Field>
         )}
       />

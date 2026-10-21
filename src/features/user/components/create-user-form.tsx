@@ -7,6 +7,7 @@ import {
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -34,6 +35,8 @@ export default function CreateUserForm({ onSubmit, isPending }: Props) {
       email: "",
       password: "",
       role: Role.PETUGAS,
+      petugasJaminan: false,
+      approverJaminan: false,
     },
   });
 
@@ -127,6 +130,34 @@ export default function CreateUserForm({ onSubmit, isPending }: Props) {
                 {fieldState.error.message}
               </FieldError>
             )}
+          </Field>
+        )}
+      />
+      <Controller
+        control={form.control}
+        name="petugasJaminan"
+        render={({ field }) => (
+          <Field orientation="horizontal">
+            <Checkbox
+              id="petugasJaminan"
+              checked={field.value === true}
+              onCheckedChange={field.onChange}
+            />
+            <FieldLabel htmlFor="petugasJaminan">Akses Jaminan</FieldLabel>
+          </Field>
+        )}
+      />
+      <Controller
+        control={form.control}
+        name="approverJaminan"
+        render={({ field }) => (
+          <Field orientation="horizontal">
+            <Checkbox
+              id="approverJaminan"
+              checked={field.value === true}
+              onCheckedChange={field.onChange}
+            />
+            <FieldLabel htmlFor="approverJaminan">Approval Jaminan</FieldLabel>
           </Field>
         )}
       />

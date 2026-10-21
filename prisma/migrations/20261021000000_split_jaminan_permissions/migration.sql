@@ -1,0 +1,1 @@
+ALTER TABLE "users" ADD COLUMN "approverJaminan" BOOLEAN NOT NULL DEFAULT false;

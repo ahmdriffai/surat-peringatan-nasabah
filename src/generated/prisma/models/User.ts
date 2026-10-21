@@ -33,6 +33,7 @@ export type UserMinAggregateOutputType = {
   role: $Enums.Role | null
   aktif: boolean | null
   petugasJaminan: boolean | null
+  approverJaminan: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -46,6 +47,7 @@ export type UserMaxAggregateOutputType = {
   role: $Enums.Role | null
   aktif: boolean | null
   petugasJaminan: boolean | null
+  approverJaminan: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -59,6 +61,7 @@ export type UserCountAggregateOutputType = {
   role: number
   aktif: number
   petugasJaminan: number
+  approverJaminan: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -74,6 +77,7 @@ export type UserMinAggregateInputType = {
   role?: true
   aktif?: true
   petugasJaminan?: true
+  approverJaminan?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -87,6 +91,7 @@ export type UserMaxAggregateInputType = {
   role?: true
   aktif?: true
   petugasJaminan?: true
+  approverJaminan?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -100,6 +105,7 @@ export type UserCountAggregateInputType = {
   role?: true
   aktif?: true
   petugasJaminan?: true
+  approverJaminan?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -186,6 +192,7 @@ export type UserGroupByOutputType = {
   role: $Enums.Role
   aktif: boolean
   petugasJaminan: boolean
+  approverJaminan: boolean
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
@@ -220,6 +227,7 @@ export type UserWhereInput = {
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   aktif?: Prisma.BoolFilter<"User"> | boolean
   petugasJaminan?: Prisma.BoolFilter<"User"> | boolean
+  approverJaminan?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   spApprovals?: Prisma.SPApprovalListRelationFilter
@@ -238,6 +246,7 @@ export type UserOrderByWithRelationInput = {
   role?: Prisma.SortOrder
   aktif?: Prisma.SortOrder
   petugasJaminan?: Prisma.SortOrder
+  approverJaminan?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   spApprovals?: Prisma.SPApprovalOrderByRelationAggregateInput
@@ -259,6 +268,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   aktif?: Prisma.BoolFilter<"User"> | boolean
   petugasJaminan?: Prisma.BoolFilter<"User"> | boolean
+  approverJaminan?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   spApprovals?: Prisma.SPApprovalListRelationFilter
@@ -277,6 +287,7 @@ export type UserOrderByWithAggregationInput = {
   role?: Prisma.SortOrder
   aktif?: Prisma.SortOrder
   petugasJaminan?: Prisma.SortOrder
+  approverJaminan?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -296,6 +307,7 @@ export type UserScalarWhereWithAggregatesInput = {
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
   aktif?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   petugasJaminan?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  approverJaminan?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -309,6 +321,7 @@ export type UserCreateInput = {
   role?: $Enums.Role
   aktif?: boolean
   petugasJaminan?: boolean
+  approverJaminan?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   spApprovals?: Prisma.SPApprovalCreateNestedManyWithoutApproverInput
@@ -327,6 +340,7 @@ export type UserUncheckedCreateInput = {
   role?: $Enums.Role
   aktif?: boolean
   petugasJaminan?: boolean
+  approverJaminan?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   spApprovals?: Prisma.SPApprovalUncheckedCreateNestedManyWithoutApproverInput
@@ -345,6 +359,7 @@ export type UserUpdateInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   aktif?: Prisma.BoolFieldUpdateOperationsInput | boolean
   petugasJaminan?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approverJaminan?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   spApprovals?: Prisma.SPApprovalUpdateManyWithoutApproverNestedInput
@@ -363,6 +378,7 @@ export type UserUncheckedUpdateInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   aktif?: Prisma.BoolFieldUpdateOperationsInput | boolean
   petugasJaminan?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approverJaminan?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   spApprovals?: Prisma.SPApprovalUncheckedUpdateManyWithoutApproverNestedInput
@@ -381,6 +397,7 @@ export type UserCreateManyInput = {
   role?: $Enums.Role
   aktif?: boolean
   petugasJaminan?: boolean
+  approverJaminan?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -394,6 +411,7 @@ export type UserUpdateManyMutationInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   aktif?: Prisma.BoolFieldUpdateOperationsInput | boolean
   petugasJaminan?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approverJaminan?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -407,6 +425,7 @@ export type UserUncheckedUpdateManyInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   aktif?: Prisma.BoolFieldUpdateOperationsInput | boolean
   petugasJaminan?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approverJaminan?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -420,6 +439,7 @@ export type UserCountOrderByAggregateInput = {
   role?: Prisma.SortOrder
   aktif?: Prisma.SortOrder
   petugasJaminan?: Prisma.SortOrder
+  approverJaminan?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -433,6 +453,7 @@ export type UserMaxOrderByAggregateInput = {
   role?: Prisma.SortOrder
   aktif?: Prisma.SortOrder
   petugasJaminan?: Prisma.SortOrder
+  approverJaminan?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -446,6 +467,7 @@ export type UserMinOrderByAggregateInput = {
   role?: Prisma.SortOrder
   aktif?: Prisma.SortOrder
   petugasJaminan?: Prisma.SortOrder
+  approverJaminan?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -549,6 +571,7 @@ export type UserCreateWithoutSuratPeringatanInput = {
   role?: $Enums.Role
   aktif?: boolean
   petugasJaminan?: boolean
+  approverJaminan?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   spApprovals?: Prisma.SPApprovalCreateNestedManyWithoutApproverInput
@@ -566,6 +589,7 @@ export type UserUncheckedCreateWithoutSuratPeringatanInput = {
   role?: $Enums.Role
   aktif?: boolean
   petugasJaminan?: boolean
+  approverJaminan?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   spApprovals?: Prisma.SPApprovalUncheckedCreateNestedManyWithoutApproverInput
@@ -599,6 +623,7 @@ export type UserUpdateWithoutSuratPeringatanInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   aktif?: Prisma.BoolFieldUpdateOperationsInput | boolean
   petugasJaminan?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approverJaminan?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   spApprovals?: Prisma.SPApprovalUpdateManyWithoutApproverNestedInput
@@ -616,6 +641,7 @@ export type UserUncheckedUpdateWithoutSuratPeringatanInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   aktif?: Prisma.BoolFieldUpdateOperationsInput | boolean
   petugasJaminan?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approverJaminan?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   spApprovals?: Prisma.SPApprovalUncheckedUpdateManyWithoutApproverNestedInput
@@ -633,6 +659,7 @@ export type UserCreateWithoutSpApprovalsInput = {
   role?: $Enums.Role
   aktif?: boolean
   petugasJaminan?: boolean
+  approverJaminan?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   jenisSPApprovers?: Prisma.JenisSPApproverCreateNestedManyWithoutApproverInput
@@ -650,6 +677,7 @@ export type UserUncheckedCreateWithoutSpApprovalsInput = {
   role?: $Enums.Role
   aktif?: boolean
   petugasJaminan?: boolean
+  approverJaminan?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   jenisSPApprovers?: Prisma.JenisSPApproverUncheckedCreateNestedManyWithoutApproverInput
@@ -683,6 +711,7 @@ export type UserUpdateWithoutSpApprovalsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   aktif?: Prisma.BoolFieldUpdateOperationsInput | boolean
   petugasJaminan?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approverJaminan?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   jenisSPApprovers?: Prisma.JenisSPApproverUpdateManyWithoutApproverNestedInput
@@ -700,6 +729,7 @@ export type UserUncheckedUpdateWithoutSpApprovalsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   aktif?: Prisma.BoolFieldUpdateOperationsInput | boolean
   petugasJaminan?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approverJaminan?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   jenisSPApprovers?: Prisma.JenisSPApproverUncheckedUpdateManyWithoutApproverNestedInput
@@ -717,6 +747,7 @@ export type UserCreateWithoutJenisSPApproversInput = {
   role?: $Enums.Role
   aktif?: boolean
   petugasJaminan?: boolean
+  approverJaminan?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   spApprovals?: Prisma.SPApprovalCreateNestedManyWithoutApproverInput
@@ -734,6 +765,7 @@ export type UserUncheckedCreateWithoutJenisSPApproversInput = {
   role?: $Enums.Role
   aktif?: boolean
   petugasJaminan?: boolean
+  approverJaminan?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   spApprovals?: Prisma.SPApprovalUncheckedCreateNestedManyWithoutApproverInput
@@ -767,6 +799,7 @@ export type UserUpdateWithoutJenisSPApproversInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   aktif?: Prisma.BoolFieldUpdateOperationsInput | boolean
   petugasJaminan?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approverJaminan?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   spApprovals?: Prisma.SPApprovalUpdateManyWithoutApproverNestedInput
@@ -784,6 +817,7 @@ export type UserUncheckedUpdateWithoutJenisSPApproversInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   aktif?: Prisma.BoolFieldUpdateOperationsInput | boolean
   petugasJaminan?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approverJaminan?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   spApprovals?: Prisma.SPApprovalUncheckedUpdateManyWithoutApproverNestedInput
@@ -801,6 +835,7 @@ export type UserCreateWithoutMutasiJaminanInput = {
   role?: $Enums.Role
   aktif?: boolean
   petugasJaminan?: boolean
+  approverJaminan?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   spApprovals?: Prisma.SPApprovalCreateNestedManyWithoutApproverInput
@@ -818,6 +853,7 @@ export type UserUncheckedCreateWithoutMutasiJaminanInput = {
   role?: $Enums.Role
   aktif?: boolean
   petugasJaminan?: boolean
+  approverJaminan?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   spApprovals?: Prisma.SPApprovalUncheckedCreateNestedManyWithoutApproverInput
@@ -851,6 +887,7 @@ export type UserUpdateWithoutMutasiJaminanInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   aktif?: Prisma.BoolFieldUpdateOperationsInput | boolean
   petugasJaminan?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approverJaminan?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   spApprovals?: Prisma.SPApprovalUpdateManyWithoutApproverNestedInput
@@ -868,6 +905,7 @@ export type UserUncheckedUpdateWithoutMutasiJaminanInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   aktif?: Prisma.BoolFieldUpdateOperationsInput | boolean
   petugasJaminan?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approverJaminan?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   spApprovals?: Prisma.SPApprovalUncheckedUpdateManyWithoutApproverNestedInput
@@ -885,6 +923,7 @@ export type UserCreateWithoutJaminanApprovalsInput = {
   role?: $Enums.Role
   aktif?: boolean
   petugasJaminan?: boolean
+  approverJaminan?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   spApprovals?: Prisma.SPApprovalCreateNestedManyWithoutApproverInput
@@ -902,6 +941,7 @@ export type UserUncheckedCreateWithoutJaminanApprovalsInput = {
   role?: $Enums.Role
   aktif?: boolean
   petugasJaminan?: boolean
+  approverJaminan?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   spApprovals?: Prisma.SPApprovalUncheckedCreateNestedManyWithoutApproverInput
@@ -935,6 +975,7 @@ export type UserUpdateWithoutJaminanApprovalsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   aktif?: Prisma.BoolFieldUpdateOperationsInput | boolean
   petugasJaminan?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approverJaminan?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   spApprovals?: Prisma.SPApprovalUpdateManyWithoutApproverNestedInput
@@ -952,6 +993,7 @@ export type UserUncheckedUpdateWithoutJaminanApprovalsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   aktif?: Prisma.BoolFieldUpdateOperationsInput | boolean
   petugasJaminan?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  approverJaminan?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   spApprovals?: Prisma.SPApprovalUncheckedUpdateManyWithoutApproverNestedInput
@@ -1036,6 +1078,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   role?: boolean
   aktif?: boolean
   petugasJaminan?: boolean
+  approverJaminan?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   spApprovals?: boolean | Prisma.User$spApprovalsArgs<ExtArgs>
@@ -1055,6 +1098,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   role?: boolean
   aktif?: boolean
   petugasJaminan?: boolean
+  approverJaminan?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -1068,6 +1112,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   role?: boolean
   aktif?: boolean
   petugasJaminan?: boolean
+  approverJaminan?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -1081,11 +1126,12 @@ export type UserSelectScalar = {
   role?: boolean
   aktif?: boolean
   petugasJaminan?: boolean
+  approverJaminan?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nama" | "jabatan" | "email" | "password" | "role" | "aktif" | "petugasJaminan" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nama" | "jabatan" | "email" | "password" | "role" | "aktif" | "petugasJaminan" | "approverJaminan" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   spApprovals?: boolean | Prisma.User$spApprovalsArgs<ExtArgs>
   jenisSPApprovers?: boolean | Prisma.User$jenisSPApproversArgs<ExtArgs>
@@ -1115,6 +1161,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     role: $Enums.Role
     aktif: boolean
     petugasJaminan: boolean
+    approverJaminan: boolean
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>
@@ -1553,6 +1600,7 @@ export interface UserFieldRefs {
   readonly role: Prisma.FieldRef<"User", 'Role'>
   readonly aktif: Prisma.FieldRef<"User", 'Boolean'>
   readonly petugasJaminan: Prisma.FieldRef<"User", 'Boolean'>
+  readonly approverJaminan: Prisma.FieldRef<"User", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }
