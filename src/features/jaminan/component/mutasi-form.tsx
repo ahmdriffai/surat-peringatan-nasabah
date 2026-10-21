@@ -1,7 +1,12 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Loader2 } from "lucide-react";
@@ -52,15 +57,19 @@ export default function MutasiForm({ onSubmit, isPending }: Props) {
     try {
       setError("");
       onSubmit(MutasiJaminanInputSchema.parse(values), bukti);
-      setValues({ ...initialValues, terjadiPada: new Date().toISOString().slice(0, 16) });
+      setValues({
+        ...initialValues,
+        terjadiPada: new Date().toISOString().slice(0, 16),
+      });
       setBukti(undefined);
     } catch (submissionError) {
       setError(
         submissionError instanceof ZodError
-          ? submissionError.issues[0]?.message ?? "Periksa kembali data mutasi."
+          ? (submissionError.issues[0]?.message ??
+              "Periksa kembali data mutasi.")
           : submissionError instanceof Error
-          ? submissionError.message
-          : "Periksa kembali data mutasi.",
+            ? submissionError.message
+            : "Periksa kembali data mutasi.",
       );
     }
   };
@@ -81,7 +90,12 @@ export default function MutasiForm({ onSubmit, isPending }: Props) {
       </Field>
       <Field>
         <FieldLabel htmlFor="terjadiPada">Tanggal dan Waktu</FieldLabel>
-        <Input id="terjadiPada" type="datetime-local" value={values.terjadiPada} onChange={(e) => update("terjadiPada", e.target.value)} />
+        <Input
+          id="terjadiPada"
+          type="datetime-local"
+          value={values.terjadiPada}
+          onChange={(e) => update("terjadiPada", e.target.value)}
+        />
       </Field>
       <Field>
         <FieldLabel htmlFor="statusMutasi">Status Jaminan</FieldLabel>
@@ -97,40 +111,82 @@ export default function MutasiForm({ onSubmit, isPending }: Props) {
         </select>
       </Field>
       <Field>
-        <FieldLabel htmlFor="diserahkanKepada">Diserahkan Kepada</FieldLabel>
-        <Input id="diserahkanKepada" value={values.diserahkanKepada} onChange={(e) => update("diserahkanKepada", e.target.value)} />
+        <FieldLabel htmlFor="diserahkanKepada">Diserahkan oleh</FieldLabel>
+        <Input
+          id="diserahkanKepada"
+          value={values.diserahkanKepada}
+          onChange={(e) => update("diserahkanKepada", e.target.value)}
+        />
       </Field>
       <Field>
-        <FieldLabel htmlFor="diterimaDari">Diterima Dari</FieldLabel>
-        <Input id="diterimaDari" value={values.diterimaDari} onChange={(e) => update("diterimaDari", e.target.value)} />
+        <FieldLabel htmlFor="diterimaDari">Diterima oleh</FieldLabel>
+        <Input
+          id="diterimaDari"
+          value={values.diterimaDari}
+          onChange={(e) => update("diterimaDari", e.target.value)}
+        />
       </Field>
       <Field>
         <FieldLabel htmlFor="keperluan">Keperluan</FieldLabel>
-        <Input id="keperluan" value={values.keperluan} onChange={(e) => update("keperluan", e.target.value)} />
+        <Input
+          id="keperluan"
+          value={values.keperluan}
+          onChange={(e) => update("keperluan", e.target.value)}
+        />
       </Field>
       <Field>
         <FieldLabel htmlFor="lokasi">Lokasi</FieldLabel>
-        <Input id="lokasi" value={values.lokasi} onChange={(e) => update("lokasi", e.target.value)} />
+        <Input
+          id="lokasi"
+          value={values.lokasi}
+          onChange={(e) => update("lokasi", e.target.value)}
+        />
       </Field>
       <Field>
         <FieldLabel htmlFor="tanggalKembaliRencana">Rencana Kembali</FieldLabel>
-        <Input id="tanggalKembaliRencana" type="date" value={values.tanggalKembaliRencana} onChange={(e) => update("tanggalKembaliRencana", e.target.value)} />
+        <Input
+          id="tanggalKembaliRencana"
+          type="date"
+          value={values.tanggalKembaliRencana}
+          onChange={(e) => update("tanggalKembaliRencana", e.target.value)}
+        />
       </Field>
       <Field>
         <FieldLabel htmlFor="tanggalKembali">Realisasi Kembali</FieldLabel>
-        <Input id="tanggalKembali" type="date" value={values.tanggalKembali} onChange={(e) => update("tanggalKembali", e.target.value)} />
+        <Input
+          id="tanggalKembali"
+          type="date"
+          value={values.tanggalKembali}
+          onChange={(e) => update("tanggalKembali", e.target.value)}
+        />
       </Field>
       <Field className="sm:col-span-2">
         <FieldLabel htmlFor="catatanMutasi">Catatan</FieldLabel>
-        <Textarea id="catatanMutasi" value={values.catatan} onChange={(e) => update("catatan", e.target.value)} />
+        <Textarea
+          id="catatanMutasi"
+          value={values.catatan}
+          onChange={(e) => update("catatan", e.target.value)}
+        />
       </Field>
       <Field className="sm:col-span-2">
-        <FieldLabel htmlFor="buktiMutasi">Bukti Mutasi (JPG, PNG, WebP, PDF)</FieldLabel>
-        <Input id="buktiMutasi" type="file" accept="image/jpeg,image/png,image/webp,application/pdf" onChange={(e) => setBukti(e.target.files?.[0])} />
+        <FieldLabel htmlFor="buktiMutasi">
+          Bukti Mutasi (JPG, PNG, WebP, PDF)
+        </FieldLabel>
+        <Input
+          id="buktiMutasi"
+          type="file"
+          accept="image/jpeg,image/png,image/webp,application/pdf"
+          onChange={(e) => setBukti(e.target.files?.[0])}
+        />
       </Field>
       {error && <FieldError className="sm:col-span-2">{error}</FieldError>}
       <Field className="sm:col-span-2">
-        <Button type="button" disabled={isPending} className="w-full" onClick={submit}>
+        <Button
+          type="button"
+          disabled={isPending}
+          className="w-full"
+          onClick={submit}
+        >
           {isPending && <Loader2 className="size-4 animate-spin" />}
           {isPending ? "Menyimpan..." : "Catat Mutasi"}
         </Button>
