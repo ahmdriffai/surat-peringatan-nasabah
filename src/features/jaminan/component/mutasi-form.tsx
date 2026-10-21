@@ -16,7 +16,7 @@ import { MutasiJaminanInput, MutasiJaminanInputSchema } from "../schema";
 
 type FormValues = {
   arah: "MASUK" | "KELUAR";
-  status: "TERSIMPAN" | "DIBAWA_KELUAR" | "SELESAI_PENGIKATAN";
+  status: "TERSIMPAN" | "DIBAWA_KELUAR" | "SELESAI_PENGIKATAN" | "LUNAS";
   terjadiPada: string;
   diserahkanKepada: string;
   diterimaDari: string;
@@ -108,6 +108,7 @@ export default function MutasiForm({ onSubmit, isPending }: Props) {
           <option value="TERSIMPAN">Tersimpan</option>
           <option value="DIBAWA_KELUAR">Dibawa keluar</option>
           <option value="SELESAI_PENGIKATAN">Selesai pengikatan</option>
+          <option value="LUNAS">Lunas</option>
         </select>
       </Field>
       <Field>

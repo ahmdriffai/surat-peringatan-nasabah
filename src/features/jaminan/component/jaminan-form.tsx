@@ -32,7 +32,7 @@ type FormValues = {
   atasNama: string;
   nilaiTaksiran: string;
   lokasiPenyimpanan: string;
-  status: "TERSIMPAN" | "DIBAWA_KELUAR" | "SELESAI_PENGIKATAN";
+  status: "TERSIMPAN" | "DIBAWA_KELUAR" | "SELESAI_PENGIKATAN" | "LUNAS";
   tanggalDiterima: string;
   diserahkanKepada: string;
   diterimaDari: string;
@@ -413,6 +413,7 @@ export default function JaminanForm({
           <option value="TERSIMPAN">Tersimpan</option>
           <option value="DIBAWA_KELUAR">Dibawa keluar</option>
           <option value="SELESAI_PENGIKATAN">Selesai pengikatan</option>
+          <option value="LUNAS">Lunas</option>
         </select>
       </Field>
       <Field>

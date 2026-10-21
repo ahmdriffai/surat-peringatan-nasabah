@@ -23,7 +23,12 @@ const optionalDate = z.preprocess(
   z.coerce.date().optional(),
 );
 
-const statusJaminan = z.enum(["TERSIMPAN", "DIBAWA_KELUAR", "SELESAI_PENGIKATAN"]);
+const statusJaminan = z.enum([
+  "TERSIMPAN",
+  "DIBAWA_KELUAR",
+  "SELESAI_PENGIKATAN",
+  "LUNAS",
+]);
 
 const JaminanBaseInputSchema = z.object({
   nasabahId: z.string().optional(),

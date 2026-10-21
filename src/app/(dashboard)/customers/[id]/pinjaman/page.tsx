@@ -114,7 +114,7 @@ export default function PinjamanDetailPage() {
                         <div className="flex items-start justify-between gap-3">
                           <div><p className="font-medium">{jaminan.jenis}</p><p className="text-sm text-muted-foreground">{jaminan.nomorDokumen || "Nomor dokumen belum diisi"}</p></div>
                           <div className="flex items-center gap-2">
-                            <Badge variant={jaminan.status === "TERSIMPAN" ? "default" : "secondary"} className={jaminan.status === "SELESAI_PENGIKATAN" ? "border-green-200 bg-green-100 text-green-800 dark:border-green-800 dark:bg-green-950 dark:text-green-300" : undefined}>{jaminan.status === "TERSIMPAN" ? "Tersimpan" : jaminan.status === "DIBAWA_KELUAR" ? "Dibawa keluar" : "Selesai pengikatan"}</Badge>
+                            <Badge variant={jaminan.status === "TERSIMPAN" ? "default" : "secondary"} className={jaminan.status === "SELESAI_PENGIKATAN" ? "border-green-200 bg-green-100 text-green-800 dark:border-green-800 dark:bg-green-950 dark:text-green-300" : jaminan.status === "LUNAS" ? "border-blue-200 bg-blue-100 text-blue-800 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-300" : undefined}>{jaminan.status === "TERSIMPAN" ? "Tersimpan" : jaminan.status === "DIBAWA_KELUAR" ? "Dibawa keluar" : jaminan.status === "SELESAI_PENGIKATAN" ? "Selesai pengikatan" : "Lunas"}</Badge>
                             <Button variant="secondary" size="sm" onClick={() => setDetailJaminan(jaminan)}><Info /></Button>
                           </div>
                         </div>

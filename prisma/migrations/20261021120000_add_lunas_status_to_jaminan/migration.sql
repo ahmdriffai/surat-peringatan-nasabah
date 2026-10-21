@@ -1,0 +1,1 @@
+ALTER TYPE "StatusJaminan" ADD VALUE 'LUNAS';

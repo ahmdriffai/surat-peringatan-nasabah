@@ -2,6 +2,14 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Dialog,
   DialogContent,
@@ -11,11 +19,12 @@ import {
 } from "@/components/ui/dialog";
 import Table from "@/components/ui/table-custom";
 import { formatDate, formatDateTime } from "@/features/sp/label";
+import { StatusJaminan } from "@/generated/prisma/enums";
 import { JaminanWithDetails } from "@/services/jaminan/get-all";
 import { NasabahWithPinjaman } from "@/services/nasabah/get-all";
 import { Check, Eye, History, Loader2, Pen, Plus, Trash2 } from "lucide-react";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   useApproveMutasiJaminan,
   useCreateMutasiJaminan,
@@ -36,6 +45,13 @@ function dateInput(value: Date | null | undefined) {
   return value ? new Date(value).toISOString().slice(0, 10) : "";
 }
 
+const STATUS_LABEL: Record<StatusJaminan, string> = {
+  TERSIMPAN: "Tersimpan",
+  DIBAWA_KELUAR: "Dibawa keluar",
+  SELESAI_PENGIKATAN: "Selesai pengikatan",
+  LUNAS: "Lunas",
+};
+
 export default function JaminanList({ data, nasabah }: Props) {
   const [editTarget, setEditTarget] = useState<JaminanWithDetails | null>(null);
   const [historyTarget, setHistoryTarget] = useState<JaminanWithDetails | null>(
@@ -44,6 +60,10 @@ export default function JaminanList({ data, nasabah }: Props) {
   const [mutasiTarget, setMutasiTarget] = useState<JaminanWithDetails | null>(
     null,
   );
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("ALL");
+  const [jenisFilter, setJenisFilter] = useState("ALL");
+  const [lokasiFilter, setLokasiFilter] = useState("ALL");
 
   const edit = useEditJaminan();
   const remove = useDeleteJaminan();
@@ -51,6 +71,57 @@ export default function JaminanList({ data, nasabah }: Props) {
   const removeMutasi = useDeleteMutasiJaminan();
   const approveMutasi = useApproveMutasiJaminan();
   const { data: session } = useSession();
+
+  const filterOptions = useMemo(() => {
+    const jenis = [
+      ...new Set(
+        data
+          .map((row) => row.jenis)
+          .filter((value): value is string => Boolean(value)),
+      ),
+    ].sort((a, b) => a.localeCompare(b, "id"));
+    const lokasi = [
+      ...new Set(
+        data
+          .map((row) => row.lokasiPenyimpanan)
+          .filter((value): value is string => Boolean(value)),
+      ),
+    ].sort((a, b) => a.localeCompare(b, "id"));
+    return { jenis, lokasi };
+  }, [data]);
+
+  const filteredData = useMemo(() => {
+    const query = search.trim().toLocaleLowerCase("id-ID");
+
+    return data.filter((row) => {
+      const searchableText = [
+        row.nasabah.nama,
+        row.nasabah.cif,
+        row.pinjaman?.noPjm,
+        row.noPjm,
+        row.jenis,
+        row.nomorDokumen,
+        row.atasNama,
+        row.lokasiPenyimpanan,
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLocaleLowerCase("id-ID");
+
+      return (
+        (!query || searchableText.includes(query)) &&
+        (statusFilter === "ALL" || row.status === statusFilter) &&
+        (jenisFilter === "ALL" || row.jenis === jenisFilter) &&
+        (lokasiFilter === "ALL" || row.lokasiPenyimpanan === lokasiFilter)
+      );
+    });
+  }, [data, jenisFilter, lokasiFilter, search, statusFilter]);
+
+  const hasActiveFilter =
+    Boolean(search) ||
+    statusFilter !== "ALL" ||
+    jenisFilter !== "ALL" ||
+    lokasiFilter !== "ALL";
 
   const submitEdit = async (input: JaminanCreateInput) => {
     if (!editTarget) return;
@@ -74,10 +145,86 @@ export default function JaminanList({ data, nasabah }: Props) {
 
   return (
     <>
+      <div className="space-y-3 rounded-2xl border border-border bg-card p-4">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <p className="font-medium">Filter jaminan</p>
+            <p className="text-sm text-muted-foreground">
+              Menampilkan {filteredData.length} dari {data.length} jaminan
+            </p>
+          </div>
+          {hasActiveFilter && (
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={() => {
+                setSearch("");
+                setStatusFilter("ALL");
+                setJenisFilter("ALL");
+                setLokasiFilter("ALL");
+              }}
+            >
+              Reset filter
+            </Button>
+          )}
+        </div>
+        <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
+          <Input
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder="Cari nasabah, CIF, no. pinjaman..."
+            aria-label="Cari jaminan"
+          />
+          <Select value={statusFilter} onValueChange={setStatusFilter}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Semua status" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="ALL">Semua status</SelectItem>
+              {Object.values(StatusJaminan).map((status) => (
+                <SelectItem key={status} value={status}>
+                  {STATUS_LABEL[status]}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Select value={jenisFilter} onValueChange={setJenisFilter}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Semua jenis jaminan" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="ALL">Semua jenis jaminan</SelectItem>
+              {filterOptions.jenis.map((jenis) => (
+                <SelectItem key={jenis} value={jenis}>
+                  {jenis}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Select value={lokasiFilter} onValueChange={setLokasiFilter}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Semua lokasi" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="ALL">Semua lokasi</SelectItem>
+              {filterOptions.lokasi.map((lokasi) => (
+                <SelectItem key={lokasi} value={lokasi}>
+                  {lokasi}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
       <Table<JaminanWithDetails>
-        data={data}
+        data={filteredData}
         keyExtractor={(row) => row.id}
-        emptyMessage="Belum ada data jaminan pinjaman"
+        emptyMessage={
+          data.length === 0
+            ? "Belum ada data jaminan pinjaman"
+            : "Tidak ada jaminan yang sesuai filter"
+        }
         columns={[
           {
             header: "Nasabah",
@@ -110,13 +257,15 @@ export default function JaminanList({ data, nasabah }: Props) {
             accessor: (row) => (
               <Badge
                 variant={row.status === "TERSIMPAN" ? "default" : "secondary"}
-                className={row.status === "SELESAI_PENGIKATAN" ? "border-green-200 bg-green-100 text-green-800 dark:border-green-800 dark:bg-green-950 dark:text-green-300" : undefined}
+                className={
+                  row.status === "SELESAI_PENGIKATAN"
+                    ? "border-green-200 bg-green-100 text-green-800 dark:border-green-800 dark:bg-green-950 dark:text-green-300"
+                    : row.status === "LUNAS"
+                      ? "border-blue-200 bg-blue-100 text-blue-800 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-300"
+                      : undefined
+                }
               >
-                {row.status === "TERSIMPAN"
-                  ? "Tersimpan"
-                  : row.status === "DIBAWA_KELUAR"
-                    ? "Dibawa keluar"
-                    : "Selesai pengikatan"}
+                {STATUS_LABEL[row.status]}
               </Badge>
             ),
           },
