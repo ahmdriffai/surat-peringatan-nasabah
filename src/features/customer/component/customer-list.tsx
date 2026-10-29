@@ -13,7 +13,6 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   Dialog,
   DialogContent,
@@ -21,26 +20,36 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 import Table from "@/components/ui/table-custom";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Landmark, Loader2, Pen, Search, Trash2, Trash2Icon } from "lucide-react";
+import { NasabahWithPinjaman } from "@/services/nasabah/get-all";
+import {
+  Landmark,
+  Loader2,
+  Pen,
+  Search,
+  Trash2,
+  Trash2Icon,
+} from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { useDeleteNasabah, useEditNasabah } from "../hook";
 import { NasabahCreateInput } from "../schema";
 import CustomerForm from "./customer-form";
-import { NasabahWithPinjaman } from "@/services/nasabah/get-all";
 
 interface Props {
   nasabah: NasabahWithPinjaman[];
 }
 export default function CustomerList({ nasabah }: Props) {
   const [search, setSearch] = useState("");
-  const [editTarget, setEditTarget] = useState<NasabahWithPinjaman | null>(null);
+  const [editTarget, setEditTarget] = useState<NasabahWithPinjaman | null>(
+    null,
+  );
 
   const { mutate: mutateEdit, isPending: isEditPending } = useEditNasabah();
   const { mutate: mutateDelete, isPending: isDeletePending } =
@@ -62,8 +71,14 @@ export default function CustomerList({ nasabah }: Props) {
   const query = search.trim().toLowerCase();
   const filteredNasabah = query
     ? nasabah.filter((row) =>
-        [row.cif, row.nama, row.nik, row.nomorRekening, row.email, row.telepon]
-          .some((value) => value?.toLowerCase().includes(query)),
+        [
+          row.cif,
+          row.nama,
+          row.nik,
+          row.nomorRekening,
+          row.email,
+          row.telepon,
+        ].some((value) => value?.toLowerCase().includes(query)),
       )
     : nasabah;
 
@@ -122,11 +137,7 @@ export default function CustomerList({ nasabah }: Props) {
               <div className="flex gap-2 justify-start">
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Button
-                      variant="secondary"
-                      size="sm"
-                      asChild
-                    >
+                    <Button variant="secondary" size="sm" asChild>
                       <Link href={`/customers/${row.id}/pinjaman`}>
                         <Landmark />
                       </Link>
@@ -211,7 +222,7 @@ export default function CustomerList({ nasabah }: Props) {
                 nama: editTarget.nama,
                 nik: editTarget.nik,
                 nomorRekening: editTarget.nomorRekening,
-                email: editTarget.email ?? "",
+                // email: editTarget.email ?? "",
                 telepon: editTarget.telepon ?? "",
                 alamat: editTarget.alamat ?? "",
               }}
@@ -222,8 +233,6 @@ export default function CustomerList({ nasabah }: Props) {
           )}
         </DialogContent>
       </Dialog>
-
     </>
   );
 }
-
