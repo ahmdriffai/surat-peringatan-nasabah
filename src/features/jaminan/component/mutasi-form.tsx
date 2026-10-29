@@ -23,7 +23,7 @@ type FormValues = {
   keperluan: string;
   lokasi: string;
   tanggalKembaliRencana: string;
-  tanggalKembali: string;
+  // tanggalKembali: string;
   catatan: string;
 };
 
@@ -41,7 +41,7 @@ const initialValues: FormValues = {
   keperluan: "",
   lokasi: "",
   tanggalKembaliRencana: "",
-  tanggalKembali: "",
+  // tanggalKembali: "",
   catatan: "",
 };
 
@@ -152,7 +152,7 @@ export default function MutasiForm({ onSubmit, isPending }: Props) {
           onChange={(e) => update("tanggalKembaliRencana", e.target.value)}
         />
       </Field>
-      <Field>
+      {/* <Field>
         <FieldLabel htmlFor="tanggalKembali">Realisasi Kembali</FieldLabel>
         <Input
           id="tanggalKembali"
@@ -160,7 +160,7 @@ export default function MutasiForm({ onSubmit, isPending }: Props) {
           value={values.tanggalKembali}
           onChange={(e) => update("tanggalKembali", e.target.value)}
         />
-      </Field>
+      </Field> */}
       <Field className="sm:col-span-2">
         <FieldLabel htmlFor="catatanMutasi">Catatan</FieldLabel>
         <Textarea
@@ -171,7 +171,7 @@ export default function MutasiForm({ onSubmit, isPending }: Props) {
       </Field>
       <Field className="sm:col-span-2">
         <FieldLabel htmlFor="buktiMutasi">
-          Bukti Mutasi (JPG, PNG, WebP, PDF)
+          Bukti Penyerahan (JPG, PNG, WebP, PDF)
         </FieldLabel>
         <Input
           id="buktiMutasi"
@@ -189,7 +189,7 @@ export default function MutasiForm({ onSubmit, isPending }: Props) {
           onClick={submit}
         >
           {isPending && <Loader2 className="size-4 animate-spin" />}
-          {isPending ? "Menyimpan..." : "Catat Mutasi"}
+          {isPending ? "Menyimpan..." : "Simpan"}
         </Button>
       </Field>
     </FieldGroup>

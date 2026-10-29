@@ -30,7 +30,6 @@ export default function CustomerForm({
       nama: "",
       nik: "",
       nomorRekening: "",
-      email: "",
       telepon: "",
       alamat: "",
       ...defaultValues,
@@ -99,26 +98,6 @@ export default function CustomerForm({
               id="nomorRekening"
               type="text"
               placeholder="Nomor rekening"
-              {...field}
-            />
-            {fieldState.error?.message && (
-              <FieldError errors={[fieldState.error]}>
-                {fieldState.error.message}
-              </FieldError>
-            )}
-          </Field>
-        )}
-      />
-      <Controller
-        control={form.control}
-        name="email"
-        render={({ field, fieldState }) => (
-          <Field>
-            <FieldLabel htmlFor="email">Email</FieldLabel>
-            <Input
-              id="email"
-              type="text"
-              placeholder="example@company.com"
               {...field}
             />
             {fieldState.error?.message && (

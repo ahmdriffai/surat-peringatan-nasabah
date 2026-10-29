@@ -1,12 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Field,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from "@/components/ui/field";
+import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import LoanSearch from "@/features/sp/component/loan-search";
@@ -51,7 +46,7 @@ type FormValues = {
 
 interface Props {
   nasabah: NasabahWithPinjaman[];
-  onSubmit: (data: JaminanCreateInput, bukti?: File) => void | Promise<void>;
+  onSubmit: (data: JaminanCreateInput) => void | Promise<void>;
   isPending: boolean;
   defaultValues?: Partial<FormValues>;
   submitLabel?: string;
@@ -83,7 +78,7 @@ export default function JaminanForm({
   submitLabel = "Simpan",
 }: Props) {
   const [values, setValues] = useState({ ...emptyValues, ...defaultValues });
-  const [bukti, setBukti] = useState<File>();
+  // const [bukti, setBukti] = useState<File>();
   const [error, setError] = useState("");
   const [selectedLoan, setSelectedLoan] = useState<EnrichedLoanData | null>(
     null,
@@ -130,7 +125,7 @@ export default function JaminanForm({
     try {
       setError("");
       const data = JaminanCreateInputSchema.parse(values);
-      await onSubmit(data, bukti);
+      await onSubmit(data);
     } catch (submissionError) {
       const message =
         submissionError instanceof ZodError
@@ -152,7 +147,7 @@ export default function JaminanForm({
     <FieldGroup className="gap-4 sm:grid sm:grid-cols-2">
       {!defaultValues && (
         <Field className="sm:col-span-2 rounded-2xl border bg-muted/20 p-4">
-          <FieldLabel>Sumber data nasabah & pinjaman</FieldLabel>
+          <FieldLabel>Sumber data nasabah & pinjaman </FieldLabel>
           <div className="grid gap-2 sm:grid-cols-2">
             {(
               [
@@ -361,6 +356,7 @@ export default function JaminanForm({
           <option value="Deposito">Deposito</option>
           <option value="Emas">Emas</option>
           <option value="Kendaraan">Kendaraan</option>
+          <option value="SPK">SPK</option>
           <option value="Lainnya">Lainnya</option>
         </select>
       </Field>
@@ -410,6 +406,7 @@ export default function JaminanForm({
             update("status", e.target.value as FormValues["status"])
           }
         >
+          <option value="TERSIMPAN">Belum cair</option>
           <option value="TERSIMPAN">Tersimpan</option>
           <option value="DIBAWA_KELUAR">Dibawa keluar</option>
           <option value="SELESAI_PENGIKATAN">Selesai pengikatan</option>
@@ -469,7 +466,7 @@ export default function JaminanForm({
           onChange={(e) => update("catatan", e.target.value)}
         />
       </Field>
-      <Field className="sm:col-span-2">
+      {/* <Field className="sm:col-span-2">
         <FieldLabel htmlFor="bukti">
           Bukti Penerimaan (JPG, PNG, WebP, PDF)
         </FieldLabel>
@@ -480,6 +477,7 @@ export default function JaminanForm({
           onChange={(e) => setBukti(e.target.files?.[0])}
         />
       </Field>
+    */}
       {error && <FieldError className="sm:col-span-2">{error}</FieldError>}
       <Field className="sm:col-span-2">
         <Button
