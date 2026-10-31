@@ -783,14 +783,38 @@ function SuratPeringatanBody({
       <div className="mt-4 grid grid-cols-2 gap-x-8 gap-y-2 text-xs">
         <StatBlock label="Nama Debitur" value={sp.nasabah.nama} />
 
-        <StatBlock
-          label="Nomor Rekening"
-          value={nomorPinjaman || "-"}
-        />
+        <StatBlock label="Nomor Rekening" value={nomorPinjaman || "-"} />
 
         <StatBlock
           label="Plafond Pinjaman"
           value={formatCurrency(sp.plafond)}
+        />
+
+        {!!sp.tanggalAkadKredit && (
+          <StatBlock
+            label="Tanggal Akad"
+            value={`${formatDate(sp.tanggalAkadKredit)}`}
+          />
+        )}
+
+        {!!sp.tanggalJatuhTempo && (
+          <StatBlock
+            label="Tanggal Jatuh Tempo"
+            value={`${formatDate(sp.tanggalJatuhTempo)}`}
+          />
+        )}
+
+        <StatBlock
+          label="Kolektabilitas"
+          value={`${sp.kolektibilitas} (${
+            {
+              1: "Lunas",
+              2: "KL",
+              3: "Diragukan",
+              4: "Macet",
+              5: "Macet",
+            }[sp.kolektibilitas] ?? "Tidak diketahui"
+          })`}
         />
 
         <StatBlock label="Baki Debet" value={formatCurrency(sp.saldo)} />
@@ -992,6 +1016,33 @@ function SuratSomasiBody({
         <StatBlock
           label="Plafond Pinjaman"
           value={formatCurrency(sp.plafond)}
+        />
+
+        {!!sp.tanggalAkadKredit && (
+          <StatBlock
+            label="Tanggal Akad"
+            value={`${formatDate(sp.tanggalAkadKredit)}`}
+          />
+        )}
+
+        {!!sp.tanggalJatuhTempo && (
+          <StatBlock
+            label="Tanggal Jatuh Tempo"
+            value={`${formatDate(sp.tanggalJatuhTempo)}`}
+          />
+        )}
+
+        <StatBlock
+          label="Kolektabilitas"
+          value={`${sp.kolektibilitas} (${
+            {
+              1: "Lunas",
+              2: "KL",
+              3: "Diragukan",
+              4: "Macet",
+              5: "Macet",
+            }[sp.kolektibilitas] ?? "Tidak diketahui"
+          })`}
         />
 
         <StatBlock label="Baki Debet Pokok" value={formatCurrency(sp.saldo)} />
@@ -1197,6 +1248,32 @@ function SuratPemberitahuanLelangBody({
         <StatBlock
           label="Plafond Pinjaman"
           value={formatCurrency(sp.plafond)}
+        />
+        {!!sp.tanggalAkadKredit && (
+          <StatBlock
+            label="Tanggal Akad"
+            value={`${formatDate(sp.tanggalAkadKredit)}`}
+          />
+        )}
+
+        {!!sp.tanggalJatuhTempo && (
+          <StatBlock
+            label="Tanggal Jatuh Tempo"
+            value={`${formatDate(sp.tanggalJatuhTempo)}`}
+          />
+        )}
+
+        <StatBlock
+          label="Kolektabilitas"
+          value={`${sp.kolektibilitas} (${
+            {
+              1: "Lunas",
+              2: "KL",
+              3: "Diragukan",
+              4: "Macet",
+              5: "Macet",
+            }[sp.kolektibilitas] ?? "Tidak diketahui"
+          })`}
         />
 
         <StatBlock label="Baki Debet Pokok" value={formatCurrency(sp.saldo)} />
