@@ -789,7 +789,7 @@ function SuratPeringatanBody({
 
         <StatBlock
           label="Kolektabilitas"
-          value={`${sp.kolektibilitas} (${
+          value={`$${
             {
               1: "Lancar",
               2: "KL",
@@ -797,7 +797,7 @@ function SuratPeringatanBody({
               4: "Macet",
               5: "Macet",
             }[sp.kolektibilitas] ?? "Tidak diketahui"
-          })`}
+          }`}
         />
 
         <StatBlock label="Baki Debet" value={formatCurrency(sp.saldo)} />
