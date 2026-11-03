@@ -792,7 +792,7 @@ function SuratPeringatanBody({
           value={`${
             {
               1: "Lancar",
-              2: "KL",
+              2: "Kurang Lancar",
               3: "Diragukan",
               4: "Macet",
               5: "Macet",
@@ -1075,7 +1075,7 @@ function SuratSomasiBody({
           value={`${sp.kolektibilitas} (${
             {
               1: "Lunas",
-              2: "KL",
+              2: "Kurang Lancar",
               3: "Diragukan",
               4: "Macet",
               5: "Macet",
@@ -1329,7 +1329,7 @@ function SuratPemberitahuanLelangBody({
           value={`${
             {
               1: "Lunas",
-              2: "KL",
+              2: "Kurang Lancar",
               3: "Diragukan",
               4: "Macet",
               5: "Macet",
