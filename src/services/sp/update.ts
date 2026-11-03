@@ -48,6 +48,16 @@ export async function updateSP(
 
   return prisma.suratPeringatan.update({
     where: { id },
-    data: { ...data, pinjamanId: pinjaman.id },
+    data: {
+      ...data,
+      jenisAgunan: data.jenisAgunan || null,
+      dokumenAgunan: data.dokumenAgunan || null,
+      atasNamaAgunan: data.atasNamaAgunan || null,
+      lokasiAgunan: data.lokasiAgunan || null,
+      nilaiLimitLelang: data.nilaiLimitLelang ?? null,
+      kpknl: data.kpknl || null,
+      tanggalLelang: data.tanggalLelang ?? null,
+      pinjamanId: pinjaman.id,
+    },
   });
 }

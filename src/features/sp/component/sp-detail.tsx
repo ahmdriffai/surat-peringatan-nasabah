@@ -18,6 +18,7 @@ import {
   CheckCircle2,
   Eye,
   FileText,
+  Gavel,
   History,
   Image as ImageIcon,
   Landmark,
@@ -186,6 +187,15 @@ export default function SPDetail({ sp }: Props) {
     (sp.status === "TERKIRIM" || sp.status === "SELESAI") && sp.tanggalKirim;
 
   const showBukti = sp.buktiKirim || sp.buktiTandaTerima;
+  const hasAgunanData = Boolean(
+    sp.jenisAgunan ||
+      sp.dokumenAgunan ||
+      sp.atasNamaAgunan ||
+      sp.lokasiAgunan ||
+      sp.nilaiLimitLelang != null ||
+      sp.kpknl ||
+      sp.tanggalLelang,
+  );
 
   const riwayatLain = (allSP ?? [])
     .filter((s) => s.pinjamanId === sp.pinjamanId && s.id !== sp.id)
@@ -332,9 +342,9 @@ export default function SPDetail({ sp }: Props) {
             </SectionCard>
           )}
 
-          {/* Card Khusus Agunan & Lelang */}
-          {(sp.jenis === "PEMBERITAHUAN_LELANG" || sp.jenisAgunan) && (
-            <SectionCard icon={FileText} title="Data Agunan & Rencana Lelang">
+          {/* Detail agunan */}
+          {(sp.jenis === "PEMBERITAHUAN_LELANG" || hasAgunanData) && (
+            <SectionCard icon={Gavel} title="Data Agunan">
               {sp.jenisAgunan && (
                 <InfoRow label="Jenis Agunan" value={sp.jenisAgunan} />
               )}

@@ -20,18 +20,8 @@ export type JaminanPinjamanModel = runtime.Types.Result.DefaultSelection<Prisma.
 
 export type AggregateJaminanPinjaman = {
   _count: JaminanPinjamanCountAggregateOutputType | null
-  _avg: JaminanPinjamanAvgAggregateOutputType | null
-  _sum: JaminanPinjamanSumAggregateOutputType | null
   _min: JaminanPinjamanMinAggregateOutputType | null
   _max: JaminanPinjamanMaxAggregateOutputType | null
-}
-
-export type JaminanPinjamanAvgAggregateOutputType = {
-  nilaiTaksiran: number | null
-}
-
-export type JaminanPinjamanSumAggregateOutputType = {
-  nilaiTaksiran: number | null
 }
 
 export type JaminanPinjamanMinAggregateOutputType = {
@@ -43,7 +33,7 @@ export type JaminanPinjamanMinAggregateOutputType = {
   nomorDokumen: string | null
   deskripsi: string | null
   atasNama: string | null
-  nilaiTaksiran: number | null
+  notaris: string | null
   lokasiPenyimpanan: string | null
   status: $Enums.StatusJaminan | null
   tanggalDiterima: Date | null
@@ -61,7 +51,7 @@ export type JaminanPinjamanMaxAggregateOutputType = {
   nomorDokumen: string | null
   deskripsi: string | null
   atasNama: string | null
-  nilaiTaksiran: number | null
+  notaris: string | null
   lokasiPenyimpanan: string | null
   status: $Enums.StatusJaminan | null
   tanggalDiterima: Date | null
@@ -79,7 +69,7 @@ export type JaminanPinjamanCountAggregateOutputType = {
   nomorDokumen: number
   deskripsi: number
   atasNama: number
-  nilaiTaksiran: number
+  notaris: number
   lokasiPenyimpanan: number
   status: number
   tanggalDiterima: number
@@ -90,14 +80,6 @@ export type JaminanPinjamanCountAggregateOutputType = {
 }
 
 
-export type JaminanPinjamanAvgAggregateInputType = {
-  nilaiTaksiran?: true
-}
-
-export type JaminanPinjamanSumAggregateInputType = {
-  nilaiTaksiran?: true
-}
-
 export type JaminanPinjamanMinAggregateInputType = {
   id?: true
   nasabahId?: true
@@ -107,7 +89,7 @@ export type JaminanPinjamanMinAggregateInputType = {
   nomorDokumen?: true
   deskripsi?: true
   atasNama?: true
-  nilaiTaksiran?: true
+  notaris?: true
   lokasiPenyimpanan?: true
   status?: true
   tanggalDiterima?: true
@@ -125,7 +107,7 @@ export type JaminanPinjamanMaxAggregateInputType = {
   nomorDokumen?: true
   deskripsi?: true
   atasNama?: true
-  nilaiTaksiran?: true
+  notaris?: true
   lokasiPenyimpanan?: true
   status?: true
   tanggalDiterima?: true
@@ -143,7 +125,7 @@ export type JaminanPinjamanCountAggregateInputType = {
   nomorDokumen?: true
   deskripsi?: true
   atasNama?: true
-  nilaiTaksiran?: true
+  notaris?: true
   lokasiPenyimpanan?: true
   status?: true
   tanggalDiterima?: true
@@ -191,18 +173,6 @@ export type JaminanPinjamanAggregateArgs<ExtArgs extends runtime.Types.Extension
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: JaminanPinjamanAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: JaminanPinjamanSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: JaminanPinjamanMinAggregateInputType
@@ -233,8 +203,6 @@ export type JaminanPinjamanGroupByArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   _count?: JaminanPinjamanCountAggregateInputType | true
-  _avg?: JaminanPinjamanAvgAggregateInputType
-  _sum?: JaminanPinjamanSumAggregateInputType
   _min?: JaminanPinjamanMinAggregateInputType
   _max?: JaminanPinjamanMaxAggregateInputType
 }
@@ -248,7 +216,7 @@ export type JaminanPinjamanGroupByOutputType = {
   nomorDokumen: string | null
   deskripsi: string | null
   atasNama: string | null
-  nilaiTaksiran: number | null
+  notaris: string | null
   lokasiPenyimpanan: string | null
   status: $Enums.StatusJaminan
   tanggalDiterima: Date | null
@@ -256,8 +224,6 @@ export type JaminanPinjamanGroupByOutputType = {
   createdAt: Date
   updatedAt: Date
   _count: JaminanPinjamanCountAggregateOutputType | null
-  _avg: JaminanPinjamanAvgAggregateOutputType | null
-  _sum: JaminanPinjamanSumAggregateOutputType | null
   _min: JaminanPinjamanMinAggregateOutputType | null
   _max: JaminanPinjamanMaxAggregateOutputType | null
 }
@@ -289,7 +255,7 @@ export type JaminanPinjamanWhereInput = {
   nomorDokumen?: Prisma.StringNullableFilter<"JaminanPinjaman"> | string | null
   deskripsi?: Prisma.StringNullableFilter<"JaminanPinjaman"> | string | null
   atasNama?: Prisma.StringNullableFilter<"JaminanPinjaman"> | string | null
-  nilaiTaksiran?: Prisma.FloatNullableFilter<"JaminanPinjaman"> | number | null
+  notaris?: Prisma.StringNullableFilter<"JaminanPinjaman"> | string | null
   lokasiPenyimpanan?: Prisma.StringNullableFilter<"JaminanPinjaman"> | string | null
   status?: Prisma.EnumStatusJaminanFilter<"JaminanPinjaman"> | $Enums.StatusJaminan
   tanggalDiterima?: Prisma.DateTimeNullableFilter<"JaminanPinjaman"> | Date | string | null
@@ -310,7 +276,7 @@ export type JaminanPinjamanOrderByWithRelationInput = {
   nomorDokumen?: Prisma.SortOrderInput | Prisma.SortOrder
   deskripsi?: Prisma.SortOrderInput | Prisma.SortOrder
   atasNama?: Prisma.SortOrderInput | Prisma.SortOrder
-  nilaiTaksiran?: Prisma.SortOrderInput | Prisma.SortOrder
+  notaris?: Prisma.SortOrderInput | Prisma.SortOrder
   lokasiPenyimpanan?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   tanggalDiterima?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -334,7 +300,7 @@ export type JaminanPinjamanWhereUniqueInput = Prisma.AtLeast<{
   nomorDokumen?: Prisma.StringNullableFilter<"JaminanPinjaman"> | string | null
   deskripsi?: Prisma.StringNullableFilter<"JaminanPinjaman"> | string | null
   atasNama?: Prisma.StringNullableFilter<"JaminanPinjaman"> | string | null
-  nilaiTaksiran?: Prisma.FloatNullableFilter<"JaminanPinjaman"> | number | null
+  notaris?: Prisma.StringNullableFilter<"JaminanPinjaman"> | string | null
   lokasiPenyimpanan?: Prisma.StringNullableFilter<"JaminanPinjaman"> | string | null
   status?: Prisma.EnumStatusJaminanFilter<"JaminanPinjaman"> | $Enums.StatusJaminan
   tanggalDiterima?: Prisma.DateTimeNullableFilter<"JaminanPinjaman"> | Date | string | null
@@ -355,7 +321,7 @@ export type JaminanPinjamanOrderByWithAggregationInput = {
   nomorDokumen?: Prisma.SortOrderInput | Prisma.SortOrder
   deskripsi?: Prisma.SortOrderInput | Prisma.SortOrder
   atasNama?: Prisma.SortOrderInput | Prisma.SortOrder
-  nilaiTaksiran?: Prisma.SortOrderInput | Prisma.SortOrder
+  notaris?: Prisma.SortOrderInput | Prisma.SortOrder
   lokasiPenyimpanan?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   tanggalDiterima?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -363,10 +329,8 @@ export type JaminanPinjamanOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.JaminanPinjamanCountOrderByAggregateInput
-  _avg?: Prisma.JaminanPinjamanAvgOrderByAggregateInput
   _max?: Prisma.JaminanPinjamanMaxOrderByAggregateInput
   _min?: Prisma.JaminanPinjamanMinOrderByAggregateInput
-  _sum?: Prisma.JaminanPinjamanSumOrderByAggregateInput
 }
 
 export type JaminanPinjamanScalarWhereWithAggregatesInput = {
@@ -381,7 +345,7 @@ export type JaminanPinjamanScalarWhereWithAggregatesInput = {
   nomorDokumen?: Prisma.StringNullableWithAggregatesFilter<"JaminanPinjaman"> | string | null
   deskripsi?: Prisma.StringNullableWithAggregatesFilter<"JaminanPinjaman"> | string | null
   atasNama?: Prisma.StringNullableWithAggregatesFilter<"JaminanPinjaman"> | string | null
-  nilaiTaksiran?: Prisma.FloatNullableWithAggregatesFilter<"JaminanPinjaman"> | number | null
+  notaris?: Prisma.StringNullableWithAggregatesFilter<"JaminanPinjaman"> | string | null
   lokasiPenyimpanan?: Prisma.StringNullableWithAggregatesFilter<"JaminanPinjaman"> | string | null
   status?: Prisma.EnumStatusJaminanWithAggregatesFilter<"JaminanPinjaman"> | $Enums.StatusJaminan
   tanggalDiterima?: Prisma.DateTimeNullableWithAggregatesFilter<"JaminanPinjaman"> | Date | string | null
@@ -397,7 +361,7 @@ export type JaminanPinjamanCreateInput = {
   nomorDokumen?: string | null
   deskripsi?: string | null
   atasNama?: string | null
-  nilaiTaksiran?: number | null
+  notaris?: string | null
   lokasiPenyimpanan?: string | null
   status?: $Enums.StatusJaminan
   tanggalDiterima?: Date | string | null
@@ -418,7 +382,7 @@ export type JaminanPinjamanUncheckedCreateInput = {
   nomorDokumen?: string | null
   deskripsi?: string | null
   atasNama?: string | null
-  nilaiTaksiran?: number | null
+  notaris?: string | null
   lokasiPenyimpanan?: string | null
   status?: $Enums.StatusJaminan
   tanggalDiterima?: Date | string | null
@@ -435,7 +399,7 @@ export type JaminanPinjamanUpdateInput = {
   nomorDokumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deskripsi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   atasNama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nilaiTaksiran?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  notaris?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lokasiPenyimpanan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumStatusJaminanFieldUpdateOperationsInput | $Enums.StatusJaminan
   tanggalDiterima?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -456,7 +420,7 @@ export type JaminanPinjamanUncheckedUpdateInput = {
   nomorDokumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deskripsi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   atasNama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nilaiTaksiran?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  notaris?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lokasiPenyimpanan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumStatusJaminanFieldUpdateOperationsInput | $Enums.StatusJaminan
   tanggalDiterima?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -475,7 +439,7 @@ export type JaminanPinjamanCreateManyInput = {
   nomorDokumen?: string | null
   deskripsi?: string | null
   atasNama?: string | null
-  nilaiTaksiran?: number | null
+  notaris?: string | null
   lokasiPenyimpanan?: string | null
   status?: $Enums.StatusJaminan
   tanggalDiterima?: Date | string | null
@@ -491,7 +455,7 @@ export type JaminanPinjamanUpdateManyMutationInput = {
   nomorDokumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deskripsi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   atasNama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nilaiTaksiran?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  notaris?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lokasiPenyimpanan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumStatusJaminanFieldUpdateOperationsInput | $Enums.StatusJaminan
   tanggalDiterima?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -509,7 +473,7 @@ export type JaminanPinjamanUncheckedUpdateManyInput = {
   nomorDokumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deskripsi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   atasNama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nilaiTaksiran?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  notaris?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lokasiPenyimpanan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumStatusJaminanFieldUpdateOperationsInput | $Enums.StatusJaminan
   tanggalDiterima?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -537,17 +501,13 @@ export type JaminanPinjamanCountOrderByAggregateInput = {
   nomorDokumen?: Prisma.SortOrder
   deskripsi?: Prisma.SortOrder
   atasNama?: Prisma.SortOrder
-  nilaiTaksiran?: Prisma.SortOrder
+  notaris?: Prisma.SortOrder
   lokasiPenyimpanan?: Prisma.SortOrder
   status?: Prisma.SortOrder
   tanggalDiterima?: Prisma.SortOrder
   catatan?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type JaminanPinjamanAvgOrderByAggregateInput = {
-  nilaiTaksiran?: Prisma.SortOrder
 }
 
 export type JaminanPinjamanMaxOrderByAggregateInput = {
@@ -559,7 +519,7 @@ export type JaminanPinjamanMaxOrderByAggregateInput = {
   nomorDokumen?: Prisma.SortOrder
   deskripsi?: Prisma.SortOrder
   atasNama?: Prisma.SortOrder
-  nilaiTaksiran?: Prisma.SortOrder
+  notaris?: Prisma.SortOrder
   lokasiPenyimpanan?: Prisma.SortOrder
   status?: Prisma.SortOrder
   tanggalDiterima?: Prisma.SortOrder
@@ -577,17 +537,13 @@ export type JaminanPinjamanMinOrderByAggregateInput = {
   nomorDokumen?: Prisma.SortOrder
   deskripsi?: Prisma.SortOrder
   atasNama?: Prisma.SortOrder
-  nilaiTaksiran?: Prisma.SortOrder
+  notaris?: Prisma.SortOrder
   lokasiPenyimpanan?: Prisma.SortOrder
   status?: Prisma.SortOrder
   tanggalDiterima?: Prisma.SortOrder
   catatan?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type JaminanPinjamanSumOrderByAggregateInput = {
-  nilaiTaksiran?: Prisma.SortOrder
 }
 
 export type JaminanPinjamanScalarRelationFilter = {
@@ -704,7 +660,7 @@ export type JaminanPinjamanCreateWithoutNasabahInput = {
   nomorDokumen?: string | null
   deskripsi?: string | null
   atasNama?: string | null
-  nilaiTaksiran?: number | null
+  notaris?: string | null
   lokasiPenyimpanan?: string | null
   status?: $Enums.StatusJaminan
   tanggalDiterima?: Date | string | null
@@ -723,7 +679,7 @@ export type JaminanPinjamanUncheckedCreateWithoutNasabahInput = {
   nomorDokumen?: string | null
   deskripsi?: string | null
   atasNama?: string | null
-  nilaiTaksiran?: number | null
+  notaris?: string | null
   lokasiPenyimpanan?: string | null
   status?: $Enums.StatusJaminan
   tanggalDiterima?: Date | string | null
@@ -771,7 +727,7 @@ export type JaminanPinjamanScalarWhereInput = {
   nomorDokumen?: Prisma.StringNullableFilter<"JaminanPinjaman"> | string | null
   deskripsi?: Prisma.StringNullableFilter<"JaminanPinjaman"> | string | null
   atasNama?: Prisma.StringNullableFilter<"JaminanPinjaman"> | string | null
-  nilaiTaksiran?: Prisma.FloatNullableFilter<"JaminanPinjaman"> | number | null
+  notaris?: Prisma.StringNullableFilter<"JaminanPinjaman"> | string | null
   lokasiPenyimpanan?: Prisma.StringNullableFilter<"JaminanPinjaman"> | string | null
   status?: Prisma.EnumStatusJaminanFilter<"JaminanPinjaman"> | $Enums.StatusJaminan
   tanggalDiterima?: Prisma.DateTimeNullableFilter<"JaminanPinjaman"> | Date | string | null
@@ -787,7 +743,7 @@ export type JaminanPinjamanCreateWithoutPinjamanInput = {
   nomorDokumen?: string | null
   deskripsi?: string | null
   atasNama?: string | null
-  nilaiTaksiran?: number | null
+  notaris?: string | null
   lokasiPenyimpanan?: string | null
   status?: $Enums.StatusJaminan
   tanggalDiterima?: Date | string | null
@@ -806,7 +762,7 @@ export type JaminanPinjamanUncheckedCreateWithoutPinjamanInput = {
   nomorDokumen?: string | null
   deskripsi?: string | null
   atasNama?: string | null
-  nilaiTaksiran?: number | null
+  notaris?: string | null
   lokasiPenyimpanan?: string | null
   status?: $Enums.StatusJaminan
   tanggalDiterima?: Date | string | null
@@ -849,7 +805,7 @@ export type JaminanPinjamanCreateWithoutMutasiInput = {
   nomorDokumen?: string | null
   deskripsi?: string | null
   atasNama?: string | null
-  nilaiTaksiran?: number | null
+  notaris?: string | null
   lokasiPenyimpanan?: string | null
   status?: $Enums.StatusJaminan
   tanggalDiterima?: Date | string | null
@@ -869,7 +825,7 @@ export type JaminanPinjamanUncheckedCreateWithoutMutasiInput = {
   nomorDokumen?: string | null
   deskripsi?: string | null
   atasNama?: string | null
-  nilaiTaksiran?: number | null
+  notaris?: string | null
   lokasiPenyimpanan?: string | null
   status?: $Enums.StatusJaminan
   tanggalDiterima?: Date | string | null
@@ -901,7 +857,7 @@ export type JaminanPinjamanUpdateWithoutMutasiInput = {
   nomorDokumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deskripsi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   atasNama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nilaiTaksiran?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  notaris?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lokasiPenyimpanan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumStatusJaminanFieldUpdateOperationsInput | $Enums.StatusJaminan
   tanggalDiterima?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -921,7 +877,7 @@ export type JaminanPinjamanUncheckedUpdateWithoutMutasiInput = {
   nomorDokumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deskripsi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   atasNama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nilaiTaksiran?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  notaris?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lokasiPenyimpanan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumStatusJaminanFieldUpdateOperationsInput | $Enums.StatusJaminan
   tanggalDiterima?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -938,7 +894,7 @@ export type JaminanPinjamanCreateManyNasabahInput = {
   nomorDokumen?: string | null
   deskripsi?: string | null
   atasNama?: string | null
-  nilaiTaksiran?: number | null
+  notaris?: string | null
   lokasiPenyimpanan?: string | null
   status?: $Enums.StatusJaminan
   tanggalDiterima?: Date | string | null
@@ -954,7 +910,7 @@ export type JaminanPinjamanUpdateWithoutNasabahInput = {
   nomorDokumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deskripsi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   atasNama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nilaiTaksiran?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  notaris?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lokasiPenyimpanan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumStatusJaminanFieldUpdateOperationsInput | $Enums.StatusJaminan
   tanggalDiterima?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -973,7 +929,7 @@ export type JaminanPinjamanUncheckedUpdateWithoutNasabahInput = {
   nomorDokumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deskripsi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   atasNama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nilaiTaksiran?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  notaris?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lokasiPenyimpanan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumStatusJaminanFieldUpdateOperationsInput | $Enums.StatusJaminan
   tanggalDiterima?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -991,7 +947,7 @@ export type JaminanPinjamanUncheckedUpdateManyWithoutNasabahInput = {
   nomorDokumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deskripsi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   atasNama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nilaiTaksiran?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  notaris?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lokasiPenyimpanan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumStatusJaminanFieldUpdateOperationsInput | $Enums.StatusJaminan
   tanggalDiterima?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1008,7 +964,7 @@ export type JaminanPinjamanCreateManyPinjamanInput = {
   nomorDokumen?: string | null
   deskripsi?: string | null
   atasNama?: string | null
-  nilaiTaksiran?: number | null
+  notaris?: string | null
   lokasiPenyimpanan?: string | null
   status?: $Enums.StatusJaminan
   tanggalDiterima?: Date | string | null
@@ -1024,7 +980,7 @@ export type JaminanPinjamanUpdateWithoutPinjamanInput = {
   nomorDokumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deskripsi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   atasNama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nilaiTaksiran?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  notaris?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lokasiPenyimpanan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumStatusJaminanFieldUpdateOperationsInput | $Enums.StatusJaminan
   tanggalDiterima?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1043,7 +999,7 @@ export type JaminanPinjamanUncheckedUpdateWithoutPinjamanInput = {
   nomorDokumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deskripsi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   atasNama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nilaiTaksiran?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  notaris?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lokasiPenyimpanan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumStatusJaminanFieldUpdateOperationsInput | $Enums.StatusJaminan
   tanggalDiterima?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1061,7 +1017,7 @@ export type JaminanPinjamanUncheckedUpdateManyWithoutPinjamanInput = {
   nomorDokumen?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deskripsi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   atasNama?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nilaiTaksiran?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  notaris?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lokasiPenyimpanan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumStatusJaminanFieldUpdateOperationsInput | $Enums.StatusJaminan
   tanggalDiterima?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1110,7 +1066,7 @@ export type JaminanPinjamanSelect<ExtArgs extends runtime.Types.Extensions.Inter
   nomorDokumen?: boolean
   deskripsi?: boolean
   atasNama?: boolean
-  nilaiTaksiran?: boolean
+  notaris?: boolean
   lokasiPenyimpanan?: boolean
   status?: boolean
   tanggalDiterima?: boolean
@@ -1132,7 +1088,7 @@ export type JaminanPinjamanSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   nomorDokumen?: boolean
   deskripsi?: boolean
   atasNama?: boolean
-  nilaiTaksiran?: boolean
+  notaris?: boolean
   lokasiPenyimpanan?: boolean
   status?: boolean
   tanggalDiterima?: boolean
@@ -1152,7 +1108,7 @@ export type JaminanPinjamanSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   nomorDokumen?: boolean
   deskripsi?: boolean
   atasNama?: boolean
-  nilaiTaksiran?: boolean
+  notaris?: boolean
   lokasiPenyimpanan?: boolean
   status?: boolean
   tanggalDiterima?: boolean
@@ -1172,7 +1128,7 @@ export type JaminanPinjamanSelectScalar = {
   nomorDokumen?: boolean
   deskripsi?: boolean
   atasNama?: boolean
-  nilaiTaksiran?: boolean
+  notaris?: boolean
   lokasiPenyimpanan?: boolean
   status?: boolean
   tanggalDiterima?: boolean
@@ -1181,7 +1137,7 @@ export type JaminanPinjamanSelectScalar = {
   updatedAt?: boolean
 }
 
-export type JaminanPinjamanOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nasabahId" | "pinjamanId" | "noPjm" | "jenis" | "nomorDokumen" | "deskripsi" | "atasNama" | "nilaiTaksiran" | "lokasiPenyimpanan" | "status" | "tanggalDiterima" | "catatan" | "createdAt" | "updatedAt", ExtArgs["result"]["jaminanPinjaman"]>
+export type JaminanPinjamanOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nasabahId" | "pinjamanId" | "noPjm" | "jenis" | "nomorDokumen" | "deskripsi" | "atasNama" | "notaris" | "lokasiPenyimpanan" | "status" | "tanggalDiterima" | "catatan" | "createdAt" | "updatedAt", ExtArgs["result"]["jaminanPinjaman"]>
 export type JaminanPinjamanInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   nasabah?: boolean | Prisma.NasabahDefaultArgs<ExtArgs>
   pinjaman?: boolean | Prisma.JaminanPinjaman$pinjamanArgs<ExtArgs>
@@ -1213,7 +1169,7 @@ export type $JaminanPinjamanPayload<ExtArgs extends runtime.Types.Extensions.Int
     nomorDokumen: string | null
     deskripsi: string | null
     atasNama: string | null
-    nilaiTaksiran: number | null
+    notaris: string | null
     lokasiPenyimpanan: string | null
     status: $Enums.StatusJaminan
     tanggalDiterima: Date | null
@@ -1654,7 +1610,7 @@ export interface JaminanPinjamanFieldRefs {
   readonly nomorDokumen: Prisma.FieldRef<"JaminanPinjaman", 'String'>
   readonly deskripsi: Prisma.FieldRef<"JaminanPinjaman", 'String'>
   readonly atasNama: Prisma.FieldRef<"JaminanPinjaman", 'String'>
-  readonly nilaiTaksiran: Prisma.FieldRef<"JaminanPinjaman", 'Float'>
+  readonly notaris: Prisma.FieldRef<"JaminanPinjaman", 'String'>
   readonly lokasiPenyimpanan: Prisma.FieldRef<"JaminanPinjaman", 'String'>
   readonly status: Prisma.FieldRef<"JaminanPinjaman", 'StatusJaminan'>
   readonly tanggalDiterima: Prisma.FieldRef<"JaminanPinjaman", 'DateTime'>

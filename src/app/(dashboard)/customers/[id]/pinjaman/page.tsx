@@ -143,7 +143,7 @@ export default function PinjamanDetailPage() {
             <div className="space-y-5 text-sm">
               <dl className="grid gap-x-6 gap-y-3 sm:grid-cols-2">
                 <div><dt className="text-muted-foreground">Atas nama</dt><dd>{detailJaminan.atasNama || "-"}</dd></div>
-                <div><dt className="text-muted-foreground">Nilai taksiran</dt><dd>{formatAmount(detailJaminan.nilaiTaksiran)}</dd></div>
+                <div><dt className="text-muted-foreground">Notaris</dt><dd>{detailJaminan.notaris || "-"}</dd></div>
                 <div><dt className="text-muted-foreground">Lokasi penyimpanan</dt><dd>{detailJaminan.lokasiPenyimpanan || "-"}</dd></div>
                 <div><dt className="text-muted-foreground">Tanggal diterima</dt><dd>{detailJaminan.tanggalDiterima ? formatDate(detailJaminan.tanggalDiterima) : "-"}</dd></div>
                 <div className="sm:col-span-2"><dt className="text-muted-foreground">Deskripsi</dt><dd>{detailJaminan.deskripsi || "-"}</dd></div>

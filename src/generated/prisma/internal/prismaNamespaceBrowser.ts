@@ -208,7 +208,7 @@ export const JaminanPinjamanScalarFieldEnum = {
   nomorDokumen: 'nomorDokumen',
   deskripsi: 'deskripsi',
   atasNama: 'atasNama',
-  nilaiTaksiran: 'nilaiTaksiran',
+  notaris: 'notaris',
   lokasiPenyimpanan: 'lokasiPenyimpanan',
   status: 'status',
   tanggalDiterima: 'tanggalDiterima',

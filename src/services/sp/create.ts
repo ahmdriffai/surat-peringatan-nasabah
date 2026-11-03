@@ -87,6 +87,13 @@ export async function createSP(
   return prisma.suratPeringatan.create({
     data: {
       ...data,
+      jenisAgunan: data.jenisAgunan || null,
+      dokumenAgunan: data.dokumenAgunan || null,
+      atasNamaAgunan: data.atasNamaAgunan || null,
+      lokasiAgunan: data.lokasiAgunan || null,
+      nilaiLimitLelang: data.nilaiLimitLelang ?? null,
+      kpknl: data.kpknl || null,
+      tanggalLelang: data.tanggalLelang ?? null,
       nasabahId: finalNasabahId,
       pinjamanId: pinjaman.id,
       petugasId: session.user.id,

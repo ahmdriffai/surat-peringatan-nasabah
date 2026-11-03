@@ -27,3 +27,24 @@ export async function getAllJaminan(): Promise<JaminanWithDetails[]> {
     orderBy: { updatedAt: "desc" },
   });
 }
+
+export async function getDetailJaminan(
+  id: string,
+): Promise<JaminanWithDetails | null> {
+  await requireJaminanView();
+
+  return prisma.jaminanPinjaman.findUnique({
+    where: { id },
+    include: {
+      nasabah: true,
+      pinjaman: true,
+      mutasi: {
+        include: {
+          dicatatOleh: true,
+          approval: { include: { approver: true } },
+        },
+        orderBy: { terjadiPada: "desc" },
+      },
+    },
+  });
+}

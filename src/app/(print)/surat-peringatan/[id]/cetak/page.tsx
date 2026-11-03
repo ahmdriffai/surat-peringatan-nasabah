@@ -29,8 +29,7 @@ import { cn } from "@/lib/utils";
 
 import html2canvas from "html2canvas-pro";
 import { jsPDF } from "jspdf";
-
-import { Loader2, Printer } from "lucide-react";
+import { Download, Loader2, Printer } from "lucide-react";
 
 import { useParams } from "next/navigation";
 import { QRCodeSVG } from "qrcode.react";
@@ -68,55 +67,18 @@ export default function CetakSPPage() {
   const { mutate: setKejaksaan } = useSetKejaksaanSP();
 
   const printRef = useRef<HTMLDivElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
-  const bodyRef = useRef<HTMLTableCellElement>(null);
   const footerRef = useRef<HTMLDivElement>(null);
+  const [isDownloading, setIsDownloading] = useState(false);
 
-  const [isPrinting, setIsPrinting] = useState(false);
+  const handlePrint = () => window.print();
 
-  /**
-   * Membuka pratinjau surat sebagai PDF.
-   */
-  const handlePrint = async () => {
-    if (!printRef.current || !sp) {
-      return;
-    }
+  const handleDownloadPdf = async () => {
+    if (!printRef.current || !sp) return;
 
-    const previewWindow = window.open("", "_blank");
-
-    if (!previewWindow) {
-      return;
-    }
-
-    setIsPrinting(true);
-
+    setIsDownloading(true);
     try {
-      await Promise.all(
-        Array.from(printRef.current.querySelectorAll("img")).map(
-          async (image) => {
-            if (!image.complete) {
-              await new Promise<void>((resolve) => {
-                image.addEventListener("load", () => resolve(), {
-                  once: true,
-                });
-                image.addEventListener("error", () => resolve(), {
-                  once: true,
-                });
-              });
-            }
-
-            await image.decode().catch(() => undefined);
-          },
-        ),
-      );
-
-      const [headerCanvas, bodyCanvas, footerCanvas] = await Promise.all([
-        html2canvas(headerRef.current!, {
-          scale: 2,
-          useCORS: true,
-          backgroundColor: "#ffffff",
-        }),
-        html2canvas(bodyRef.current!, {
+      const [canvas, footerCanvas] = await Promise.all([
+        html2canvas(printRef.current, {
           scale: 2,
           useCORS: true,
           backgroundColor: "#ffffff",
@@ -128,107 +90,114 @@ export default function CetakSPPage() {
         }),
       ]);
 
-      const pdf = new jsPDF({
-        unit: "mm",
-        format: [215, 330],
-      });
-
+      const pdf = new jsPDF({ unit: "mm", format: [215, 330] });
       const pageWidth = pdf.internal.pageSize.getWidth();
       const pageHeight = pdf.internal.pageSize.getHeight();
       const marginX = 25;
       const marginY = 15;
       const contentWidth = pageWidth - marginX * 2;
-
-      const headerHeight =
-        (headerCanvas.height * contentWidth) / headerCanvas.width;
+      const pixelsPerMm = canvas.width / contentWidth;
+      const footerMarginBottom = 7;
+      const printRect = printRef.current.getBoundingClientRect();
+      const footerTopPixels = Math.round(
+        (footerRef.current!.getBoundingClientRect().top - printRect.top) *
+          (canvas.width / printRect.width),
+      );
       const footerHeight =
         (footerCanvas.height * contentWidth) / footerCanvas.width;
-      const bodyPageHeight =
-        pageHeight - marginY * 2 - headerHeight - footerHeight;
-      const bodyPixelsPerMm = bodyCanvas.width / contentWidth;
-      const bodyPagePixels = Math.max(
-        1,
-        Math.floor(bodyPageHeight * bodyPixelsPerMm),
-      );
-      const pageCount = Math.max(
-        1,
-        Math.ceil(bodyCanvas.height / bodyPagePixels),
-      );
+      const pageBodyHeight =
+        pageHeight - marginY - footerMarginBottom - footerHeight - marginY;
+      const pagePixels = Math.floor(pageBodyHeight * pixelsPerMm);
+      const contentEndPixels = Math.max(1, footerTopPixels);
 
-      const headerData = headerCanvas.toDataURL("image/png");
-      const footerData = footerCanvas.toDataURL("image/png");
+      const marker = printRef.current.querySelector(
+        "[data-sp3-page-break]",
+      ) as HTMLElement | null;
+      const markerPixels = marker
+        ? Math.round(
+            (marker.getBoundingClientRect().top - printRect.top) *
+              (canvas.width / printRect.width),
+          )
+        : 0;
 
-      for (let page = 0; page < pageCount; page += 1) {
-        if (page > 0) {
-          pdf.addPage();
+      const slices: { y: number; height: number }[] = [];
+      if (
+        sp.jenis === "SP3" &&
+        markerPixels > 0 &&
+        markerPixels < canvas.height
+      ) {
+        slices.push({ y: 0, height: markerPixels });
+        slices.push({
+          y: markerPixels,
+          height: contentEndPixels - markerPixels,
+        });
+      } else {
+        for (let y = 0; y < contentEndPixels; y += pagePixels) {
+          slices.push({
+            y,
+            height: Math.min(pagePixels, contentEndPixels - y),
+          });
         }
+      }
 
-        const sourceY = page * bodyPagePixels;
-        const sourceHeight = Math.min(
-          bodyPagePixels,
-          bodyCanvas.height - sourceY,
-        );
-        const pageBodyCanvas = document.createElement("canvas");
-        pageBodyCanvas.width = bodyCanvas.width;
-        pageBodyCanvas.height = sourceHeight;
-        pageBodyCanvas
+      const footerData = footerCanvas.toDataURL("image/png");
+      slices.forEach(({ y, height }, index) => {
+        if (index > 0) pdf.addPage();
+
+        const pageCanvas = document.createElement("canvas");
+        pageCanvas.width = canvas.width;
+        pageCanvas.height = height;
+        pageCanvas
           .getContext("2d")!
           .drawImage(
-            bodyCanvas,
+            canvas,
             0,
-            sourceY,
-            bodyCanvas.width,
-            sourceHeight,
+            y,
+            canvas.width,
+            height,
             0,
             0,
-            pageBodyCanvas.width,
-            pageBodyCanvas.height,
+            canvas.width,
+            height,
           );
 
-        const bodyHeight = sourceHeight / bodyPixelsPerMm;
-
+        const renderedHeight = height / pixelsPerMm;
+        const isLastPage = index === slices.length - 1;
+        const availableBodyHeight = isLastPage
+          ? pageBodyHeight
+          : pageHeight - marginY * 2;
+        const fitScale =
+          isLastPage && renderedHeight > availableBodyHeight
+            ? availableBodyHeight / renderedHeight
+            : 1;
         pdf.addImage(
-          headerData,
+          pageCanvas.toDataURL("image/png"),
           "PNG",
-          marginX,
+          marginX + (contentWidth - contentWidth * fitScale) / 2,
           marginY,
-          contentWidth,
-          headerHeight,
+          contentWidth * fitScale,
+          renderedHeight * fitScale,
         );
-        pdf.addImage(
-          pageBodyCanvas.toDataURL("image/png"),
-          "PNG",
-          marginX,
-          marginY + headerHeight,
-          contentWidth,
-          bodyHeight,
-        );
-        pdf.addImage(
-          footerData,
-          "PNG",
-          marginX,
-          pageHeight - marginY - footerHeight,
-          contentWidth,
-          footerHeight,
-        );
-      }
+
+        if (isLastPage) {
+          pdf.addImage(
+            footerData,
+            "PNG",
+            marginX,
+            pageHeight - footerMarginBottom - footerHeight,
+            contentWidth,
+            footerHeight,
+          );
+        }
+      });
 
       const filename = `${(sp.nomorSurat ?? sp.id).replace(
         /[^a-zA-Z0-9._-]/g,
         "-",
       )}.pdf`;
-      const pdfUrl = URL.createObjectURL(pdf.output("blob"));
-
-      previewWindow.document.title = `Pratinjau ${filename}`;
-      previewWindow.document.body.innerHTML = `
-        <div style="display:flex;align-items:center;gap:12px;height:48px;padding:0 16px;font-family:Arial,sans-serif">
-          <a href="${pdfUrl}" download="${filename}">Download PDF</a>
-          <span>${filename}</span>
-        </div>
-        <iframe src="${pdfUrl}" style="width:100%;height:calc(100vh - 48px);border:0"></iframe>
-      `;
+      pdf.save(filename);
     } finally {
-      setIsPrinting(false);
+      setIsDownloading(false);
     }
   };
 
@@ -271,6 +240,12 @@ export default function CetakSPPage() {
           body {
             margin: 0;
             padding: 0;
+          }
+
+          [data-sp3-page-break] {
+            break-before: page;
+            page-break-before: always;
+            height: 1px !important;
           }
 
           .print-page {
@@ -317,13 +292,21 @@ export default function CetakSPPage() {
           </Select>
         )}
 
-        <Button disabled={isPrinting} onClick={handlePrint}>
-          {isPrinting ? (
+        <Button onClick={handlePrint}>
+          <Printer className="size-4" />
+          Cetak
+        </Button>
+        <Button
+          variant="outline"
+          disabled={isDownloading}
+          onClick={handleDownloadPdf}
+        >
+          {isDownloading ? (
             <Loader2 className="size-4 animate-spin" />
           ) : (
-            <Printer className="size-4" />
+            <Download className="size-4" />
           )}
-          {isPrinting ? "Menyiapkan pratinjau..." : "Cetak"}
+          {isDownloading ? "Membuat PDF..." : "Download PDF"}
         </Button>
       </div>
 
@@ -352,9 +335,7 @@ export default function CetakSPPage() {
           <thead>
             <tr>
               <td className="p-0 pb-5">
-                <div ref={headerRef}>
-                  <KopSurat tanggalSurat={sp.tanggalSurat} />
-                </div>
+                <KopSurat tanggalSurat={sp.tanggalSurat} />
               </td>
             </tr>
           </thead>
@@ -364,10 +345,7 @@ export default function CetakSPPage() {
           ================================================= */}
           <tbody>
             <tr>
-              <td
-                ref={bodyRef}
-                className="relative space-y-4 p-8 py-2 align-top"
-              >
+              <td className="relative space-y-4 p-8 py-2 align-top">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/logo-icon.png"
@@ -605,7 +583,7 @@ function TandaTanganBank({
   }
 
   return (
-    <div className="w-56 space-y-0.5 text-center text-xs">
+    <div className="w-56 space-y-0.2 text-center text-xs">
       <p>PT. BPR BANK WONOSOBO (PERSERODA)</p>
 
       <p className="text-[10px] text-neutral-500">
@@ -696,6 +674,11 @@ function SuratPeringatanBody({
   const nomorPinjaman = sp.pinjaman?.noPjm ?? sp.noPjm;
   const totalKewajiban =
     sp.tgkPokok + sp.tgkBunga + (sp.denda ?? 0) + (sp.biayaAdministrasi ?? 0);
+  const jenisAgunan = sp.jenisAgunan ?? "BPKB";
+  const isJaminanBergerak = ["BPKB", "Kendaraan", "SPK"].includes(jenisAgunan);
+  const objekJaminan = isJaminanBergerak
+    ? "unit kendaraan"
+    : `objek agunan ${jenisAgunan}`;
 
   /**
    * Class khusus paragraf surat.
@@ -808,7 +791,7 @@ function SuratPeringatanBody({
           label="Kolektabilitas"
           value={`${sp.kolektibilitas} (${
             {
-              1: "Lunas",
+              1: "Lancar",
               2: "KL",
               3: "Diragukan",
               4: "Macet",
@@ -845,6 +828,29 @@ function SuratPeringatanBody({
           value={formatCurrency(totalKewajiban)}
           bold
         />
+
+        {sp.jenisAgunan && (
+          <StatBlock label="Jenis Agunan" value={sp.jenisAgunan} />
+        )}
+
+        {sp.dokumenAgunan && (
+          <StatBlock label="Dokumen Agunan" value={sp.dokumenAgunan} />
+        )}
+
+        {sp.atasNamaAgunan && (
+          <StatBlock label="Atas Nama Agunan" value={sp.atasNamaAgunan} />
+        )}
+
+        {sp.lokasiAgunan && (
+          <StatBlock label="Lokasi Agunan" value={sp.lokasiAgunan} />
+        )}
+
+        {sp.nilaiLimitLelang != null && sp.nilaiLimitLelang > 0 && (
+          <StatBlock
+            label="Nilai Taksiran Agunan"
+            value={formatCurrency(sp.nilaiLimitLelang)}
+          />
+        )}
       </div>
 
       {/* =======================================================
@@ -855,15 +861,43 @@ function SuratPeringatanBody({
         biaya lain yang akan timbul kemudian hari.
       </p>
 
+      {sp.jenis === "SP3" && (
+        <div className="mt-4 space-y-3 text-xs leading-relaxed">
+          <p className="text-justify">
+            Mengingat sampai saat ini kami belum mendapatkan kepastian
+            penyesuaian/pembayaran kewajiban sebagaimana tercatat di atas, maka
+            diharap Saudara/i untuk segera menyelesaikan/melunasi kewajiban
+            tersebut serta diwajibkan menghadirkan dan menunjukkan{" "}
+            {objekJaminan} yang dijadikan sebagai agunan dalam perjanjian kredit
+            ke kantor PT. BPR Bank Wonosobo (Perseroda).
+          </p>
+
+          <p className="text-justify">
+            Sehubungan dengan hal tersebut di atas, apabila Saudara/i tidak
+            memenuhi kewajiban tersebut selambat-lambatnya tanggal{" "}
+            <strong className="underline">
+              {formatDate(sp.tanggalJatuhTempo)}
+            </strong>
+            , maka untuk selanjutnya PT. BPR Bank Wonosobo (Perseroda) akan
+            melakukan langkah hukum berupa penyelesaian melalui jalur hukum
+            (Fiat/Parate Eksekusi) atau penyelesaian hukum lainnya sesuai
+            ketentuan yang berlaku.
+          </p>
+        </div>
+      )}
+
       {/* =======================================================
           PARAGRAF PENAGIHAN
       ======================================================= */}
-      <p className={cn("mt-4", paragraphClass)}>
-        Mengingat sampai saat ini kami belum mendapatkan kepastian penyelesaian
-        / pembayaran kewajiban sebagaimana tercatat di atas, maka diharap
-        Saudara/i untuk segera menyelesaikan/melunasi kewajiban tersebut
-        selambat- lambatnya tanggal {formatDate(sp.tanggalJatuhTempo)}.
-      </p>
+      {sp.jenis !== "SP3" && (
+        <p className={cn("mt-4", paragraphClass)}>
+          Mengingat sampai saat ini kami belum mendapatkan kepastian
+          penyelesaian / pembayaran kewajiban sebagaimana tercatat di atas, maka
+          diharap Saudara/i untuk segera menyelesaikan/melunasi kewajiban
+          tersebut selambat- lambatnya tanggal{" "}
+          {formatDate(sp.tanggalJatuhTempo)}.
+        </p>
+      )}
 
       {/* =======================================================
           KETERANGAN
@@ -875,6 +909,10 @@ function SuratPeringatanBody({
       {/* =======================================================
           PENUTUP
       ======================================================= */}
+      {sp.jenis === "SP3" && (
+        <div data-sp3-page-break className="h-px" aria-hidden />
+      )}
+
       <p className="mt-5 text-xs">
         Demikian, atas perhatian dan kerjasama Saudara kami sampaikan terima
         kasih.
@@ -1032,7 +1070,7 @@ function SuratSomasiBody({
           />
         )}
 
-        <StatBlock
+        {/* <StatBlock
           label="Kolektabilitas"
           value={`${sp.kolektibilitas} (${
             {
@@ -1043,7 +1081,7 @@ function SuratSomasiBody({
               5: "Macet",
             }[sp.kolektibilitas] ?? "Tidak diketahui"
           })`}
-        />
+        /> */}
 
         <StatBlock label="Baki Debet Pokok" value={formatCurrency(sp.saldo)} />
 
@@ -1074,6 +1112,29 @@ function SuratSomasiBody({
           value={formatCurrency(totalKewajiban)}
           bold
         />
+
+        {sp.jenisAgunan && (
+          <StatBlock label="Jenis Agunan" value={sp.jenisAgunan} />
+        )}
+
+        {sp.dokumenAgunan && (
+          <StatBlock label="Dokumen Agunan" value={sp.dokumenAgunan} />
+        )}
+
+        {sp.atasNamaAgunan && (
+          <StatBlock label="Atas Nama Agunan" value={sp.atasNamaAgunan} />
+        )}
+
+        {sp.lokasiAgunan && (
+          <StatBlock label="Lokasi Agunan" value={sp.lokasiAgunan} />
+        )}
+
+        {sp.nilaiLimitLelang != null && sp.nilaiLimitLelang > 0 && (
+          <StatBlock
+            label="Nilai Taksiran Agunan"
+            value={formatCurrency(sp.nilaiLimitLelang)}
+          />
+        )}
       </div>
 
       <p className="mt-3 text-[10px] italic">
@@ -1489,6 +1550,62 @@ function SuratKuasaKhususBody({
         <span>
           {KOLEKTIBILITAS_LABEL[sp.kolektibilitas] ?? sp.kolektibilitas}
         </span>
+
+        {sp.jenisAgunan && (
+          <>
+            <span>Jenis Agunan</span>
+            <span>:</span>
+            <span>{sp.jenisAgunan}</span>
+          </>
+        )}
+
+        {sp.dokumenAgunan && (
+          <>
+            <span>Dokumen Agunan</span>
+            <span>:</span>
+            <span>{sp.dokumenAgunan}</span>
+          </>
+        )}
+
+        {sp.atasNamaAgunan && (
+          <>
+            <span>Atas Nama Agunan</span>
+            <span>:</span>
+            <span>{sp.atasNamaAgunan}</span>
+          </>
+        )}
+
+        {sp.lokasiAgunan && (
+          <>
+            <span>Lokasi Agunan</span>
+            <span>:</span>
+            <span>{sp.lokasiAgunan}</span>
+          </>
+        )}
+
+        {sp.nilaiLimitLelang != null && sp.nilaiLimitLelang > 0 && (
+          <>
+            <span>Nilai Taksiran Agunan</span>
+            <span>:</span>
+            <span>{formatCurrency(sp.nilaiLimitLelang)}</span>
+          </>
+        )}
+
+        {sp.kpknl && (
+          <>
+            <span>KPKNL</span>
+            <span>:</span>
+            <span>{sp.kpknl}</span>
+          </>
+        )}
+
+        {sp.tanggalLelang && (
+          <>
+            <span>Tanggal Lelang</span>
+            <span>:</span>
+            <span>{formatDate(sp.tanggalLelang)}</span>
+          </>
+        )}
       </div>
 
       <p className="mt-4 indent-8 text-justify leading-relaxed">

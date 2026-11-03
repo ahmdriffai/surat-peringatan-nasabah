@@ -24,6 +24,7 @@ import { JaminanWithDetails } from "@/services/jaminan/get-all";
 import { NasabahWithPinjaman } from "@/services/nasabah/get-all";
 import { Check, Eye, History, Loader2, Pen, Plus, Trash2 } from "lucide-react";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import {
   useApproveMutasiJaminan,
@@ -273,6 +274,11 @@ export default function JaminanList({ data, nasabah }: Props) {
             header: "Aksi",
             accessor: (row) => (
               <div className="flex gap-2">
+                <Button size="sm" variant="secondary" title="Detail" asChild>
+                  <Link href={`/jaminan-pinjaman/${row.id}`}>
+                    <Eye />
+                  </Link>
+                </Button>
                 <Button
                   size="sm"
                   variant="secondary"
@@ -342,7 +348,7 @@ export default function JaminanList({ data, nasabah }: Props) {
                 nomorDokumen: editTarget.nomorDokumen ?? "",
                 deskripsi: editTarget.deskripsi ?? "",
                 atasNama: editTarget.atasNama ?? "",
-                nilaiTaksiran: editTarget.nilaiTaksiran?.toString() ?? "",
+                notaris: editTarget.notaris ?? "",
                 lokasiPenyimpanan: editTarget.lokasiPenyimpanan ?? "",
                 status: editTarget.status,
                 tanggalDiterima: dateInput(editTarget.tanggalDiterima),

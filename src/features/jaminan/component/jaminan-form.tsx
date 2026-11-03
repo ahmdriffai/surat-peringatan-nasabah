@@ -25,7 +25,7 @@ type FormValues = {
   nomorDokumen: string;
   deskripsi: string;
   atasNama: string;
-  nilaiTaksiran: string;
+  notaris: string;
   lokasiPenyimpanan: string;
   status: "TERSIMPAN" | "DIBAWA_KELUAR" | "SELESAI_PENGIKATAN" | "LUNAS";
   tanggalDiterima: string;
@@ -59,7 +59,7 @@ const emptyValues: FormValues = {
   nomorDokumen: "",
   deskripsi: "",
   atasNama: "",
-  nilaiTaksiran: "",
+  notaris: "",
   lokasiPenyimpanan: "",
   status: "TERSIMPAN",
   tanggalDiterima: new Date().toISOString().slice(0, 10),
@@ -377,14 +377,20 @@ export default function JaminanForm({
         />
       </Field>
       <Field>
-        <FieldLabel htmlFor="nilaiTaksiran">Nilai Taksiran</FieldLabel>
-        <Input
-          id="nilaiTaksiran"
-          type="number"
-          min="0"
-          value={values.nilaiTaksiran}
-          onChange={(e) => update("nilaiTaksiran", e.target.value)}
-        />
+        <FieldLabel htmlFor="notaris">Notaris</FieldLabel>
+        <select
+          id="notaris"
+          className="h-10 w-full rounded-3xl border border-transparent bg-input/50 px-3 text-sm outline-none focus:border-ring"
+          value={values.notaris}
+          onChange={(e) => update("notaris", e.target.value)}
+        >
+          <option value="">Pilih notaris</option>
+          <option value="LISNINA RETNOWATI">LISNINA RETNOWATI</option>
+          <option value="ARDHIAN WIEN">ARDHIAN WIEN</option>
+          <option value="AISYA AMALIA">AISYA AMALIA</option>
+          <option value="DYAH PURWANINGSIH">DYAH PURWANINGSIH</option>
+          <option value="KERI SANTOSA">KERI SANTOSA</option>
+        </select>
       </Field>
       <Field>
         <FieldLabel htmlFor="lokasiPenyimpanan">

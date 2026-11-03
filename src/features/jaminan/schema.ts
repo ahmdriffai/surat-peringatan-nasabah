@@ -10,14 +10,6 @@ const ExternalNasabahDataSchema = z.object({
   alamat: z.string().optional(),
 });
 
-const optionalNumber = z.preprocess(
-  (value) =>
-    value === "" || value === null || value === undefined
-      ? undefined
-      : Number(value),
-  z.number().finite().nonnegative().optional(),
-);
-
 const optionalDate = z.preprocess(
   (value) => (value === "" || value === null ? undefined : value),
   z.coerce.date().optional(),
@@ -38,7 +30,7 @@ const JaminanBaseInputSchema = z.object({
   nomorDokumen: z.string().trim().optional(),
   deskripsi: z.string().trim().optional(),
   atasNama: z.string().trim().optional(),
-  nilaiTaksiran: optionalNumber,
+  notaris: z.string().trim().optional(),
   lokasiPenyimpanan: z.string().trim().optional(),
   status: statusJaminan.default("TERSIMPAN"),
   tanggalDiterima: optionalDate,

@@ -3,7 +3,7 @@ import { createMutasiJaminan } from "@/services/jaminan/create-mutasi";
 import { deleteJaminan } from "@/services/jaminan/delete";
 import { deleteMutasiJaminan } from "@/services/jaminan/delete-mutasi";
 import { editJaminan } from "@/services/jaminan/edit";
-import { getAllJaminan } from "@/services/jaminan/get-all";
+import { getAllJaminan, getDetailJaminan } from "@/services/jaminan/get-all";
 import { approveMutasiJaminan } from "@/services/jaminan/approve-mutasi";
 import { countPendingJaminanApprovals } from "@/services/jaminan/count-pending";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -23,6 +23,14 @@ function showError(error: Error) {
 
 export function useGetAllJaminan(enabled = true) {
   return useQuery({ queryKey: QUERY_KEY, queryFn: getAllJaminan, enabled });
+}
+
+export function useGetDetailJaminan(id: string) {
+  return useQuery({
+    queryKey: ["jaminan-pinjaman", id],
+    queryFn: () => getDetailJaminan(id),
+    enabled: Boolean(id),
+  });
 }
 
 export function useCountPendingJaminanApprovals(enabled = true) {

@@ -225,7 +225,7 @@ model JaminanPinjaman {
   nomorDokumen      String?
   deskripsi         String?
   atasNama          String?
-  nilaiTaksiran     Float?
+  notaris           String?
   lokasiPenyimpanan String?
   status            StatusJaminan   @default(TERSIMPAN)
   tanggalDiterima   DateTime?

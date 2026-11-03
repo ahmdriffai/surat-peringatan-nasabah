@@ -4,6 +4,7 @@ import {
   AlertTriangle,
   ArchiveIcon,
   ClipboardCheck,
+  ClipboardList,
   Gavel,
   Home,
   MailCheck,
@@ -40,6 +41,13 @@ export const menuItems = [
     title: "Jaminan Pinjaman",
     icon: PackageOpen,
     petugasJaminanOnly: true,
+  },
+  {
+    id: "register-jaminan",
+    url: "/register-jaminan",
+    title: "Register Jaminan Pinjaman",
+    icon: ClipboardList,
+    jaminanViewOnly: true,
   },
   {
     id: "surat-peringatan",
@@ -104,6 +112,7 @@ export function AppSidebar({
   const isApprover = session?.user.role === "APPROVER";
   const isPetugasJaminan = session?.user.petugasJaminan === true;
   const isApproverJaminan = session?.user.approverJaminan === true;
+  const canViewJaminan = isPetugasJaminan || isApproverJaminan;
 
   const { data: sp } = useGetAllSP();
   const pendingApprovalCount = countMyPendingApprovals(
@@ -117,6 +126,7 @@ export function AppSidebar({
     .filter((item) => !item.approverOnly || isApprover)
     .filter((item) => !item.petugasJaminanOnly || isPetugasJaminan)
     .filter((item) => !item.approverJaminanOnly || isApproverJaminan)
+    .filter((item) => !item.jaminanViewOnly || canViewJaminan)
     .map((item) =>
       item.id === "persetujuan"
         ? { ...item, badge: pendingApprovalCount }

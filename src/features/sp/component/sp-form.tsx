@@ -48,10 +48,14 @@ const KOLEKTIBILITAS_OPTIONS = [
 ];
 
 const JENIS_AGUNAN_OPTIONS = [
-  "Tanah & Bangunan (SHM / SHGB)",
-  "Tanah Pekarangan (SHM)",
-  "Kendaraan Bermotor (BPKB)",
-  "Kios / Los Pasar",
+  "BPKB",
+  "SHM",
+  "SHGB",
+  "AJB",
+  "Deposito",
+  "Emas",
+  "Kendaraan",
+  "SPK",
   "Lainnya",
 ];
 
@@ -735,11 +739,12 @@ export default function SPForm({
       )}
 
       {/* Data Khusus Agunan & Lelang */}
-      {isLelang && (
-        <div className="space-y-4 rounded-lg border border-red-500/20 bg-red-500/5 p-4 sm:col-span-2">
+      <div className="space-y-4 rounded-lg border border-red-500/20 bg-red-500/5 p-4 sm:col-span-2">
           <h3 className="flex items-center gap-2 font-semibold text-sm text-red-900 dark:text-red-200">
             <Gavel className="size-4" />
-            Data Agunan & Rencana Pelaksanaan Lelang
+            {isLelang
+              ? "Data Agunan & Rencana Pelaksanaan Lelang"
+              : "Data Agunan"}
           </h3>
           <div className="grid gap-4 sm:grid-cols-2">
             <Controller
@@ -896,7 +901,6 @@ export default function SPForm({
             />
           </div>
         </div>
-      )}
 
       <Controller
         control={form.control}
