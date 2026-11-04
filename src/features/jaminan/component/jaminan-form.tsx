@@ -425,6 +425,7 @@ export default function JaminanForm({
           <option value="DIBAWA_KELUAR">Pengikatan</option>
           <option value="SELESAI_PENGIKATAN">Selesai pengikatan</option>
           <option value="LUNAS">Lunas</option>
+          <option value="DIBAWA_KELUAR">Lain-lain</option>
         </select>
       </Field>
       <Field>
