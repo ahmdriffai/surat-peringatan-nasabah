@@ -674,11 +674,6 @@ function SuratPeringatanBody({
   const nomorPinjaman = sp.pinjaman?.noPjm ?? sp.noPjm;
   const totalKewajiban =
     sp.tgkPokok + sp.tgkBunga + (sp.denda ?? 0) + (sp.biayaAdministrasi ?? 0);
-  const jenisAgunan = sp.jenisAgunan ?? "BPKB";
-  const isJaminanBergerak = ["BPKB", "Kendaraan", "SPK"].includes(jenisAgunan);
-  const objekJaminan = isJaminanBergerak
-    ? "unit kendaraan"
-    : `objek agunan ${jenisAgunan}`;
 
   /**
    * Class khusus paragraf surat.
@@ -861,43 +856,21 @@ function SuratPeringatanBody({
         biaya lain yang akan timbul kemudian hari.
       </p>
 
-      {sp.jenis === "SP3" && (
-        <div className="mt-4 space-y-3 text-xs leading-relaxed">
-          <p className="text-justify">
-            Mengingat sampai saat ini kami belum mendapatkan kepastian
-            penyesuaian/pembayaran kewajiban sebagaimana tercatat di atas, maka
-            diharap Saudara/i untuk segera menyelesaikan/melunasi kewajiban
-            tersebut serta diwajibkan menghadirkan dan menunjukkan{" "}
-            {objekJaminan} yang dijadikan sebagai agunan dalam perjanjian kredit
-            ke kantor PT. BPR Bank Wonosobo (Perseroda).
-          </p>
-
-          <p className="text-justify">
-            Sehubungan dengan hal tersebut di atas, apabila Saudara/i tidak
-            memenuhi kewajiban tersebut selambat-lambatnya tanggal{" "}
-            <strong className="underline">
-              {formatDate(sp.tanggalJatuhTempo)}
-            </strong>
-            , maka untuk selanjutnya PT. BPR Bank Wonosobo (Perseroda) akan
-            melakukan langkah hukum berupa penyelesaian melalui jalur hukum
-            (Fiat/Parate Eksekusi) atau penyelesaian hukum lainnya sesuai
-            ketentuan yang berlaku.
-          </p>
-        </div>
+      {sp.jenis === "SP3" && sp.alasan && (
+        <p className="mt-4 text-justify text-xs leading-relaxed">{sp.alasan}</p>
       )}
 
       {/* =======================================================
           PARAGRAF PENAGIHAN
       ======================================================= */}
-      {sp.jenis !== "SP3" && (
-        <p className={cn("mt-4", paragraphClass)}>
-          Mengingat sampai saat ini kami belum mendapatkan kepastian
-          penyelesaian / pembayaran kewajiban sebagaimana tercatat di atas, maka
-          diharap Saudara/i untuk segera menyelesaikan/melunasi kewajiban
-          tersebut selambat- lambatnya tanggal{" "}
-          {formatDate(sp.tanggalJatuhTempo)}.
-        </p>
-      )}
+      {/* {sp.jenis !== "SP3" && ( */}
+      <p className={cn("mt-4", paragraphClass)}>
+        Mengingat sampai saat ini kami belum mendapatkan kepastian penyelesaian
+        / pembayaran kewajiban sebagaimana tercatat di atas, maka diharap
+        Saudara/i untuk segera menyelesaikan/melunasi kewajiban tersebut
+        selambat- lambatnya tanggal {formatDate(sp.tanggalJatuhTempo)}.
+      </p>
+      {/* )} */}
 
       {/* =======================================================
           KETERANGAN

@@ -47,18 +47,6 @@ const KOLEKTIBILITAS_OPTIONS = [
   { value: 5, label: "5 — Macet" },
 ];
 
-const JENIS_AGUNAN_OPTIONS = [
-  "BPKB",
-  "SHM",
-  "SHGB",
-  "AJB",
-  "Deposito",
-  "Emas",
-  "Kendaraan",
-  "SPK",
-  "Lainnya",
-];
-
 interface NumberFieldProps {
   name: keyof Pick<
     SPCreateInput,
@@ -752,22 +740,13 @@ export default function SPForm({
               name="jenisAgunan"
               render={({ field, fieldState }) => (
                 <Field>
-                  <FieldLabel htmlFor="jenisAgunan">Jenis Agunan</FieldLabel>
-                  <Select
-                    value={field.value || undefined}
-                    onValueChange={field.onChange}
-                  >
-                    <SelectTrigger id="jenisAgunan" className="w-full">
-                      <SelectValue placeholder="Pilih jenis agunan" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {JENIS_AGUNAN_OPTIONS.map((opt) => (
-                        <SelectItem key={opt} value={opt}>
-                          {opt}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <FieldLabel htmlFor="jenisAgunan">Jenis Jaminan</FieldLabel>
+                  <Input
+                    id="jenisAgunan"
+                    placeholder="Contoh: SHM, BPKB, atau kendaraan"
+                    {...field}
+                    value={field.value ?? ""}
+                  />
                   {fieldState.error?.message && (
                     <FieldError errors={[fieldState.error]}>
                       {fieldState.error.message}

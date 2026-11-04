@@ -1,7 +1,12 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import LoanSearch from "@/features/sp/component/loan-search";
@@ -393,8 +398,11 @@ export default function JaminanForm({
         </select>
       </Field>
       <Field>
-        <FieldLabel htmlFor="lokasiPenyimpanan">
-          Nomer/ Lokasi Penyimpanan
+        <FieldLabel
+          className="text-lg font-black text-red-500"
+          htmlFor="lokasiPenyimpanan"
+        >
+          *Nomer Penyimpanan
         </FieldLabel>
         <Input
           id="lokasiPenyimpanan"
@@ -414,7 +422,7 @@ export default function JaminanForm({
         >
           <option value="TERSIMPAN">Belum cair</option>
           <option value="TERSIMPAN">Tersimpan</option>
-          <option value="DIBAWA_KELUAR">Dibawa keluar</option>
+          <option value="DIBAWA_KELUAR">Pengikatan</option>
           <option value="SELESAI_PENGIKATAN">Selesai pengikatan</option>
           <option value="LUNAS">Lunas</option>
         </select>

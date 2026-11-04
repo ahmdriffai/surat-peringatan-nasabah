@@ -106,7 +106,7 @@ export default function MutasiForm({ onSubmit, isPending }: Props) {
           onChange={(event) => update("status", event.target.value)}
         >
           <option value="TERSIMPAN">Tersimpan</option>
-          <option value="DIBAWA_KELUAR">Dibawa keluar</option>
+          <option value="DIBAWA_KELUAR">Pengikatan</option>
           <option value="SELESAI_PENGIKATAN">Selesai pengikatan</option>
           <option value="LUNAS">Lunas</option>
         </select>
