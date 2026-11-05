@@ -784,15 +784,9 @@ function SuratPeringatanBody({
 
         <StatBlock
           label="Kolektabilitas"
-          value={`${
-            {
-              1: "Lancar",
-              2: "Kurang Lancar",
-              3: "Diragukan",
-              4: "Macet",
-              5: "Macet",
-            }[sp.kolektibilitas] ?? "Tidak diketahui"
-          }`}
+          value={
+            KOLEKTIBILITAS_LABEL[sp.kolektibilitas] ?? String(sp.kolektibilitas)
+          }
         />
 
         <StatBlock label="Baki Debet" value={formatCurrency(sp.saldo)} />
@@ -1299,15 +1293,9 @@ function SuratPemberitahuanLelangBody({
 
         <StatBlock
           label="Kolektabilitas"
-          value={`${
-            {
-              1: "Lunas",
-              2: "Kurang Lancar",
-              3: "Diragukan",
-              4: "Macet",
-              5: "Macet",
-            }[sp.kolektibilitas] ?? "Tidak diketahui"
-          }`}
+          value={
+            KOLEKTIBILITAS_LABEL[sp.kolektibilitas] ?? String(sp.kolektibilitas)
+          }
         />
 
         <StatBlock label="Baki Debet Pokok" value={formatCurrency(sp.saldo)} />
